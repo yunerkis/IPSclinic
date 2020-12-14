@@ -1,6 +1,23 @@
 .appointment {
+    height: 100vh;
     display: flex;
-    width: 50%;
-    margin: 0 auto;
-    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    &__box {
+        width: 50%;
+        background-color: white;
+        padding: 4rem 1rem;
+        border-radius: 1rem;
+        margin: 0 auto;
+    }
+    &__img {
+        margin-bottom: 2rem;
+        width: 20rem;
+    }
+    &__container {
+        display: flex;
+    }
+    &__calendar {
+        width: 50%;
+    }
 }
