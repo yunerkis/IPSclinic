@@ -10,28 +10,44 @@ import { Router } from '@angular/router';
 export class ClientService {
 
   url = environment.url;
-  dni = new BehaviorSubject('');
+  client = new BehaviorSubject({});
   msg = new BehaviorSubject('');
-  session = new BehaviorSubject([]);
-
+ 
   constructor(
     private router: Router,
     private http: HttpClient,
   ) { }
 
   getSessionsClient(dni) {
-
     return this.http.get(`${this.url}/api/v1/clients/session/${dni['dni']}`).subscribe(
       res => {
         if (res['data'].client == null) {
           this.msg.next('Este usuario no se encuentra disponible, consultar IPS');
         } else {
-          this.session.next(res['data'].sessions);
-          this.dni.next(res['data'].client.dni);
+          this.client.next({
+            'dni':res['data'].client.dni,
+            'session': res['data'].sessions
+          });
           this.router.navigate(['/appointment']);
         }
       }, data => {
         console.log(data);
+      });
+  }
+
+  getSessionsSchedule(date) {
+    return this.http.get(`${this.url}/api/v1/schedule/?date=${date}`);
+  }
+
+  storeSession(session) {
+    return this.http.post(`${this.url}/api/v1/clients/session`, session).subscribe( 
+      res => {
+        if (res) {
+          this.msg.next(`Su cita fue creada con exito para ${session['date']} de ${session['schedule']}`);
+        }
+      }, data => {
+        this.msg.next(`Error volver a cargar la pagina`);
+          console.log(data);
       });
   }
 }

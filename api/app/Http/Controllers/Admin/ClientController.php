@@ -103,21 +103,33 @@ class ClientController extends Controller
 
     public function sessionsList($dni)
     {   
-        $attrSession = [
+        date_default_timezone_set('America/Bogota');
+
+        $attrClient = [
             ['dni', '=', $dni],
             ['status', '!=', 'suspendido']
         ];
 
-        $client = Client::where($attrSession)->first();
+        $client = Client::where($attrClient)->first();
         
-        $sessions = [];
+        $session = [];
 
         if ($client) {
 
-            $sessions = Session::where('client_id', $client->id)->get();
+            $attrSession = [
+                ['client_id', '=', $client->id],
+                ['date', '>=', Carbon::today()->format('Y-m-d')],
+            ];
+
+            $session = Session::where($attrSession)->orderBy('id', 'DESC')->first();
+
+            if ($session) {
+
+                $session->time_start = date('h:i a', strtotime($session->time_start));
+            } 
         }
 
-        return response()->json(['success' => true, 'data' => ['sessions' => $sessions, 'client' => $client]], 200);
+        return response()->json(['success' => true, 'data' => ['sessions' => $session, 'client' => $client]], 200);
     }
 
     public function clientImports(Request $request)
@@ -140,21 +152,52 @@ class ClientController extends Controller
             return response()->json(['success' => true, 'data' => 'Success imports data'], 200);
 
         } catch (\Exception $e)  {
-            dd($e);
+            
             return response()->json(['success' => false, 'data' => 'error to import data'], 422);
         }   
     }
 
-    public function schedule()
-    {
-        $schedule = [
-            ['08:00', '09:00'],
-            ['10:00', '11:00'],
-            ['12:00', '01:00'],
-            ['02:00', '03:00'],
-            ['04:00', '05:00'],
+    public function schedule(Request $request)
+    {  
+        $availability = [];
+       
+        $schedules = [
+            ['08:00:00', '09:00:00'],
+            ['09:10:00', '10:00:00'],
+            ['10:10:00', '11:00:00'],
+            ['11:10:00', '12:00:00'],
+            ['12:10:00', '13:00:00'],
+            ['13:10:00', '14:00:00'],
+            ['14:10:00', '15:00:00'],
+            ['15:10:00', '16:00:00'],
+            ['16:10:00', '17:00:00'],
         ];
 
-        return response()->json(['success' => true, 'data' => $schedule], 200);
+        $sessions = Session::where('date', $request->date)->get();
+      
+        foreach ($schedules as $schedule) {
+            
+            foreach ($sessions as $session) {
+               
+                if (!in_array($session->time_start ,$schedule) && !in_array($session->time_end ,$schedule)) {
+
+                    $format = date('h:i a', strtotime($schedule[0])).' - '.date('h:i a', strtotime($schedule[1]));
+
+                    $availability[] = [$format, $schedule];
+                }
+            }
+        }
+
+        if (count($sessions) == 0) {
+
+            foreach ($schedules as $schedule) {
+
+                $format = date('h:i a', strtotime($schedule[0])).' - '.date('h:i a', strtotime($schedule[1]));
+
+                $availability[] = [$format, $schedule];
+            }
+        }
+
+        return response()->json(['success' => true, 'data' =>  $availability], 200);
     }
 }

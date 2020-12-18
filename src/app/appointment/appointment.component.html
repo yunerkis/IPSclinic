@@ -1,18 +1,24 @@
 <div class="appointment ">
   <div class="appointment__box">
   <img src="./../../assets/icon/ips.jpeg" class="appointment__img" alt="">
-    <div class="appointment__container">
-      <mat-calendar class="appointment__calendar"></mat-calendar>
+    <div *ngIf="msglog != ''">
+      {{ msglog }}
+    </div>
+    <div *ngIf="client['session'] == null" class="appointment__container">
+      <mat-calendar [selected]="selectedDate" (selectedChange)="onSelect($event)" class="appointment__calendar" [minDate]="minDate" [maxDate]="maxDate"></mat-calendar>
       <table>
           <tr>
             <th>Month</th>
             <th>Savings</th>
           </tr>
-          <tr>
-            <td>January</td>
-            <td>$100</td>
+          <tr *ngFor="let schedule of schedules; let i = index">
+            <td>{{ schedule[0] }}</td>
+            <td><button (click)="session(schedule)">Agendar</button></td>
           </tr>
-        </table>
+      </table>
+    </div>
+    <div *ngIf="client['session'] != null" class="appointment__container">
+      Ya tienes una cita apartada, el dia {{ dateStart }}, hora: {{ timeStart }}
     </div>
   </div>
 </div>
