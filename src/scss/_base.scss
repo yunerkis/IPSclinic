@@ -23,3 +23,10 @@ body {
 .mat-button.mat-primary, .mat-icon-button.mat-primary, .mat-stroked-button.mat-primary {
   color:  #3d4bbb !important;
 }
+
+table {
+  width: 50%;
+  border: 1px solid red;
+  height: 100%;
+  font-family: "Roboto";
+}
