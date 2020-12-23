@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\DoctorController;
+use App\Http\Controllers\Admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +31,7 @@ Route::prefix('v1')->group(function () {
 
         Route::put('/reset-password', [PasswordController::class, 'rest'])->name('reset.password.rest');
 
-    // Clients
+    // Informations
 
         Route::get('/clients/session/{dni}', [ClientController::class, 'sessionsList'])->name('client.session');
 
@@ -37,7 +39,9 @@ Route::prefix('v1')->group(function () {
 
         Route::post('/clients/session', [ClientController::class, 'sessions'])->name('client.get.session');
 
-        Route::get('/schedule', [ClientController::class, 'schedule'])->name('schedule');
+        Route::get('/doctors', [DoctorController::class, 'index'])->name('list');
+
+        // Route::get('/schedule', [ClientController::class, 'schedule'])->name('schedule');
 
     Route::middleware('auth:api')->group(function () {
 
@@ -50,6 +54,26 @@ Route::prefix('v1')->group(function () {
                 Route::post('/clients/imports', [ClientController::class, 'clientImports'])->name('import');
 
                 Route::delete('/clients/session/cancel/{id}', [ClientController::class, 'sessionCancel'])->name('client.sessionCancel');
+            });
+
+            Route::name('categories.')->group(function () {
+
+                Route::get('/categories', [CategoryController::class, 'index'])->name('list');
+
+                Route::post('/categories', [CategoryController::class, 'store'])->name('store');
+
+                Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('update');
+
+                Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('destroy');
+            });
+
+            Route::name('doctors.')->group(function () {
+
+                Route::post('/doctors', [DoctorController::class, 'store'])->name('store');
+
+                Route::put('/doctors/{id}', [DoctorController::class, 'update'])->name('update');
+
+                Route::delete('/doctors/{id}', [DoctorController::class, 'destroy'])->name('destroy');
             });
 
         Route::get('/logout', [LoginController::class, 'logout'])->name('logout');

@@ -6,23 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Session extends Model
+class Schedule extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'sessions';
+    protected $table = 'schedules';
 
     protected $fillable = [
-        'client_id',
         'doctor_id',
-        'date',
+        'dayWeeks',
+        'dates',
         'time_start',
+        'time_end',
+        'time',
+        'availability'
     ];
-
-    public function client()
-    {
-        return $this->belongsTo(Client::class);
-    }
 
     public function doctor()
     {

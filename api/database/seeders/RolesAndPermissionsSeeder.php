@@ -21,6 +21,17 @@ class RolesAndPermissionsSeeder extends Seeder
             Permission::create(['name' => 'clients.sessions.list']);
             Permission::create(['name' => 'clients.sessions.imports']);
 
+            Permission::create(['name' => 'doctor.list']);
+            Permission::create(['name' => 'doctor.store']);
+            Permission::create(['name' => 'doctor.show']);
+            Permission::create(['name' => 'doctor.update']);
+            Permission::create(['name' => 'doctor.delete']);
+
+            Permission::create(['name' => 'category.list']);
+            Permission::create(['name' => 'category.store']);
+            Permission::create(['name' => 'category.update']);
+            Permission::create(['name' => 'category.delete']);
+
         // Admin
         $admin = Role::create(['name' => 'admin']);
 
