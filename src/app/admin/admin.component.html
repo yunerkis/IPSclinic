@@ -1,15 +1,19 @@
 <div class="admin">
-    <img src="./../../assets/icon/ips.jpeg" alt="">
-      <form class="example-form">
-        <mat-form-field class="example-full-width">
-          <mat-label>Cédula</mat-label>
-          <input matInput placeholder="Cédula">
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-            <mat-label>Cédula</mat-label>
-            <input matInput placeholder="Cédula">
-          </mat-form-field>
+  <div class="admin__box">
+    <img src="./../../assets/icon/ips.jpeg" class="admin__img" alt="">
+    <form class="admin__form" >
+      <mat-form-field class="admin__input">
+        <mat-label>Nombre de usuario</mat-label>
+        <input matInput placeholder="Nombre de usuario">
+      </mat-form-field>
+      <mat-form-field class="admin__input">
+        <mat-label>Contraseña</mat-label>
+        <input matInput placeholder="Contraseña">
+      </mat-form-field>
+      <button mat-stroked-button color="primary" type="submit">Ingresar</button>
     </form>
-    <button mat-stroked-button color="primary">Primary</button>
+    <div class="forgot-label">
+     ¿Ólvido el usuario o la contraseña?
+    </div>
   </div>
-  
+</div>

@@ -6,7 +6,7 @@
     &__box {
         width: 80%;
         background-color: white;
-        padding: 4rem 1rem;
+        padding: 3rem 1rem;
         border-radius: 1rem;
         margin: 0 auto;
     }
@@ -16,8 +16,52 @@
     }
     &__container {
         display: flex;
+        justify-content: space-around;
     }
     &__calendar {
-        width: 50%;
+        width: 45%;
+        margin-top: -33px;
+        border: 2px solid #bbb;
+        border-radius: 5px;
+    }
+    &__table {
+        border: 2px solid #bbb;
+        border-radius: 5px;    
+        width: 45%;
+        margin-top: -33px;
+        overflow: auto;
+        height: 25rem;
+    }
+    &__label {
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        font-size: 17px;
+        font-weight: 500;
+        margin-top: 33px;
+        text-align: left;
+        margin-left: 1rem;
+        color: #0e4db8;
+    }
+    &__content {
+        display: flex;
+        justify-content: space-between;
+        margin: 1rem;
+        border-bottom: 1px solid#bbb;
+        padding-bottom: 10px;
+    }
+    &__name {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        font-size: 17px;
+        font-weight: 500;
+    }
+    &__time {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        font-size: 17px;
+        font-weight: 300;
     }
 }

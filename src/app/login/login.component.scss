@@ -6,7 +6,7 @@
     &__box {
         width: 50%;
         background-color: white;
-        padding: 4rem 1rem;
+        padding: 3rem 1rem;
         border-radius: 1rem;
         margin: 0 auto;
     }
@@ -14,7 +14,8 @@
         margin-bottom: 2rem;
         width: 20rem;
     }
-    &__input {
-        width: 50%;
+    &__form {
+        display: flex;
+        flex-direction: column;
     }
 }

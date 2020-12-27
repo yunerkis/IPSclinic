@@ -15,18 +15,57 @@ body {
 }
 
 .mat-stroked-button {
-  border: 1px solid #3d4bbb !important;
+  border: 2px solid #0e4db8 !important;
   padding: 15px !important;
   font-size: 30px;
 }
 
 .mat-button.mat-primary, .mat-icon-button.mat-primary, .mat-stroked-button.mat-primary {
-  color:  #3d4bbb !important;
+  color:  #0e4db8 !important;
 }
 
-table {
-  width: 50%;
-  border: 1px solid red;
-  height: 100%;
-  font-family: "Roboto";
+.mat-calendar-body-selected {
+  background-color: #0e4db8 !important;
+}
+.mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
+  background-color:  #0e4db8 !important;
+}
+
+.mat-form-field-infix {
+  border: 2px solid #bbb;
+  border-radius: 5px;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-label {
+  padding-left: 10px !important;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-infix {
+  padding-left: 10px !important;
+}
+
+.mat-form-field-underline {
+  background-color: #bbb !important;
+}
+
+.mat-focused .mat-form-field-underline .mat-form-field-ripple{
+  background-color:#0e4db8 !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: #0e4db8 !important;
+}
+
+.error-label {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 17px;
+  margin: 20px 0;
+  color: red;
+}
+
+.forgot-label {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 17px;
+  margin: 20px 0;
+  color:#0e4db8;
 }

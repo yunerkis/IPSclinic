@@ -12,6 +12,8 @@ import { MaterialModule } from './material.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import { ModalComponent } from './modal/modal.component';
+import { RecoveryComponent } from './recovery/recovery.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import {HttpClientModule} from '@angular/common/http';
     AdminComponent,
     LoginComponent,
     ListComponent,
-    AppointmentComponent
+    AppointmentComponent,
+    ModalComponent,
+    RecoveryComponent
   ],
   imports: [
     BrowserModule,
