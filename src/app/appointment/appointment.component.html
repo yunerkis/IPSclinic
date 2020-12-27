@@ -1,9 +1,6 @@
 <div class="appointment ">
   <div class="appointment__box">
   <img src="./../../assets/icon/ips.jpeg" class="appointment__img" alt="">
-    <div *ngIf="msglog != ''">
-      {{ msglog }}
-    </div>
     <div *ngIf="client['session'] == null" class="appointment__container">
       <mat-calendar [selected]="selectedDate" (selectedChange)="onSelect($event)" class="appointment__calendar" [minDate]="minDate" [maxDate]="maxDate"></mat-calendar>
       <div class="appointment__table">

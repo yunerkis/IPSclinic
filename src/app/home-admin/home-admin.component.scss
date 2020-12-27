@@ -1,5 +1,5 @@
-.admin {
-    height: 100vh;
+.login {
+    height: 25rem;
     display: flex;
     align-items: center;
     text-align: center;
@@ -9,13 +9,5 @@
         padding: 3rem 1rem;
         border-radius: 1rem;
         margin: 0 auto;
-    }
-    &__img {
-        margin-bottom: 2rem;
-        width: 20rem;
-    }
-    &__form {
-        display: flex;
-        flex-direction: column;
     }
 }

@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { ModalComponent } from './modal/modal.component';
 import { RecoveryComponent } from './recovery/recovery.component';
+import { HomeAdminComponent } from './home-admin/home-admin.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { RecoveryComponent } from './recovery/recovery.component';
     ListComponent,
     AppointmentComponent,
     ModalComponent,
-    RecoveryComponent
+    RecoveryComponent,
+    HomeAdminComponent
   ],
   imports: [
     BrowserModule,
