@@ -15,6 +15,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { ModalComponent } from './modal/modal.component';
 import { RecoveryComponent } from './recovery/recovery.component';
 import { HomeAdminComponent } from './home-admin/home-admin.component';
+import { ScheduleComponent } from './schedule/schedule.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HomeAdminComponent } from './home-admin/home-admin.component';
     AppointmentComponent,
     ModalComponent,
     RecoveryComponent,
-    HomeAdminComponent
+    HomeAdminComponent,
+    ScheduleComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import { HomeAdminComponent } from './home-admin/home-admin.component';
 import { ListComponent } from './list/list.component';
 import { LoginComponent } from './login/login.component';
 import { RecoveryComponent } from './recovery/recovery.component';
+import { ScheduleComponent } from './schedule/schedule.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent },
   { path: 'recovery', component: RecoveryComponent },
   { path: 'home', component: HomeAdminComponent },
+  { path: 'schedule', component: ScheduleComponent },
 ];
 
 @NgModule({

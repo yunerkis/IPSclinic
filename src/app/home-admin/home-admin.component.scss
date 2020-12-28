@@ -1,4 +1,4 @@
-.login {
+.home {
     height: 25rem;
     display: flex;
     align-items: center;
@@ -9,5 +9,15 @@
         padding: 3rem 1rem;
         border-radius: 1rem;
         margin: 0 auto;
+        height: 12rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    &__title {
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        font-size: 17px;
+        font-weight: 500;
+        margin-bottom: 2rem;
     }
 }
