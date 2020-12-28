@@ -16,20 +16,41 @@
 
 <mat-drawer-container class="example-container" autosize>
 	<mat-drawer #drawer class="example-sidenav" mode="side">
-        <p class="user-text" routerLink="/list">Lista</p>
+		<p class="user-text" routerLink="/list">Lista</p>
 		<p class="user-text" routerLink="/schedule">Horario</p>
 		<p class="user-text"routerLink="/home">Cargar Archivo</p>
 	</mat-drawer>
 </mat-drawer-container>
 
-<div class="home">
-    <div class="home__box">
-        <div class="home__title">
-            Cargar excel con los datos de los usuario.
-        </div>
-    
-        <div style="text-align:center">
-            <input type="file" name="" id="">
-        </div>
+<div class="schedule ">
+    <div class="schedule__box">
+    <div class="schedule__title">Asignar Horario Médico</div>
+    <div class="schedule__position">
+      <button mat-fab color="primary" aria-label="" routerLink="/schedule">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
     </div>
-</div>
+      <div class="schedule__container">
+        <div class="schedule__table">
+          <div class="schedule__tablet">
+            <form class="example-form">
+              <div>
+                <input type="text">
+              </div>
+              <div>
+                <input type="text">
+              </div>
+              <div>
+                <select>
+                  <option value="">sadasd</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="schedule__calendar">
+            <mat-calendar></mat-calendar>
+          </div>
+        </div>      
+      </div>
+    </div>
+  </div>
