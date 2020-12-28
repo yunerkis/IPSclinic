@@ -25,30 +25,30 @@
 <div class="schedule ">
     <div class="schedule__box">
     <img src="./../../assets/icon/ips.jpeg" class="schedule__img" alt="">
-    <div class="schedule__item" style="margin-bottom: 2rem;">Citas asignadas</div>
+    <div class="schedule__title">Horario Médico</div>
+    <div class="schedule__position">
+      <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
+        <mat-icon>person_add</mat-icon>
+      </button>
+    </div>
       <div class="schedule__container">
         <div class="schedule__table">
           <section>
             <header>
-              <div class="col schedule__item">Fecha</div>
-              <div class="col schedule__item">Cédula</div>
-              <div class="col schedule__item">Nombres y apellidos</div>
+              <div class="col schedule__item">Nombres</div>
+              <div class="col schedule__item">Apellidos</div>
+              <div class="col schedule__item">Especialidad</div>
+              <div class="col schedule__item">Acciones</div>
             </header>
             <div class="row">
               <div class="col">24/07/2020</div>
               <div class="col">123065465</div>
               <div class="col">Yunerkis Caridad Leal Quirpa</div>
-              <div class="col"><button mat-fab color="primary" aria-label="Example icon button with a delete icon">
-          <mat-icon>delete</mat-icon>
-        </button></div>
-              <div class="col"><button mat-fab color="primary" aria-label="Example icon button with a delete icon">
-          <mat-icon>delete</mat-icon>
-        </button></div>
-            </div>
-            <div class="row">
-              <div class="col">24/07/2020</div>
-              <div class="col">123065465</div>
-              <div class="col">Yunerkis Caridad Leal Quirpa</div>
+              <div class="col">
+                <button mat-mini-fab color="primary" class="icon-action"><mat-icon>remove_red_eye</mat-icon></button>
+                <button mat-mini-fab color="primary"  class="icon-action"><mat-icon>edit</mat-icon></button>
+                <button mat-mini-fab color="warn" ><mat-icon>delete</mat-icon></button>
+              </div>
             </div>
           </section>
         </div>      

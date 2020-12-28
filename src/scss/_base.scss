@@ -146,3 +146,14 @@ button.mat-menu-item {
   display: flex;
   align-items: center;
 }
+
+.swal2-title,
+.swal2-html-container {
+  font-size: 18px !important;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.swal2-styled.swal2-confirm {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+}

@@ -29,6 +29,19 @@
         font-size: 18px;
         font-weight: 500;
     }
+    &__title {
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        font-size: 22px;
+        font-weight: 500;
+        border-bottom: 1px solid #0e4db8;
+        color: #0e4db8;
+        margin-bottom: 1rem;
+    }
+    &__position {
+        text-align: right;
+        margin-bottom: 1rem;
+        margin-right: 2rem;
+    }
 }
 
 header, .row {
@@ -36,8 +49,14 @@ header, .row {
     border-bottom: 2px solid #bbb;
     padding: 10px;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+    justify-content: space-around;
+    align-items: center;
   }
-  
+
+  .icon-action {
+      margin-right: 10px;
+  }
+
   .col {
-    flex: 1;        /* distributes space on the line equally among items */
-  }
+flex: 1;
+}

@@ -16,6 +16,7 @@ import { ModalComponent } from './modal/modal.component';
 import { RecoveryComponent } from './recovery/recovery.component';
 import { HomeAdminComponent } from './home-admin/home-admin.component';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { ModalViewComponent } from './modal-view/modal-view.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ScheduleComponent } from './schedule/schedule.component';
     ModalComponent,
     RecoveryComponent,
     HomeAdminComponent,
-    ScheduleComponent
+    ScheduleComponent,
+    ModalViewComponent
   ],
   imports: [
     BrowserModule,
