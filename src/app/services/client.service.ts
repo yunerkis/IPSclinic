@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { BehaviorSubject} from 'rxjs'; 
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +13,24 @@ export class ClientService {
   url = environment.url;
   client = new BehaviorSubject({});
   msg = new BehaviorSubject('');
+  modal = new BehaviorSubject({});
+
+  errors = new BehaviorSubject('');
  
   constructor(
     private router: Router,
     private http: HttpClient,
   ) { }
 
-  getSessionsClient(dni) {
-    return this.http.get(`${this.url}/api/v1/clients/session/${dni['dni']}`).subscribe(
+  getSessionsClient(dni, time) {
+    return this.http.get(`${this.url}/api/v1/clients/session/${dni['dni']}?time=${time}`).subscribe(
       res => {
         if (res['data'].client == null) {
-          this.msg.next('Este usuario no se encuentra disponible, consultar IPS');
+          Swal.fire(
+            'Error',
+            'Este usuario no se encuentra disponible, consultar IPS',
+            'error'
+          )
         } else {
           this.client.next({
             'dni':res['data'].client.dni,
@@ -35,19 +43,65 @@ export class ClientService {
       });
   }
 
-  getSessionsSchedule(date) {
-    return this.http.get(`${this.url}/api/v1/schedule/?date=${date}`);
+  getSessionsSchedule(date, time) {
+    return this.http.get(`${this.url}/api/v1/doctors/?date=${date}&time=${time}`);
   }
 
   storeSession(session) {
-    return this.http.post(`${this.url}/api/v1/clients/session`, session).subscribe( 
+    return this.http.post(`${this.url}/api/v1/clients/session`, session);
+  }
+
+  login(credentials) {
+    return this.http.post(`${this.url}/api/v1/login`, credentials).subscribe(
       res => {
-        if (res) {
-          this.msg.next(`Su cita fue creada con exito para ${session['date']} de ${session['schedule']}`);
-        }
-      }, data => {
-        this.msg.next(`Error volver a cargar la pagina`);
-          console.log(data);
+        localStorage.setItem('token', res['data'].access_token);  
+        this.router.navigate(['/list']);    
+      }, error => {
+        Swal.fire(
+          'Error',
+          error.error.data,
+          'error'
+        )
       });
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/admin']); 
+  }
+
+  getListSessions() {
+    let token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + token,
+      'Access-Control-Allow-Origin': '*'
+    })
+
+    return this.http.get(`${this.url}/api/v1/clients/sessions`, {headers: headers});
+  }
+
+  cancelSession(id) {
+
+    let token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + token,
+      'Access-Control-Allow-Origin': '*'
+    })
+
+    return this.http.delete(`${this.url}/api/v1/clients/session/cancel/${id}`, {headers: headers});
+  }
+
+  uploadClientExcel(file) {
+
+    let token = localStorage.getItem('token');
+    
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + token,
+      'Access-Control-Allow-Origin': '*'
+    })
+    
+    return this.http.post(`${this.url}/api/v1/clients/imports`, file,{headers: headers});
   }
 }

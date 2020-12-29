@@ -18,7 +18,7 @@ class CreateSessionsTable extends Migration
             $table->foreignId('client_id')->constrained('clients')->onDelete('cascade');
             $table->foreignId('doctor_id')->constrained('doctors')->onDelete('cascade');
             $table->date('date');
-            $table->time('time_start');
+            $table->string('time');
             $table->timestamps();
             $table->softDeletes('deleted_at', 0);
         });

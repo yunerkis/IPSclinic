@@ -55,10 +55,10 @@ class LoginController extends Controller
                 return response()->json(['success' => true, 'data' => $access], 200);
             } 
 
-            return response()->json(['success' => true, 'data' => 'Correo o contraseña incorrectos'], 200);
+            return response()->json(['success' => false, 'data' => 'Correo o contraseña incorrectos'], 422);
         } else {
 
-            return response()->json(['success' => false, 'data' => 'Not found'], 404);
+            return response()->json(['success' => false, 'data' => 'Usuario no existe'], 404);
         }
     }
 

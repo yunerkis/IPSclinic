@@ -1,14 +1,14 @@
 <div class="admin">
   <div class="admin__box">
     <img src="./../../assets/icon/ips.jpeg" class="admin__img" alt="">
-    <form class="admin__form" >
+    <form class="admin__form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="admin__input">
-        <mat-label>Nombre de usuario</mat-label>
-        <input matInput placeholder="Nombre de usuario">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="Email" formControlName="email">
       </mat-form-field>
       <mat-form-field class="admin__input">
         <mat-label>Contraseña</mat-label>
-        <input matInput placeholder="Contraseña">
+        <input type="password" matInput placeholder="Contraseña" formControlName="password">
       </mat-form-field>
       <button mat-stroked-button color="primary" type="submit">Ingresar</button>
     </form>

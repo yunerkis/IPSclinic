@@ -11,6 +11,8 @@ export class LoginComponent implements OnInit {
 
   dniForm: FormGroup;
   msg = '';
+  today = new Date();
+  time = this.today.getHours() + ":" + this.today.getMinutes() + ":" + this.today.getSeconds();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,7 +29,7 @@ export class LoginComponent implements OnInit {
     if(this.dniForm.invalid) {
       return;
     }
-    this.clientService.getSessionsClient(this.dniForm.value);
+    this.clientService.getSessionsClient(this.dniForm.value, this.time);
     this.clientService.msg.subscribe(
       res => {this.msg = res;}
     );

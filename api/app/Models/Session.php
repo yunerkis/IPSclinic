@@ -16,7 +16,7 @@ class Session extends Model
         'client_id',
         'doctor_id',
         'date',
-        'time_start',
+        'time',
     ];
 
     public function client()

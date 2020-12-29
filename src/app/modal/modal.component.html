@@ -1,14 +1,24 @@
-<div class="modal__title">CITA AGENDADA CON ÉXITO</div>
-<div class="modal__img">
-    <img src="../../assets/icon/success-2651251-2198174.png" alt="">
-</div>
-<mat-dialog-content class="mat-typography">
-    <div class="modal__name">
-        <label class="modal__doctor">Killjoy Valorant</label>
-        <label class="modal__time">8:00am a 9:00</label>
+<div *ngIf="data.type != 'Error'">
+    <div class="modal__title">CITA AGENDADA CON ÉXITO</div>
+    <div class="modal__img">
+        <img src="../../assets/icon/success-2651251-2198174.png" alt="">
     </div>
-</mat-dialog-content>
-<mat-dialog-actions align="center">
-  <button mat-button mat-dialog-close>Cambiar</button>
-  <button  [mat-dialog-close]="true" cdkFocusInitial mat-raised-button color="primary">Entendido</button>
-</mat-dialog-actions>
+    <mat-dialog-content class="mat-typography">
+        <div class="modal__name">
+            <label class="modal__doctor">{{ data.doctor }}</label>
+            <label class="modal__time">{{ data.time  }}</label>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+    <button mat-button mat-dialog-close>Cambiar</button>
+    <button  [mat-dialog-close]="true" cdkFocusInitial mat-raised-button color="primary" (click)="home()">Entendido</button>
+    </mat-dialog-actions>
+</div>
+<div *ngIf="data.type == 'Error'">
+    <div class="modal__title">Error</div>
+    <mat-dialog-content class="mat-typography">
+        {{ data.msg }}
+    </mat-dialog-content>
+    <button mat-button mat-dialog-close>Cerrar</button>
+    <button  [mat-dialog-close]="true" cdkFocusInitial mat-raised-button color="primary" (click)="home()">Entendido</button>
+</div>

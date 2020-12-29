@@ -6,19 +6,26 @@
       <div class="appointment__table">
         <div>
           <div class="appointment__label">Horario disponible</div>
-          <div class="appointment__content">
-            <div class="appointment__name">
-              <label>Killjoy Valorant</label>
-              <label class="appointment__time">Medico General</label>
-              <label class="appointment__time">8:00am a 9:00</label>
+          <div *ngIf="schedules.length > 0">
+            <div class="appointment__content" *ngFor="let schedule of schedules">
+              <div class="appointment__name">
+                <label>{{ schedule.first_names }} {{ schedule.last_names}}</label>
+                <label class="appointment__time">{{ schedule.category.name }}</label>
+                <label class="appointment__time" *ngFor="let hours of schedule.hours; let i = index;">
+                 {{ hours }}
+                 <button  mat-raised-button color="primary" (click)="session(schedule.times[i], schedule, hours)">Agendar</button>
+                </label>
+              </div>
             </div>
-            <button  mat-raised-button color="primary" (click)="openDialog()">Agendar</button>
+          </div>
+          <div *ngIf="schedules.length == 0">
+            Mo hay horarios disponible para esta fecha
           </div>
         </div>
       </div>      
     </div>
     <div *ngIf="client['session'] != null" class="appointment__container">
-      Ya tienes una cita apartada, el dia {{ dateStart }}, hora: {{ timeStart }}
+      Ya tienes una cita apartada, el dia {{ dateStart }}, horario: {{ timeStart }}
     </div>
   </div>
 </div>

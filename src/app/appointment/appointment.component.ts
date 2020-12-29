@@ -19,10 +19,13 @@ export class AppointmentComponent implements OnInit {
   nextDate = new Date(new Date().setDate(this.currentDate.getDate() + 2));
   selectedDate: any;
   schedules: any = [];
-  msglog = '';
+  msglog: any;
 
   minDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate());
   maxDate = new Date(this.nextDate.getFullYear(), this.nextDate.getMonth(), this.nextDate.getDate());
+
+  today = new Date();
+  time = this.today.getHours() + ":" + this.today.getMinutes() + ":" + this.today.getSeconds();
 
   constructor(
     private router: Router,
@@ -39,6 +42,8 @@ export class AppointmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.onSelect(this.minDate);
+
     this.clientService.client.subscribe( res => {
       this.client = res;
       if (Object.keys(this.client).length  != 0) {
@@ -46,10 +51,6 @@ export class AppointmentComponent implements OnInit {
         this.timeStart = res['session'].time_start;
       } 
     });
-
-    this.clientService.msg.subscribe(
-      res => {this.msglog = res;}
-    );
 
     if (Object.keys(this.client).length  == 0) {
       this.router.navigate(['']);
@@ -59,21 +60,40 @@ export class AppointmentComponent implements OnInit {
   onSelect(event) {
     this.selectedDate = event;
     this.date = new Date(event).getFullYear()+'-'+(new Date(event).getMonth()+1)+'-'+new Date(event).getDate();
-    this.clientService.getSessionsSchedule(this.date).subscribe(res => {
+    this.clientService.getSessionsSchedule(this.date, this.time).subscribe(res => {
       this.schedules = res['data'];
     })
   }
 
-  session(schedule) {
+  session(schedule, doctorObj, hours) {
+    
     let session = {
       'dni': this.client.dni,
       'date': this.date,
-      'time_start': schedule[1][0],
-      'time_end': schedule[1][1],
-      'schedule': schedule[0],
+      'time': schedule,
+      'doctor_id':doctorObj.id 
     };
-
-    this.clientService.storeSession(session);
+    
+    this.clientService.storeSession(session).subscribe( 
+      res => {
+        if (res) {
+          this.msglog = {
+            'type': 'success',
+            'doctor': doctorObj.first_names+' '+doctorObj.last_names,
+            'time': hours
+          };
+          this.clientService.modal.next(this.msglog)
+          this.openDialog();
+        }
+      }, data => {
+          this.msglog = {
+            'type' : 'Error',
+            'msg': 'Error, por favor volver a cargar la página.'
+          };
+          this.clientService.modal.next(this.msglog)
+          this.openDialog();
+          console.log(data);
+      });
   }
 
 }

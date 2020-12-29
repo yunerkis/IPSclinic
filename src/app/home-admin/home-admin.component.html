@@ -26,10 +26,13 @@
     <div class="home__box">
         <div class="home__title">
             Cargar excel con los datos de los usuario.
-        </div>
-    
-        <div style="text-align:center">
-            <input type="file" name="" id="">
-        </div>
-    </div>
+		</div>
+		
+		<form [formGroup]="excelForm" (ngSubmit)="onSubmit()">
+			<div style="text-align:center">
+				<input type="file" (change)="onFileSelect($event)" formControlName="file">
+			</div>
+			<button mat-stroked-button color="primary" type="submit">Cargar</button>
+		</form>
+	</div>
 </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Client;
+use App\Models\Doctor;
 use App\Models\Session;
 use Validator;
 use Carbon\Carbon;
@@ -17,7 +18,7 @@ class ClientController extends Controller
     function __construct()
     {
         $this->middleware('ApiPermission:clients.list', ['only' => ['index']]);
-        $this->middleware('ApiPermission:clients.sessions.list', ['only' => ['sessionCancel']]);
+        $this->middleware('ApiPermission:clients.sessions.list', ['only' => ['sessionsList', 'sessionCancel']]);
         $this->middleware('ApiPermission:clients.sessions.imports', ['only' => ['clientImports']]);
     }
 
@@ -25,24 +26,24 @@ class ClientController extends Controller
     {
         $clients = Client::filter($request)->with(['sessions'])->get();
 
-        return response()->json(['success' => true, 'data' => $clients]);
+        return response()->json(['success' => true, 'data' => $clients], 200);
     }
 
     public function sessions(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'doctor_id' => [
+                'required'
+            ],
             'dni' => [
                 'required'
             ],
             'date' => [
                 'required'
             ],
-            'time_start' => [
+            'time' => [
                 'required'
-            ],
-            'time_end' => [
-                'required'
-            ],
+            ]
         ]);
 
         if ($validator->fails()) {
@@ -52,39 +53,48 @@ class ClientController extends Controller
 
         $client = Client::where('dni', $request['dni'])->first();
 
-        if ( $client) {
+        $doctor = Doctor::where('id', $request['doctor_id'])
+                        ->with(['schedules' => function($schedules) use ($request) {
+                            $schedules->where('dates', 'LIKE', '%'.$request['date'].'%')
+                            ->where('time_start', '<=', $request['time'])
+                            ->where('time_end', '>=', $request['time']);
+                        }])
+                        ->whereHas('schedules', function($schedules) use ($request) {
+                            $schedules->where('dates', 'LIKE', '%'.$request['date'].'%')
+                            ->where('time_start', '<=', $request['time'])
+                            ->where('time_end', '>=', $request['time']);
+        })->first();
+        
+        if ($client && $doctor) {
 
             $attrSession = [
                 ['date', '=', $request['date']],
-                ['time_start', '<=', $request['time_end']],
-                ['time_end', '>=', $request['time_start']],
-            ];
-        
-            $attrSession2 = [
-                ['date', '=', $request['date']],
-                ['client_id', '=', $client->id],
+                ['doctor_id', '=', $request['doctor_id']],
+                ['time', 'LIKE', '%'.$request['time'].'%'],
             ];
 
-            $session = Session::where($attrSession)->orWhere($attrSession2)->first();
-
-            if (!$session) {
-
-                $request['client_id'] = $client->id;
+            $session = Session::where($attrSession)->count();
             
+            if ($session < $doctor['schedules'][0]->availability) {
+                
+                $request['client_id'] = $client->id;
+               
                 $dateNow = Carbon::today()->addDays(2)->format('Y-m-d');
-
+                
                 if ($dateNow >= $request['date']) {
                     
                     Session::create($request->all());
 
                     return response()->json(['success' => true, 'data' => 'Session create'], 201);
                 }
+
+                return response()->json(['success' => false, 'data' => 'Session day not correct'], 422);
             }
 
-            return response()->json(['success' => false, 'data' => 'Session day not correct'], 422);
+            return response()->json(['success' => false, 'data' => 'Not availability'], 422);
         }
 
-        return response()->json(['success' => false, 'data' => 'Client not found'], 404);
+        return response()->json(['success' => false, 'data' => 'Client or Doctor not found'], 404);
     }
 
     public function sessionCancel($id)
@@ -101,7 +111,41 @@ class ClientController extends Controller
         return response()->json(['success' => false, 'data' => 'Session not found'], 404);
     }
 
-    public function sessionsList($dni)
+    public function sessionsList()
+    {
+        date_default_timezone_set('America/Bogota');
+
+        $day = Carbon::today()->format('Y-m-d');
+
+        $time = Carbon::today()->format('H:i');
+
+        $sessions = Session::orderBy('id', 'DESC')->with(['client', 'doctor'])
+            ->get()
+            ->map(function ($session) use ($day, $time){
+
+                $status = true;
+
+                $hours = explode('-', $session->time);
+
+                $session->time_start = date('h:i a', strtotime($hours[0])).' - '.date('h:i a', strtotime($hours[1]));
+
+                if ($session->date <= $day) {
+
+                    $status = false;
+                } elseif ($session->date == $day && $hours[1] <= $time) {
+
+                    $status = false;
+                }
+
+                $session->status = $status;
+
+                return $session;
+            });
+
+        return response()->json(['success' => true, 'data' => $sessions], 200);
+    }
+
+    public function sessionsActive($dni, Request $request)
     {   
         date_default_timezone_set('America/Bogota');
 
@@ -122,10 +166,18 @@ class ClientController extends Controller
             ];
 
             $session = Session::where($attrSession)->orderBy('id', 'DESC')->first();
-
+           
             if ($session) {
 
-                $session->time_start = date('h:i a', strtotime($session->time_start));
+                $hours = explode('-', $session->time);
+                
+                if (date('H:i', strtotime($hours[1])) >= date('H:i', strtotime($request['time']))) {
+
+                    $session->time_start = date('h:i a', strtotime($hours[0])).' - '.date('h:i a', strtotime($hours[1]));
+                } else {
+                    
+                    $session = NULL;
+                }
             } 
         }
 
@@ -155,49 +207,5 @@ class ClientController extends Controller
             
             return response()->json(['success' => false, 'data' => 'error to import data'], 422);
         }   
-    }
-
-    public function schedule(Request $request)
-    {  
-        $availability = [];
-       
-        $schedules = [
-            ['08:00:00', '09:00:00'],
-            ['09:10:00', '10:00:00'],
-            ['10:10:00', '11:00:00'],
-            ['11:10:00', '12:00:00'],
-            ['12:10:00', '13:00:00'],
-            ['13:10:00', '14:00:00'],
-            ['14:10:00', '15:00:00'],
-            ['15:10:00', '16:00:00'],
-            ['16:10:00', '17:00:00'],
-        ];
-
-        $sessions = Session::where('date', $request->date)->get();
-      
-        foreach ($schedules as $schedule) {
-            
-            foreach ($sessions as $session) {
-               
-                if (!in_array($session->time_start ,$schedule) && !in_array($session->time_end ,$schedule)) {
-
-                    $format = date('h:i a', strtotime($schedule[0])).' - '.date('h:i a', strtotime($schedule[1]));
-
-                    $availability[] = [$format, $schedule];
-                }
-            }
-        }
-
-        if (count($sessions) == 0) {
-
-            foreach ($schedules as $schedule) {
-
-                $format = date('h:i a', strtotime($schedule[0])).' - '.date('h:i a', strtotime($schedule[1]));
-
-                $availability[] = [$format, $schedule];
-            }
-        }
-
-        return response()->json(['success' => true, 'data' =>  $availability], 200);
     }
 }

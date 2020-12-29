@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Modals\Doctor;
-use App\Modals\Schedule;
+use App\Models\Doctor;
+use App\Models\Schedule;
 use Validator;
 
 class DoctorController extends Controller
@@ -13,15 +13,39 @@ class DoctorController extends Controller
     function __construct()
     {
         // $this->middleware('ApiPermission:doctor.list', ['only' => ['index']]);
-        // $this->middleware('ApiPermission:doctor.store', ['only' => ['store']]);
-        // $this->middleware('ApiPermission:doctor.show', ['only' => ['show']]);
-        // $this->middleware('ApiPermission:doctor.update', ['only' => ['update']]);
-        // $this->middleware('ApiPermission:doctor.delete', ['only' => ['destroy']]);
+        $this->middleware('ApiPermission:doctor.store', ['only' => ['store']]);
+        $this->middleware('ApiPermission:doctor.show', ['only' => ['show']]);
+        $this->middleware('ApiPermission:doctor.update', ['only' => ['update']]);
+        $this->middleware('ApiPermission:doctor.delete', ['only' => ['destroy']]);
     }
 
     public function index(Request $request)
     {
-        $doctors = Doctor::with(['category'])->get();
+        $doctors = Doctor::with(['category', 'schedules' => function($schedules) use ($request) {
+            $schedules->where('dates', 'LIKE', '%'.$request['date'].'%')
+            ->where('time_end', '>=', $request['time']);
+        }])->whereHas('schedules', function($schedules) use ($request) {
+            $schedules->where('dates', 'LIKE', '%'.$request['date'].'%')
+            ->where('time_end', '>=', $request['time']);
+        })->get()->map(function ($doctor) {
+
+            $hours = [];
+
+            $times = [];
+
+            foreach ($doctor->schedules as $key => $schedule) {
+
+                $hours[] = date('h:i a', strtotime($schedule['time_start'])).' - '.date('h:i a', strtotime($schedule['time_end']));
+
+                $times[] = $schedule['time_start'].' - '.$schedule['time_end'];
+            }
+
+            $doctor->hours = $hours;
+
+            $doctor->times = $times;
+
+            return $doctor;
+        });
 
         return response()->json(['success' => true, 'data' => $doctors], 200);
     }
@@ -73,11 +97,9 @@ class DoctorController extends Controller
 
     public function show($id)
     {
-        $doctor = Doctor::find($id);
+        $doctor = Doctor::where('id', $id)->with(['category', 'schedules'])->get();
 
         if ($doctor) {
-
-            $doctor->with(['category', 'schedules']);
 
             return response()->json(['success' => true, 'data' => $doctor], 200);
         }
@@ -143,7 +165,7 @@ class DoctorController extends Controller
 
             $doctor->delete();
 
-            return response()->json(['success' => true, 'data' => 'delete'], 200);
+            return response()->json(['success' => true, 'data' => 'doctor delete'], 200);
         }
 
         return response()->json(['success' => false, 'data' => 'not found'], 404);
