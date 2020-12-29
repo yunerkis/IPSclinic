@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
 import { AppointmentComponent } from './appointment/appointment.component';
+import { DoctorScheduleComponent } from './doctor-schedule/doctor-schedule.component';
 import { HomeAdminComponent } from './home-admin/home-admin.component';
 import { ListComponent } from './list/list.component';
 import { LoginComponent } from './login/login.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'recovery', component: RecoveryComponent },
   { path: 'home', component: HomeAdminComponent },
   { path: 'schedule', component: ScheduleComponent },
+  { path: 'doctor-schedule', component: DoctorScheduleComponent },
 ];
 
 @NgModule({

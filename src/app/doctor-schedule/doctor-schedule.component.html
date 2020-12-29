@@ -24,32 +24,32 @@
 
 <div class="schedule ">
     <div class="schedule__box">
-    <div class="schedule__title">Horario Médico</div>
+    <div class="schedule__title">Asignar Horario Médico</div>
     <div class="schedule__position">
-      <button mat-fab color="primary" aria-label="" routerLink="/doctor-schedule">
-        <mat-icon>person_add</mat-icon>
+      <button mat-fab color="primary" aria-label="" routerLink="/schedule">
+        <mat-icon>keyboard_arrow_left</mat-icon>
       </button>
     </div>
       <div class="schedule__container">
         <div class="schedule__table">
-          <section>
-            <header>
-              <div class="col schedule__item">Nombres</div>
-              <div class="col schedule__item">Apellidos</div>
-              <div class="col schedule__item">Especialidad</div>
-              <div class="col schedule__item">Acciones</div>
-            </header>
-            <div class="row">
-              <div class="col">24/07/2020</div>
-              <div class="col">123065465</div>
-              <div class="col">Yunerkis Caridad Leal Quirpa</div>
-              <div class="col">
-                <button mat-mini-fab color="primary" class="icon-action" (click)="openModal()"><mat-icon>remove_red_eye</mat-icon></button>
-                <button mat-mini-fab color="primary"  class="icon-action"><mat-icon>edit</mat-icon></button>
-                <button mat-mini-fab color="warn" ><mat-icon>delete</mat-icon></button>
+          <div class="schedule__tablet">
+            <form class="example-form">
+              <div>
+                <input type="text">
               </div>
-            </div>
-          </section>
+              <div>
+                <input type="text">
+              </div>
+              <div>
+                <select>
+                  <option value="">sadasd</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="schedule__calendar">
+            <mat-calendar></mat-calendar>
+          </div>
         </div>      
       </div>
     </div>

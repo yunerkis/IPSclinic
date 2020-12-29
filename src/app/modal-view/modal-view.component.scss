@@ -1,0 +1,20 @@
+.modal-view {
+    width: 500px;
+    text-align: center;
+    &__title {
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        font-size: 17px;
+        font-size: 22px;
+        font-weight: 500;
+        border-bottom: 1px solid #0e4db8;
+        margin-bottom: 2rem;
+    }
+    &__label {
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        font-size: 17px;
+    }
+    &__box {
+        height: 400px;
+        overflow: auto;
+    }
+}

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import swal from'sweetalert2';
+import { ModalViewComponent } from '../modal-view/modal-view.component';
 
 @Component({
   selector: 'app-schedule',
@@ -9,7 +11,15 @@ import swal from'sweetalert2';
 })
 export class ScheduleComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
+
+  openModal() {
+    const dialogRef = this.dialog.open(ModalViewComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 
   ngOnInit(): void {
     Swal.fire({
