@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import Swal from 'sweetalert2';
-import swal from'sweetalert2';
 import { ModalViewComponent } from '../modal-view/modal-view.component';
+import Swal from 'sweetalert2';
+import { ClientService } from '../services/client.service';
 
 @Component({
   selector: 'app-schedule',
@@ -11,7 +11,12 @@ import { ModalViewComponent } from '../modal-view/modal-view.component';
 })
 export class ScheduleComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  doctorsList: any = '';
+
+  constructor(
+    private clientService: ClientService,
+    public dialog: MatDialog
+  ) { }
 
   openModal() {
     const dialogRef = this.dialog.open(ModalViewComponent);
@@ -22,9 +27,16 @@ export class ScheduleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.clientService.getDoctorList().subscribe(res => {
+      this.doctorsList = res['data'];
+    });
   }
 
-  delete() {
+  logout() {
+    this.clientService.logout();
+  }
+
+  delete(id) {
      Swal.fire({
       title: '¿Deseas eliminar este horario?',
       icon: 'warning',
@@ -34,11 +46,16 @@ export class ScheduleComponent implements OnInit {
       confirmButtonText: 'Eliminar'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Eliminado',
-          'El horario fue eliminado',
-          'success'
-        )
+        this.clientService.deleteDoctor(id).subscribe(res => {
+          this.clientService.getDoctorList().subscribe(resp => {
+            this.doctorsList = resp['data'];
+            Swal.fire(
+              'Eliminado',
+              'El horario fue eliminado',
+              'success'
+            )
+          });
+        });
       }
     })
   }

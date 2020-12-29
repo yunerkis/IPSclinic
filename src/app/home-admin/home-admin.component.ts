@@ -32,6 +32,10 @@ export class HomeAdminComponent implements OnInit {
     const file = event.target.files[0];
     this.excelForm.get('file').setValue(file);
   }
+
+  logout() {
+    this.clientService.logout();
+  }
   
 
   onSubmit() {

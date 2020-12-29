@@ -37,7 +37,7 @@ Route::prefix('v1')->group(function () {
 
         Route::post('/clients/session', [ClientController::class, 'sessions'])->name('client.get.session');
 
-        Route::get('/doctors', [DoctorController::class, 'index'])->name('doctors.list');
+        Route::get('/doctors', [DoctorController::class, 'index'])->name('schedules.list');
 
     Route::middleware('auth:api')->group(function () {
 
@@ -67,9 +67,11 @@ Route::prefix('v1')->group(function () {
 
             Route::name('doctors.')->group(function () {
 
+                Route::get('/doctors/list', [DoctorController::class, 'doctors'])->name('list');
+
                 Route::post('/doctors', [DoctorController::class, 'store'])->name('store');
 
-                Route::get('/doctors/{id}', [DoctorController::class, 'show'])->name('list');
+                Route::get('/doctors/{id}', [DoctorController::class, 'show'])->name('show');
 
                 Route::put('/doctors/{id}', [DoctorController::class, 'update'])->name('update');
 

@@ -104,4 +104,27 @@ export class ClientService {
     
     return this.http.post(`${this.url}/api/v1/clients/imports`, file,{headers: headers});
   }
+
+  getDoctorList() {
+    let token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + token,
+      'Access-Control-Allow-Origin': '*'
+    })
+
+    return this.http.get(`${this.url}/api/v1/doctors/list`, {headers: headers});
+  }
+
+  deleteDoctor(id) {
+
+    let token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + token,
+      'Access-Control-Allow-Origin': '*'
+    })
+
+    return this.http.delete(`${this.url}/api/v1/doctors/${id}`, {headers: headers});
+  }
 }

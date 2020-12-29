@@ -12,7 +12,7 @@ class DoctorController extends Controller
 {
     function __construct()
     {
-        // $this->middleware('ApiPermission:doctor.list', ['only' => ['index']]);
+        $this->middleware('ApiPermission:doctor.list', ['only' => ['doctors']]);
         $this->middleware('ApiPermission:doctor.store', ['only' => ['store']]);
         $this->middleware('ApiPermission:doctor.show', ['only' => ['show']]);
         $this->middleware('ApiPermission:doctor.update', ['only' => ['update']]);
@@ -46,6 +46,13 @@ class DoctorController extends Controller
 
             return $doctor;
         });
+
+        return response()->json(['success' => true, 'data' => $doctors], 200);
+    }
+
+    public function doctors() 
+    {
+        $doctors = Doctor::with(['category'])->get();
 
         return response()->json(['success' => true, 'data' => $doctors], 200);
     }

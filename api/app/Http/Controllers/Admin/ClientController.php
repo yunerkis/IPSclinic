@@ -117,8 +117,8 @@ class ClientController extends Controller
 
         $day = Carbon::today()->format('Y-m-d');
 
-        $time = Carbon::today()->format('H:i');
-
+        $time = Carbon::now()->format('H:i:s');
+        
         $sessions = Session::orderBy('id', 'DESC')->with(['client', 'doctor'])
             ->get()
             ->map(function ($session) use ($day, $time){
@@ -126,14 +126,14 @@ class ClientController extends Controller
                 $status = true;
 
                 $hours = explode('-', $session->time);
-
+                
                 $session->time_start = date('h:i a', strtotime($hours[0])).' - '.date('h:i a', strtotime($hours[1]));
 
-                if ($session->date <= $day) {
-
+                if ($session->date < $day) {
+                   
                     $status = false;
-                } elseif ($session->date == $day && $hours[1] <= $time) {
-
+                } elseif ($session->date == $day && date('H:i:s', strtotime($hours[1])) <= $time) {
+                    
                     $status = false;
                 }
 

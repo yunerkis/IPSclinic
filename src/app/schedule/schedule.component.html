@@ -5,12 +5,12 @@
 	<span class="example-spacer"></span>
 	<img src="../../../assets/icons/accountcircle_outline.svg" alt=""> <label class="user-text app-m-name"> Administrador</label>
 	<mat-icon [matMenuTriggerFor]="menu" class="burger app-cursor">keyboard_arrow_down</mat-icon>
-	  <mat-menu #menu="matMenu">
-			<button mat-menu-item>
-				<img src="../../../assets/icons/logout_baseline.svg" alt="" class="app-m-left">
-				<span class="user-text app-m-left-15">Cerrar sesión</span>
-			</button>
-	  </mat-menu>
+  <mat-menu #menu="matMenu">
+		<button mat-menu-item (click)="logout()">
+			<img src="../../../assets/icons/logout_baseline.svg" alt="" class="app-m-left">
+			<span class="user-text app-m-left-15">Cerrar sesión</span>
+		</button>
+	</mat-menu>
 	
 </mat-toolbar>
 
@@ -39,15 +39,18 @@
               <div class="col schedule__item">Especialidad</div>
               <div class="col schedule__item">Acciones</div>
             </header>
-            <div class="row">
-              <div class="col">24/07/2020</div>
-              <div class="col">123065465</div>
-              <div class="col">Yunerkis Caridad Leal Quirpa</div>
+            <div class="row" *ngFor="let doctor of doctorsList">
+              <div class="col">{{doctor.first_names}}</div>
+              <div class="col">{{doctor.last_names}}</div>
+              <div class="col">{{doctor.category.name}}</div>
               <div class="col">
                 <button mat-mini-fab color="primary" class="icon-action" (click)="openModal()"><mat-icon>remove_red_eye</mat-icon></button>
                 <button mat-mini-fab color="primary"  class="icon-action"><mat-icon>edit</mat-icon></button>
-                <button mat-mini-fab color="warn" (click)="delete()"><mat-icon>delete</mat-icon></button>
+                <button mat-mini-fab color="warn" (click)="delete(doctor.id)"><mat-icon>delete</mat-icon></button>
               </div>
+            </div>
+            <div class="row" *ngIf="doctorsList == ''">
+              <div class="col">no hay doctores</div>
             </div>
           </section>
         </div>      

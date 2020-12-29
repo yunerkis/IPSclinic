@@ -5,12 +5,12 @@
 	<span class="example-spacer"></span>
 	<img src="../../../assets/icons/accountcircle_outline.svg" alt=""> <label class="user-text app-m-name"> Administrador</label>
 	<mat-icon [matMenuTriggerFor]="menu" class="burger app-cursor">keyboard_arrow_down</mat-icon>
-	  <mat-menu #menu="matMenu">
-			<button mat-menu-item>
-				<img src="../../../assets/icons/logout_baseline.svg" alt="" class="app-m-left">
-				<span class="user-text app-m-left-15">Cerrar sesión</span>
-			</button>
-	  </mat-menu>
+	<mat-menu #menu="matMenu">
+		<button mat-menu-item (click)="logout()">
+			<img src="../../../assets/icons/logout_baseline.svg" alt="" class="app-m-left">
+			<span class="user-text app-m-left-15">Cerrar sesión</span>
+		</button>
+	</mat-menu>
 	
 </mat-toolbar>
 

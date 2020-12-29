@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ClientService } from '../services/client.service';
 
 @Component({
   selector: 'app-doctor-schedule',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DoctorScheduleComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private clientService: ClientService,
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  logout() {
+    this.clientService.logout();
   }
 
 }
