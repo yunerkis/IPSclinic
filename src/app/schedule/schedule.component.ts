@@ -22,22 +22,22 @@ export class ScheduleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    Swal.fire({
-      title: '¿Deseas eliminar este horario?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Eliminar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Eliminado',
-          'El horario fue eliminado',
-          'success'
-        )
-      }
-    })
+    // Swal.fire({
+    //   title: '¿Deseas eliminar este horario?',
+    //   icon: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonColor: '#3085d6',
+    //   cancelButtonColor: '#d33',
+    //   confirmButtonText: 'Eliminar'
+    // }).then((result) => {
+    //   if (result.isConfirmed) {
+    //     Swal.fire(
+    //       'Eliminado',
+    //       'El horario fue eliminado',
+    //       'success'
+    //     )
+    //   }
+    // })
   }
 
 }
