@@ -16,8 +16,8 @@ body {
 
 .mat-stroked-button {
   border: 2px solid #0e4db8 !important;
-  padding: 15px !important;
-  font-size: 30px;
+  padding: 30px !important;
+  font-size: 40px;
 }
 
 .mat-button.mat-primary, .mat-icon-button.mat-primary, .mat-stroked-button.mat-primary {
@@ -37,12 +37,23 @@ body {
 .mat-form-field-infix {
   border: 2px solid #bbb;
   border-radius: 5px;
+  height: 4rem;
+  align-items: center;
 }
 
 .mat-form-field-appearance-legacy .mat-form-field-label {
   padding-left: 10px !important;
 }
+.mat-form-field-label {
+  font-size: 40px !important;
+}
+.mat-form-field-appearance-legacy .mat-form-field-label {
+  top: 45px;
+}
 
+.mat-input-element {
+  height: 100%;
+}
 .mat-form-field-appearance-legacy .mat-form-field-infix {
   padding-left: 10px !important;
 }
@@ -156,4 +167,18 @@ button.mat-menu-item {
 .swal2-styled.swal2-confirm {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 
+}
+
+
+//Calendario
+
+.mat-calendar-body,
+.mat-calendar-table-header th {
+  font-size: 25px;
+}
+
+.mat-calendar-controls {
+  .mat-button-wrapper {
+    font-size: 25px;
+  }
 }
