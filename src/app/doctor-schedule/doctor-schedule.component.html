@@ -34,20 +34,59 @@
         <div class="schedule__table">
           <div class="schedule__tablet">
             <form class="example-form">
-              <div>
+              <div class="schedule__title">Datos del profesional</div>
+              <div class="input-container">
                 <input type="text">
-              </div>
-              <div>
                 <input type="text">
-              </div>
-              <div>
-                <select>
-                  <option value="">sadasd</option>
+                <select name="" id="">
+                  <option value="">Especialidad</option>
                 </select>
               </div>
+              <div class="schedule__title">Turnos</div>
+              <div class="time-title">Turno mañana</div>
+              <div class="input-dates">
+                <div class="m-right-10 ">
+                  <label> Hora inicio</label>
+                  <input type="time">
+                </div>
+                <div class="m-right-10 ">
+                  <label> Hora final</label>
+                  <input type="time">
+                </div>
+                <div>
+                  <label> Hora inicio</label>
+                  <input type="time">
+                </div>
+              </div>
+              <div class="time-title">Turno tarde</div>
+              <div class="input-dates">
+                <div class="m-right-10 ">
+                  <label> Hora inicio</label>
+                  <input type="time">
+                </div>
+                <div class="m-right-10 ">
+                  <label> Hora final</label>
+                  <input type="time">
+                </div>
+                <div>
+                  <label> Hora inicio</label>
+                  <input type="time">
+                </div>
+              </div>
+              <button mat-flat-button color="primary">Guardar</button>
             </form>
           </div>
           <div class="schedule__calendar">
+            <div class="radio-inputs">
+                <mat-radio-button value="1">Lunes</mat-radio-button>
+                <mat-radio-button value="2">Martes</mat-radio-button>
+                <mat-radio-button value="2">Miercoles</mat-radio-button>
+                <mat-radio-button value="1">Jueves</mat-radio-button>
+                <mat-radio-button value="2">Viernes</mat-radio-button>
+                <mat-radio-button value="2">Sabado</mat-radio-button>
+                <mat-radio-button value="1">Domingo</mat-radio-button>
+                <mat-radio-button value="2">Todos</mat-radio-button>
+            </div>
             <mat-calendar></mat-calendar>
           </div>
         </div>      

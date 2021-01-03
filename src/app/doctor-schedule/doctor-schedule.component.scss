@@ -1,8 +1,6 @@
 .schedule {
-    height: 80vh;
-    display: flex;
-    align-items: center;
     text-align: center;
+    margin-top: 3rem;
     &__box {
         width: 80%;
         background-color: white;
@@ -24,6 +22,7 @@
         overflow: auto;
         display: flex;
         justify-content: space-evenly;
+        padding: 2rem 0;
     }
     &__item {
         font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -66,4 +65,56 @@ header, .row {
 
   .col {
 flex: 1;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+
+    input,
+    select {
+        padding: 12px 10px;
+        margin: 8px 0;
+        box-sizing: border-box;
+    }
+}
+.input-dates {
+    display: flex;
+    justify-content: space-between;
+
+    input {
+        padding: 12px 10px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    label {
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        font-size: 13px;
+    }
+}
+
+.time-title {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 15px;
+    color: #0e4db8;
+    border-bottom: 1px solid #0e4db8;
+    margin-bottom: 10px;
+}
+
+.m-right-10 {
+    margin-right: 10px !important;
+}
+
+.schedule__calendar{
+    .mat-calendar-controls .mat-button-wrapper {
+        font-size: 20px !important;
+    }
+}
+
+.radio-inputs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
