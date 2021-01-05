@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ClientService } from '../services/client.service';
 
 @Component({
   selector: 'app-modal-view',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalViewComponent implements OnInit {
 
-  constructor() { }
+  data:any;
+
+  constructor(
+    private clientService: ClientService,
+  ) { }
 
   ngOnInit(): void {
+    this.clientService.viewModal.subscribe(res => {
+      this.data = res;
+    });
   }
 
 }

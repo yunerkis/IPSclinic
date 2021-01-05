@@ -59,7 +59,7 @@ export class AppointmentComponent implements OnInit {
 
   onSelect(event) {
     this.selectedDate = event;
-    this.date = new Date(event).getFullYear()+'-'+(new Date(event).getMonth()+1)+'-'+new Date(event).getDate();
+    this.date = new Date(event).getFullYear()+'-'+("0" + (new Date(event).getMonth()+1)).slice(-2)+'-'+("0" + (new Date(event).getDate())).slice(-2);
     this.clientService.getSessionsSchedule(this.date, this.time).subscribe(res => {
       this.schedules = res['data'];
     })

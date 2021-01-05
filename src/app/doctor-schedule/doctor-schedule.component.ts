@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ClientService } from '../services/client.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { stringify } from '@angular/compiler/src/util';
 import { ActivatedRoute } from "@angular/router";
+import { MatCalendar } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-doctor-schedule',
@@ -11,15 +11,16 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class DoctorScheduleComponent implements OnInit {
 
+  @ViewChild('calendar', {static: false}) calendar: MatCalendar<Date>;
+  
   doctorForm: FormGroup;
   dates: any = [];
   dayWeeks: any = [];
   daysSelected: any[] = [];
   event: any;
   doctor: any = null;
-  arrayDay1:any = null;
-  arrayDay2:any = null;
-
+  id: any = null;
+ 
   constructor(
     private clientService: ClientService,
     private formBuilder: FormBuilder,
@@ -28,7 +29,7 @@ export class DoctorScheduleComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const id = this.route.snapshot.paramMap.get("id");
+     this.id = this.route.snapshot.paramMap.get("id");
 
     this.doctorForm = this.formBuilder.group({
       first_names: ['', Validators.required],
@@ -42,8 +43,8 @@ export class DoctorScheduleComponent implements OnInit {
       second_interval: [''],
     });    
 
-    if (id) {
-      this.clientService.getDoctor(id).subscribe( res => {
+    if (this.id) {
+      this.clientService.getDoctor(this.id).subscribe( res => {
         this.doctor = res['data'][0];
         this.doctorForm = this.formBuilder.group({
           first_names: [this.doctor.first_names, Validators.required],
@@ -57,9 +58,15 @@ export class DoctorScheduleComponent implements OnInit {
           second_interval: [ this.doctor.schedules[1] ? this.doctor.schedules[1].time: ''],
         });   
 
-         this.arrayDay1 =  this.doctor.schedules[0].dates ? this.doctor.schedules[0].dates : null;
+        if (this.doctor.schedules[0]) {
 
-         this.arrayDay2 =  this.doctor.schedules[1].dates ? this.doctor.schedules[1].dates : null;
+          this.daysSelected =  this.doctor.schedules[0].dates
+        } else if (this.doctor.schedules[1]) {
+          
+          this.daysSelected =  this.doctor.schedules[1].dates
+        }
+        
+        this.calendar.updateTodaysDate();
       });
     }
   }
@@ -110,7 +117,8 @@ export class DoctorScheduleComponent implements OnInit {
         "dates": this.daysSelected.toString(),
         "time_start": this.doctorForm.value.first_time_start,
         "time_end": this.doctorForm.value.first_time_end,
-        "time": this.doctorForm.value.first_interval
+        "time": this.doctorForm.value.first_interval,
+        "id": this.doctor.schedules[0] ? this.doctor.schedules[0].id : null
       });
     }
 
@@ -120,10 +128,16 @@ export class DoctorScheduleComponent implements OnInit {
         "dates": this.daysSelected.toString(),
         "time_start": this.doctorForm.value.second_time_start,
         "time_end": this.doctorForm.value.second_time_end,
-        "time": this.doctorForm.value.second_interval
+        "time": this.doctorForm.value.second_interval,
+        "id": this.doctor.schedules[1] ? this.doctor.schedules[1].id : null
       });
     }
 
-    this.clientService.storeDoctor(this.doctorForm.value);
+    if (this.id) {
+      this.clientService.updateDoctor(this.id, this.doctorForm.value);
+    } else {
+      this.clientService.storeDoctor(this.doctorForm.value);
+    }
+    
   }
 }

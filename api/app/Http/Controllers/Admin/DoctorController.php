@@ -177,11 +177,14 @@ class DoctorController extends Controller
 
             foreach ($request['dates'] as $key => $date) {
 
-                $schedule = Schedule::where('time_start', $date['time_start'])
-                            ->orWhere('time_end', $date['time_start'])
-                            ->orWhere('time_start', $date['time_end'])
-                            ->orWhere('time_end', $date['time_end'])
-                            ->first();
+                $schedule = Schedule::where('doctor_id', '!=', $doctor->id)
+                            ->where(function ($query) use ($date) {
+                                $query->where('time_start', $date['time_start'])
+                                      ->orWhere('time_end', $date['time_start']);
+                            })->where(function ($query) use ($date) {
+                                $query->where('time_start', $date['time_end'])
+                                      ->orWhere('time_end', $date['time_end']);
+                            })->first();
 
                 if ($schedule) {
 

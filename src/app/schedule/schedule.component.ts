@@ -12,6 +12,7 @@ import { ClientService } from '../services/client.service';
 export class ScheduleComponent implements OnInit {
 
   doctorsList: any = '';
+  msglog: any;
 
   constructor(
     private clientService: ClientService,
@@ -34,6 +35,21 @@ export class ScheduleComponent implements OnInit {
 
   logout() {
     this.clientService.logout();
+  }
+
+  getSchedule(id) {
+
+    this.clientService.getDoctor(id).subscribe(res => {
+      if (res) {
+        this.msglog = {
+          'type': 'success',
+          'doctor': res['data'][0].first_names+' '+res['data'][0].last_names,
+          'schedule': res['data'][0]
+        };
+        this.clientService.viewModal.next(this.msglog)
+        this.openModal();
+      }
+    });
   }
 
   delete(id) {

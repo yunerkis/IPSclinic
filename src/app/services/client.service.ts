@@ -14,6 +14,7 @@ export class ClientService {
   client = new BehaviorSubject({});
   msg = new BehaviorSubject('');
   modal = new BehaviorSubject({});
+  viewModal = new BehaviorSubject({});
 
   errors = new BehaviorSubject('');
  
@@ -126,6 +127,32 @@ export class ClientService {
     })
 
     return this.http.post(`${this.url}/api/v1/doctors`, data,{headers: headers}).subscribe(
+      res => { 
+        this.router.navigate(['/schedule']); 
+        Swal.fire(
+          'Guardado',
+          'Doctor guardado con exito',
+          'success'
+        )   
+      }, error => {
+        Swal.fire(
+          'Error',
+          error.error.data,
+          'error'
+        )
+      });
+  }
+
+  updateDoctor(id, data) {
+
+    let token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + token,
+      'Access-Control-Allow-Origin': '*'
+    })
+
+    return this.http.put(`${this.url}/api/v1/doctors/${id}`, data,{headers: headers}).subscribe(
       res => { 
         this.router.navigate(['/schedule']); 
         Swal.fire(
