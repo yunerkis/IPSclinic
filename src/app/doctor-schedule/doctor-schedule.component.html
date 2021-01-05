@@ -33,13 +33,14 @@
       <div class="schedule__container">
         <div class="schedule__table">
           <div class="schedule__tablet">
-            <form class="example-form">
+            <form class="example-form" [formGroup]="doctorForm" (ngSubmit)="onSubmit()">
               <div class="schedule__title">Datos del profesional</div>
               <div class="input-container">
-                <input type="text">
-                <input type="text">
-                <select name="" id="">
+                <input type="text" placeholder="Nombres" formControlName="first_names">
+                <input type="text" placeholder="Apelldios" formControlName="last_names">
+                <select formControlName="category_id">
                   <option value="">Especialidad</option>
+                  <option value="1">Medicina general</option>
                 </select>
               </div>
               <div class="schedule__title">Turnos</div>
@@ -47,47 +48,47 @@
               <div class="input-dates">
                 <div class="m-right-10 ">
                   <label> Hora inicio</label>
-                  <input type="time">
+                  <input type="time" formControlName="first_time_start">
                 </div>
                 <div class="m-right-10 ">
                   <label> Hora final</label>
-                  <input type="time">
+                  <input type="time" formControlName="first_time_end">
                 </div>
                 <div>
-                  <label> Hora inicio</label>
-                  <input type="time">
+                  <label> Intervalos</label>
+                  <input type="number" formControlName="first_interval" min="0" placeholder="minutos">
                 </div>
               </div>
               <div class="time-title">Turno tarde</div>
               <div class="input-dates">
                 <div class="m-right-10 ">
                   <label> Hora inicio</label>
-                  <input type="time">
+                  <input type="time" formControlName="second_time_start">
                 </div>
                 <div class="m-right-10 ">
                   <label> Hora final</label>
-                  <input type="time">
+                  <input type="time" formControlName="second_time_end">
                 </div>
                 <div>
-                  <label> Hora inicio</label>
-                  <input type="time">
+                  <label> Intervalos</label>
+                  <input type="number" formControlName="second_interval" min="0" placeholder="minutos">
                 </div>
               </div>
-              <button mat-flat-button color="primary">Guardar</button>
+              <button mat-flat-button color="primary" type="submit">Guardar</button>
             </form>
           </div>
           <div class="schedule__calendar">
-            <div class="radio-inputs">
+            <!-- <div class="radio-inputs">
                 <mat-radio-button value="1">Lunes</mat-radio-button>
                 <mat-radio-button value="2">Martes</mat-radio-button>
-                <mat-radio-button value="2">Miercoles</mat-radio-button>
-                <mat-radio-button value="1">Jueves</mat-radio-button>
-                <mat-radio-button value="2">Viernes</mat-radio-button>
-                <mat-radio-button value="2">Sabado</mat-radio-button>
-                <mat-radio-button value="1">Domingo</mat-radio-button>
-                <mat-radio-button value="2">Todos</mat-radio-button>
-            </div>
-            <mat-calendar></mat-calendar>
+                <mat-radio-button value="3">Miercoles</mat-radio-button>
+                <mat-radio-button value="4">Jueves</mat-radio-button>
+                <mat-radio-button value="5">Viernes</mat-radio-button>
+                <mat-radio-button value="6">Sabado</mat-radio-button>
+                <mat-radio-button value="7">Domingo</mat-radio-button>
+                <mat-radio-button value="8">Todos</mat-radio-button>
+            </div> -->
+            <mat-calendar #calendar [dateClass]="isSelected" (selectedChange)="onSelect($event, calendar)"></mat-calendar>
           </div>
         </div>      
       </div>

@@ -79,27 +79,43 @@ class DoctorController extends Controller
         	return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
         }
 
-        $doctor = Doctor::create($request->all());
+        foreach ($request['dates'] as $key => $date) {
 
-        if ($doctor) {
+            $schedule = Schedule::where('time_start', $date['time_start'])
+                            ->orWhere('time_end', $date['time_start'])
+                            ->orWhere('time_start', $date['time_end'])
+                            ->orWhere('time_end', $date['time_end'])
+                            ->first();
 
-            foreach ($request['dates'] as $key => $date) {
+            if ($schedule) {
 
-                Schedule::create([
-                    'doctor_id' => $doctor->id,
-                    'dayWeeks' => $date['dayWeeks'],
-                    'dates' => $date['dates'],
-                    'time_start' => $date['time_start'],
-                    'time_end' => $date['time_end'],
-                    'time' => $date['time'],
-                    'availability' => $this->availability($date),
-                ]);
+                $turn = $key == 0 ? 'mañana' : 'tarde';
+
+                return response()->json(['success' => false, 'data' => 'Horario '.$turn.' ocupado'], 422);
             }
 
-            return response()->json(['success' => true, 'data' => 'doctor created'], 201);
+            $count = $this->availability($date);
+
+            if ($count == 0) {
+
+                return response()->json(['success' => false, 'data' => 'Error en el intervalo, verificar las horas'], 422);
+            }
+
+            $doctor = Doctor::create($request->all());
+
+            Schedule::create([
+                'doctor_id' => $doctor->id,
+                'dayWeeks' => $date['dayWeeks'],
+                'dates' => $date['dates'],
+                'time_start' => $date['time_start'],
+                'time_end' => $date['time_end'],
+                'time' => $date['time'],
+                'availability' => $count,
+            ]);
         }
 
-        return response()->json(['success' => false, 'data' => 'not found'], 404);
+        return response()->json(['success' => true, 'data' => 'doctor created'], 201);
+       
     }
 
     public function show($id)
@@ -107,6 +123,23 @@ class DoctorController extends Controller
         $doctor = Doctor::where('id', $id)->with(['category', 'schedules'])->get();
 
         if ($doctor) {
+
+            $hours = [];
+
+            $times = [];
+           
+            foreach ($doctor[0]->schedules as $key => $schedule) {
+
+                $hours[] = date('h:i a', strtotime($schedule['time_start'])).' - '.date('h:i a', strtotime($schedule['time_end']));
+                
+                $schedule['dates'] = explode(',', $schedule['dates']);
+
+                $times[] = $schedule['time_start'].' - '.$schedule['time_end'];
+            }
+
+            $doctor[0]->hours = $hours;
+
+            $doctor[0]->times = $times;
 
             return response()->json(['success' => true, 'data' => $doctor], 200);
         }
@@ -144,6 +177,26 @@ class DoctorController extends Controller
 
             foreach ($request['dates'] as $key => $date) {
 
+                $schedule = Schedule::where('time_start', $date['time_start'])
+                            ->orWhere('time_end', $date['time_start'])
+                            ->orWhere('time_start', $date['time_end'])
+                            ->orWhere('time_end', $date['time_end'])
+                            ->first();
+
+                if ($schedule) {
+
+                    $turn = $key == 0 ? 'mañana' : 'tarde';
+
+                    return response()->json(['success' => false, 'data' => 'Horario '.$turn.' ocupado'], 422);
+                }
+
+                $count = $this->availability($date);
+
+                if ($count == 0) {
+
+                    return response()->json(['success' => false, 'data' => 'Error en el intervalo, verificar las horas'], 422);
+                }
+
                 Schedule::updateOrCreate(
                     ['doctor_id' => $doctor->id, 'id' => $date['id']],
                     [
@@ -153,7 +206,7 @@ class DoctorController extends Controller
                         'time_start' => $date['time_start'],
                         'time_end' => $date['time_end'],
                         'time' => $date['time'],
-                        'availability' => $this->availability($date),
+                        'availability' => $count,
                     ]
                 );
             }
@@ -180,9 +233,11 @@ class DoctorController extends Controller
 
     private function availability($date)
     {
-        $time = explode(':', $date['time']);
+        // $time = explode(':', $date['time']);
 
-        $time = ($time[0]*60) + ($time[1]) + ($time[2]/60).' minutes';
+        // $time = ($time[0]*60) + ($time[1]) + ($time[2]/60).' minutes';
+
+        $time = (string) $date['time'].' minutes';
 
         $interval =  \DateInterval::createFromDateString($time);
 

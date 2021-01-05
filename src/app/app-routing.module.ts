@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'home', component: HomeAdminComponent, canActivate: [AuthService] },
   { path: 'schedule', component: ScheduleComponent, canActivate: [AuthService] },
   { path: 'doctor-schedule', component: DoctorScheduleComponent, canActivate: [AuthService] },
+  { path: 'doctor-schedule/:id', component: DoctorScheduleComponent, canActivate: [AuthService] },
 ];
 
 @NgModule({

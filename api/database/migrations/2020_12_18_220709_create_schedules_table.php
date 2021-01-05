@@ -20,7 +20,7 @@ class CreateSchedulesTable extends Migration
             $table->longText('dates');
             $table->time('time_start');
             $table->time('time_end');
-            $table->time('time');
+            $table->string('time');
             $table->integer('availability');
             $table->timestamps();
             $table->softDeletes('deleted_at', 0);
