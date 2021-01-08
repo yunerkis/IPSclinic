@@ -83,30 +83,30 @@ class DoctorController extends Controller
 
         foreach ($request['dates'] as $key => $date) {
 
-            $schedules = [];
+            // $schedules = [];
 
-            $datesArray = explode(',', $date['dates']);
+            // $datesArray = explode(',', $date['dates']);
 
-            foreach ($datesArray as $key => $dateArray) {
+            // foreach ($datesArray as $key => $dateArray) {
 
-                $schedules[$dateArray] = Schedule::where('dates', 'LIKE', '%'.$dateArray.'%')
-                                ->where(function ($query) use ($date) {
-                                    $query->where('time_start', $date['time_start'])
-                                        ->orWhere('time_end', $date['time_start']);
-                                })->where(function ($query) use ($date) {
-                                    $query->where('time_start', $date['time_end'])
-                                        ->orWhere('time_end', $date['time_end']);
-                                })->first();
+            //     $schedules[$dateArray] = Schedule::where('dates', 'LIKE', '%'.$dateArray.'%')
+            //                     ->where(function ($query) use ($date) {
+            //                         $query->where('time_start', $date['time_start'])
+            //                             ->orWhere('time_end', $date['time_start']);
+            //                     })->where(function ($query) use ($date) {
+            //                         $query->where('time_start', $date['time_end'])
+            //                             ->orWhere('time_end', $date['time_end']);
+            //                     })->first();
 
-                if ($schedules[$dateArray]) {
+            //     if ($schedules[$dateArray]) {
 
-                    $turn = $key == 0 ? 'mañana' : 'tarde';
+            //         $turn = $key == 0 ? 'mañana' : 'tarde';
 
-                    $doctor->delete();
+            //         $doctor->delete();
 
-                    return response()->json(['success' => false, 'data' => 'Horario '.$turn.' ocupado con la fecha '.$dateArray], 422);
-                }
-            }
+            //         return response()->json(['success' => false, 'data' => 'Horario '.$turn.' ocupado con la fecha '.$dateArray], 422);
+            //     }
+            // }
 
             $count = $this->availability($date);
 
@@ -189,29 +189,29 @@ class DoctorController extends Controller
 
                 foreach ($request['dates'] as $key => $date) {
 
-                    $schedules = [];
+                    // $schedules = [];
 
-                    $datesArray = explode(',', $date['dates']);
+                    // $datesArray = explode(',', $date['dates']);
 
-                    foreach ($datesArray as $key => $dateArray) {
+                    // foreach ($datesArray as $key => $dateArray) {
 
-                        $schedules[$dateArray] = Schedule::where('dates', 'LIKE', '%'.$dateArray.'%')
-                                        ->where('doctor_id', '!=', $doctor->id)
-                                        ->where(function ($query) use ($date) {
-                                            $query->where('time_start', $date['time_start'])
-                                                ->orWhere('time_end', $date['time_start']);
-                                        })->where(function ($query) use ($date) {
-                                            $query->where('time_start', $date['time_end'])
-                                                ->orWhere('time_end', $date['time_end']);
-                                        })->first();
+                    //     $schedules[$dateArray] = Schedule::where('dates', 'LIKE', '%'.$dateArray.'%')
+                    //                     ->where('doctor_id', '!=', $doctor->id)
+                    //                     ->where(function ($query) use ($date) {
+                    //                         $query->where('time_start', $date['time_start'])
+                    //                             ->orWhere('time_end', $date['time_start']);
+                    //                     })->where(function ($query) use ($date) {
+                    //                         $query->where('time_start', $date['time_end'])
+                    //                             ->orWhere('time_end', $date['time_end']);
+                    //                     })->first();
 
-                        if ($schedules[$dateArray]) {
+                    //     if ($schedules[$dateArray]) {
 
-                            $turn = $key == 0 ? 'mañana' : 'tarde';
+                    //         $turn = $key == 0 ? 'mañana' : 'tarde';
 
-                            return response()->json(['success' => false, 'data' => 'Horario '.$turn.' ocupado con la fecha '.$dateArray], 422);
-                        }
-                    }
+                    //         return response()->json(['success' => false, 'data' => 'Horario '.$turn.' ocupado con la fecha '.$dateArray], 422);
+                    //     }
+                    // }
 
                     $count = $this->availability($date);
 
