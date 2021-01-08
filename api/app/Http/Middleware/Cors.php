@@ -18,6 +18,11 @@ class Cors
     {
         $handle = $next($request);
 
+        if ($handle->isMethod('OPTIONS')){
+            
+            $handle = Response::make();
+        } 
+
         if(method_exists($handle, 'header'))
         {   
             $handle->header('Access-Control-Allow-Origin', '*')

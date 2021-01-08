@@ -79,19 +79,31 @@ class DoctorController extends Controller
         	return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
         }
 
+        $doctor = Doctor::create($request->all());
+
         foreach ($request['dates'] as $key => $date) {
 
-            $schedule = Schedule::where('time_start', $date['time_start'])
-                            ->orWhere('time_end', $date['time_start'])
-                            ->orWhere('time_start', $date['time_end'])
-                            ->orWhere('time_end', $date['time_end'])
-                            ->first();
+            $schedules = [];
 
-            if ($schedule) {
+            $datesArray = explode(',', $date['dates']);
 
-                $turn = $key == 0 ? 'mañana' : 'tarde';
+            foreach ($datesArray as $key => $dateArray) {
 
-                return response()->json(['success' => false, 'data' => 'Horario '.$turn.' ocupado'], 422);
+                $schedules[$dateArray] = Schedule::where('dates', 'LIKE', '%'.$dateArray.'%')
+                                ->where(function ($query) use ($date) {
+                                    $query->where('time_start', $date['time_start'])
+                                        ->orWhere('time_end', $date['time_start']);
+                                })->where(function ($query) use ($date) {
+                                    $query->where('time_start', $date['time_end'])
+                                        ->orWhere('time_end', $date['time_end']);
+                                })->first();
+
+                if ($schedules[$dateArray]) {
+
+                    $turn = $key == 0 ? 'mañana' : 'tarde';
+
+                    return response()->json(['success' => false, 'data' => 'Horario '.$turn.' ocupado con la fecha '.$dateArray], 422);
+                }
             }
 
             $count = $this->availability($date);
@@ -100,8 +112,6 @@ class DoctorController extends Controller
 
                 return response()->json(['success' => false, 'data' => 'Error en el intervalo, verificar las horas'], 422);
             }
-
-            $doctor = Doctor::create($request->all());
 
             Schedule::create([
                 'doctor_id' => $doctor->id,
@@ -173,46 +183,54 @@ class DoctorController extends Controller
 
         if ($doctor) {
 
-            $doctor->update($request->all());
+                $doctor->update($request->all());
 
-            foreach ($request['dates'] as $key => $date) {
+                foreach ($request['dates'] as $key => $date) {
 
-                $schedule = Schedule::where('doctor_id', '!=', $doctor->id)
-                            ->where(function ($query) use ($date) {
-                                $query->where('time_start', $date['time_start'])
-                                      ->orWhere('time_end', $date['time_start']);
-                            })->where(function ($query) use ($date) {
-                                $query->where('time_start', $date['time_end'])
-                                      ->orWhere('time_end', $date['time_end']);
-                            })->first();
+                    $schedules = [];
 
-                if ($schedule) {
+                    $datesArray = explode(',', $date['dates']);
 
-                    $turn = $key == 0 ? 'mañana' : 'tarde';
+                    foreach ($datesArray as $key => $dateArray) {
 
-                    return response()->json(['success' => false, 'data' => 'Horario '.$turn.' ocupado'], 422);
+                        $schedules[$dateArray] = Schedule::where('dates', 'LIKE', '%'.$dateArray.'%')
+                                        ->where('doctor_id', '!=', $doctor->id)
+                                        ->where(function ($query) use ($date) {
+                                            $query->where('time_start', $date['time_start'])
+                                                ->orWhere('time_end', $date['time_start']);
+                                        })->where(function ($query) use ($date) {
+                                            $query->where('time_start', $date['time_end'])
+                                                ->orWhere('time_end', $date['time_end']);
+                                        })->first();
+
+                        if ($schedules[$dateArray]) {
+
+                            $turn = $key == 0 ? 'mañana' : 'tarde';
+
+                            return response()->json(['success' => false, 'data' => 'Horario '.$turn.' ocupado con la fecha '.$dateArray], 422);
+                        }
+                    }
+
+                    $count = $this->availability($date);
+
+                    if ($count == 0) {
+
+                        return response()->json(['success' => false, 'data' => 'Error en el intervalo, verificar las horas'], 422);
+                    }
+
+                    Schedule::updateOrCreate(
+                        ['doctor_id' => $doctor->id, 'id' => $date['id']],
+                        [
+                            'doctor_id' => $doctor->id,
+                            'dayWeeks' => $date['dayWeeks'],
+                            'dates' => $date['dates'],
+                            'time_start' => $date['time_start'],
+                            'time_end' => $date['time_end'],
+                            'time' => $date['time'],
+                            'availability' => $count,
+                        ]
+                    );
                 }
-
-                $count = $this->availability($date);
-
-                if ($count == 0) {
-
-                    return response()->json(['success' => false, 'data' => 'Error en el intervalo, verificar las horas'], 422);
-                }
-
-                Schedule::updateOrCreate(
-                    ['doctor_id' => $doctor->id, 'id' => $date['id']],
-                    [
-                        'doctor_id' => $doctor->id,
-                        'dayWeeks' => $date['dayWeeks'],
-                        'dates' => $date['dates'],
-                        'time_start' => $date['time_start'],
-                        'time_end' => $date['time_end'],
-                        'time' => $date['time'],
-                        'availability' => $count,
-                    ]
-                );
-            }
 
             return response()->json(['success' => true, 'data' => 'doctor update'], 200);
         }

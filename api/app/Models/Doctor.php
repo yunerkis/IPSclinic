@@ -10,6 +10,8 @@ class Doctor extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $softCascade = ['schedules'];
+
     protected $table = 'doctors';
 
     protected $fillable = [
