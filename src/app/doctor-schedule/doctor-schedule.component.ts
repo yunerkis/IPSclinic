@@ -118,7 +118,7 @@ export class DoctorScheduleComponent implements OnInit {
         "time_start": this.doctorForm.value.first_time_start,
         "time_end": this.doctorForm.value.first_time_end,
         "time": this.doctorForm.value.first_interval,
-        "id": this.doctor.schedules[0] ? this.doctor.schedules[0].id : null
+        "id": this.doctor ? this.doctor.schedules[0].id : null
       });
     }
 
@@ -129,7 +129,7 @@ export class DoctorScheduleComponent implements OnInit {
         "time_start": this.doctorForm.value.second_time_start,
         "time_end": this.doctorForm.value.second_time_end,
         "time": this.doctorForm.value.second_interval,
-        "id": this.doctor.schedules[1] ? this.doctor.schedules[1].id : null
+      "id": this.doctor ? this.doctor.schedules[1].id : null
       });
     }
 
