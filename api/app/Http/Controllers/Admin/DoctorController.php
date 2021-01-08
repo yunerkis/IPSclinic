@@ -102,6 +102,8 @@ class DoctorController extends Controller
 
                     $turn = $key == 0 ? 'mañana' : 'tarde';
 
+                    $doctor->delete();
+
                     return response()->json(['success' => false, 'data' => 'Horario '.$turn.' ocupado con la fecha '.$dateArray], 422);
                 }
             }
