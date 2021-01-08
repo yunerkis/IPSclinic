@@ -18,10 +18,10 @@ class Cors
     {
         $handle = $next($request);
 
-        if ($handle->isMethod('OPTIONS')){
-            
-            $handle = Response::make();
-        } 
+        // if ($handle->isMethod('OPTIONS')){
+
+        //     $handle = Response::make();
+        // } 
 
         if(method_exists($handle, 'header'))
         {   
