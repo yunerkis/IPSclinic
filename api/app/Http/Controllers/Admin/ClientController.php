@@ -53,17 +53,7 @@ class ClientController extends Controller
 
         $client = Client::where('dni', $request['dni'])->first();
 
-        $doctor = Doctor::where('id', $request['doctor_id'])
-                        ->with(['schedules' => function($schedules) use ($request) {
-                            $schedules->where('dates', 'LIKE', '%'.$request['date'].'%')
-                            ->where('time_start', '<=', $request['time'])
-                            ->where('time_end', '>=', $request['time']);
-                        }])
-                        ->whereHas('schedules', function($schedules) use ($request) {
-                            $schedules->where('dates', 'LIKE', '%'.$request['date'].'%')
-                            ->where('time_start', '<=', $request['time'])
-                            ->where('time_end', '>=', $request['time']);
-        })->first();
+        $doctor = Doctor::where('id', $request['doctor_id'])->first();
         
         if ($client && $doctor) {
 
