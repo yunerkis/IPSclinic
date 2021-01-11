@@ -54,6 +54,18 @@ class ClientController extends Controller
         $client = Client::where('dni', $request['dni'])->first();
 
         $doctor = Doctor::where('id', $request['doctor_id'])->first();
+
+        $clienteSession = [
+            ['client_id', '=', $client->id],
+            ['date', '=', $request['date']],
+        ];
+
+        $session = Session::where($clienteSession)->first();
+        
+        if ($session) {
+
+            $session->delete();
+        }
         
         if ($client && $doctor) {
 
