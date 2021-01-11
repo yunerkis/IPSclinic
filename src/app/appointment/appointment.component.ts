@@ -34,12 +34,23 @@ export class AppointmentComponent implements OnInit {
   ) { }
 
   openDialog() {
+    this.dialog.closeAll();
     const dialogRef = this.dialog.open(ModalComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
   }
+
+  filterDates = (event: any) => {
+    const date = event.getDay();
+    if (date == 0) {
+
+      return false;
+    }
+
+    return true;
+  };
 
   ngOnInit(): void {
     this.onSelect(this.minDate);
