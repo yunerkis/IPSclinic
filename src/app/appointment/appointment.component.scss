@@ -11,7 +11,7 @@
         margin: 0 auto;
     }
     &__img {
-        margin-bottom: 5rem;
+        margin-bottom: 2rem;
         width: 22rem;
     }
     &__container {
@@ -63,5 +63,12 @@
         font-family: Roboto, "Helvetica Neue", sans-serif;
         font-size: 17px;
         font-weight: 300;
+    }
+    &__done-appointment {
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        font-size: 25px;
+        font-weight: 500;
+        color: #0e4db8;
+        text-align: center;
     }
 }
