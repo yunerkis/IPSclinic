@@ -167,7 +167,7 @@ class ClientController extends Controller
                 ['date', '>=', Carbon::today()->format('Y-m-d')],
             ];
 
-            $session = Session::where($attrSession)->orderBy('id', 'DESC')->first();
+            $session = Session::where($attrSession)->with(['doctor'])->orderBy('id', 'DESC')->first();
            
             if ($session) {
 

@@ -29,6 +29,7 @@
         <section>
           <header>
             <div class="col list__item">Fecha</div>
+            <div class="col list__item">Doctor</div>
             <div class="col list__item">Horario</div>
             <div class="col list__item">Cédula</div>
             <div class="col list__item">Nombres y apellidos</div>
@@ -36,6 +37,7 @@
           </header>
           <div class="row" *ngFor="let session of sessionsList">
             <div class="col">{{ session.date }}</div>
+            <div class="col">{{ session.doctor.first_names }} {{ session.doctor.last_names }}</div>
             <div class="col">{{ session.time_start }}</div>
             <div class="col">{{session.client.dni}}</div>
             <div class="col">
