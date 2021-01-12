@@ -20,6 +20,7 @@ export class AppointmentComponent implements OnInit {
   selectedDate: any;
   schedules: any = [];
   msglog: any;
+  doctor: any;
 
   minDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate());
   maxDate = new Date(this.nextDate.getFullYear(), this.nextDate.getMonth(), this.nextDate.getDate());
@@ -60,6 +61,7 @@ export class AppointmentComponent implements OnInit {
       if (Object.keys(this.client).length  != 0) {
         this.dateStart = res['session'].date;
         this.timeStart = res['session'].time_start;
+        this.doctor = res['session'].doctor.first_names+ ' '+ res['session'].doctor.last_names;
       } 
     });
 
