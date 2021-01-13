@@ -71,4 +71,12 @@
         color: #0e4db8;
         text-align: center;
     }
+    &__date {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+    &__date-time {
+        padding: 5px 0;
+    }
 }

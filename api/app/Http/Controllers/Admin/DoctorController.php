@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Doctor;
 use App\Models\Schedule;
 use Validator;
+use Carbon\Carbon;
+use App\Models\Session;
 
 class DoctorController extends Controller
 {
@@ -21,13 +23,40 @@ class DoctorController extends Controller
 
     public function index(Request $request)
     {
-        $doctors = Doctor::with(['category', 'schedules' => function($schedules) use ($request) {
-            $schedules->where('dates', 'LIKE', '%'.$request['date'].'%')
-            ->where('time_end', '>=', $request['time']);
-        }])->whereHas('schedules', function($schedules) use ($request) {
-            $schedules->where('dates', 'LIKE', '%'.$request['date'].'%')
-            ->where('time_end', '>=', $request['time']);
-        })->get()->map(function ($doctor) {
+        date_default_timezone_set('America/Bogota');
+
+        $day = Carbon::today()->format('Y-m-d');
+
+        if ($request['date'] > $day) {
+
+            $doctors = Doctor::with(['category', 'schedules'])->whereHas('schedules', function($schedules) use ($request) {
+                $schedules->where('dates', 'LIKE', '%'.$request['date'].'%');
+            })->get();
+        } else {
+
+            $doctors = Doctor::with(['category', 'schedules' => function($schedules) use ($request) {
+                $schedules->where('dates', 'LIKE', '%'.$request['date'].'%')
+                ->where('time_end', '>=', $request['time']);
+            }])->whereHas('schedules', function($schedules) use ($request) {
+                $schedules->where('dates', 'LIKE', '%'.$request['date'].'%')
+                ->where('time_end', '>=', $request['time']);
+            })->get();
+        }
+
+        $doctors = $doctors->map(function ($doctor) use ($request) {
+
+            $arraySessions = [];
+
+            $sessions = Session::where('date', 'LIKE', '%'.$request['date'].'%')
+                                ->where('doctor_id', $doctor['id'])
+                                ->select('time')
+                                ->get()
+                                ->toArray(); 
+                                
+            foreach ($sessions as $key => $session) {
+
+                $arraySessions[] = $session['time']; 
+            }
 
             $hours = [];
 
@@ -38,6 +67,8 @@ class DoctorController extends Controller
                 $hours[] = date('h:i a', strtotime($schedule['time_start'])).' - '.date('h:i a', strtotime($schedule['time_end']));
 
                 $times[] = $schedule['time_start'].' - '.$schedule['time_end'];
+
+                $schedule['intervals'] = $this->availability($schedule, true, $arraySessions);
             }
 
             $doctor->hours = $hours;
@@ -254,11 +285,13 @@ class DoctorController extends Controller
         return response()->json(['success' => false, 'data' => 'not found'], 404);
     }
 
-    private function availability($date)
+    private function availability($date, $scheduleIntervals = false, $arraySessions = null)
     {
         // $time = explode(':', $date['time']);
 
         // $time = ($time[0]*60) + ($time[1]) + ($time[2]/60).' minutes';
+
+        $allSchedules = [];
 
         $time = (string) $date['time'].' minutes';
 
@@ -270,13 +303,41 @@ class DoctorController extends Controller
 
         $count = 0;
 
+        if (isset($arraySessions)) {
+
+            if (!in_array($time1->format('H:i:s'), $arraySessions)) {
+
+                $allSchedules[] = [
+                    $time1->format('H:i:s'),
+                    $time1->format('h:i a')
+                ];
+            }   
+        }
+
         while ($time1 < $time2) {
-        
+
             $time1->add($interval);
 
+            if (isset($arraySessions)) {
+
+                if (!in_array($time1->format('H:i:s'), $arraySessions)) {
+
+                    $allSchedules[] = [
+                        $time1->format('H:i:s'),
+                        $time1->format('h:i a')
+                    ];
+                }   
+            }
+            
             $count +=1;
         }
 
-        return $count;
+        if ($scheduleIntervals) {
+
+            return $allSchedules;
+        } else {
+
+            return $count;
+        }
     }
 }
