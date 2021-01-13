@@ -56,6 +56,8 @@ export class AppointmentComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    this.validationsDayRange(this.minDate, this.maxDate);
+
     this.onSelect(this.minDate);
 
     this.clientService.client.subscribe( res => {
@@ -69,6 +71,29 @@ export class AppointmentComponent implements OnInit {
 
     if (Object.keys(this.client).length  == 0) {
       this.router.navigate(['']);
+    }
+  }
+
+  validationsDayRange(date1, date2) {
+    let current = date1;
+
+    let newDay = date2;
+
+    this.minDate = new Date(current.getFullYear(), current.getMonth(), current.getDate());
+
+    while(date1 <= date2) {
+
+      if (date1.getDay() == 0) {
+
+        newDay = new Date(newDay.setDate(newDay.getDate() + 1));
+
+        this.maxDate = new Date(newDay.getFullYear(), newDay.getMonth(), newDay.getDate());
+
+        date1 = new Date(date1.setDate(date1.getDate() + 1));
+      } else {
+
+        date1 = new Date(date1.setDate(date1.getDate() + 1));
+      } 
     }
   }
 
