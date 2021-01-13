@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  url: 'https://api.saludantioquia.com',
-  // url: 'http://localhost:8000',
+  //url: 'https://api.saludantioquia.com',
+  url: 'http://localhost:8000',
 };
 
 /*

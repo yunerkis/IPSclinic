@@ -14,8 +14,8 @@
                 <label class="appointment__time" *ngFor="let hours of schedule.hours; let i = index;">
                   {{ hours }}
                   <button  mat-raised-button color="primary" (click)="toggleSchedule(i, schedule.id)">Ver horario</button>
-                  <div *ngIf="isSchedules == i && isDoctor == schedule.id">
-                    <div *ngFor="let interval of schedule.schedules[i].intervals">
+                  <div *ngIf="isSchedules == i && isDoctor == schedule.id" class="appointment__date">
+                    <div *ngFor="let interval of schedule.schedules[i].intervals" class="appointment__date-time">
                       {{interval[1] }} <button  mat-raised-button color="primary" (click)="session(interval[0], schedule, hours)">Agendar</button>
                     </div>
                   </div>
@@ -30,7 +30,7 @@
       </div>      
     </div>
     <div *ngIf="client['session'] != null" class="appointment__done-appointment">
-      Ya tienes una cita apartada, con el Dr/a {{ doctor }} el dia {{ dateStart }}, horario: {{ timeStart }}
+      Ya tienes una cita apartada, con Dr/a {{ doctor }} el dia {{ dateStart }}, horario: {{ timeStart }}
     </div>
   </div>
 </div>
