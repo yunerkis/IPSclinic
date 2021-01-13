@@ -21,6 +21,8 @@ export class AppointmentComponent implements OnInit {
   schedules: any = [];
   msglog: any;
   doctor: any;
+  isSchedules = 'x';
+  isDoctor = '';
 
   minDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate());
   maxDate = new Date(this.nextDate.getFullYear(), this.nextDate.getMonth(), this.nextDate.getDate());
@@ -72,10 +74,24 @@ export class AppointmentComponent implements OnInit {
 
   onSelect(event) {
     this.selectedDate = event;
+    this.toggleSchedule('x' , 'x');
     this.date = new Date(event).getFullYear()+'-'+("0" + (new Date(event).getMonth()+1)).slice(-2)+'-'+("0" + (new Date(event).getDate())).slice(-2);
     this.clientService.getSessionsSchedule(this.date, this.time).subscribe(res => {
       this.schedules = res['data'];
     })
+  }
+
+  toggleSchedule(schedule , doctor) {
+    
+    if (this.isSchedules == schedule && this.isDoctor == doctor) {
+
+      this.doctor = 'x';
+      this.isSchedules = 'x';
+    } else {
+
+      this.isDoctor = doctor;
+      this.isSchedules = schedule;
+    }
   }
 
   session(schedule, doctorObj, hours) {

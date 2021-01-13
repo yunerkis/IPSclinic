@@ -168,18 +168,10 @@ class ClientController extends Controller
             ];
 
             $session = Session::where($attrSession)->with(['doctor'])->orderBy('id', 'DESC')->first();
-           
+            
             if ($session) {
 
-                $hours = explode('-', $session->time);
-                
-                if (date('H:i', strtotime($hours[1])) >= date('H:i', strtotime($request['time']))) {
-
-                    $session->time_start = date('h:i a', strtotime($hours[0])).' - '.date('h:i a', strtotime($hours[1]));
-                } else {
-                    
-                    $session = NULL;
-                }
+                $session->time_start = date('h:i a', strtotime($session->time));
             } 
         }
 
