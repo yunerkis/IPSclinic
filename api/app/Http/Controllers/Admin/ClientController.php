@@ -126,15 +126,13 @@ class ClientController extends Controller
             ->map(function ($session) use ($day, $time){
 
                 $status = true;
-
-                $hours = explode('-', $session->time);
                 
-                $session->time_start = date('h:i a', strtotime($hours[0])).' - '.date('h:i a', strtotime($hours[1]));
+                $session->time_start = date('h:i a', strtotime($session->time));
 
                 if ($session->date < $day) {
                    
                     $status = false;
-                } elseif ($session->date == $day && date('H:i:s', strtotime($hours[1])) <= $time) {
+                } elseif ($session->date == $day && date('H:i:s', strtotime($session->time)) <= $time) {
                     
                     $status = false;
                 }
