@@ -1,7 +1,7 @@
 <div class="appointment ">
   <div class="appointment__box">
     <img src="./../../assets/icon/ips.jpeg" class="appointment__img" alt="">
-    <div *ngIf="client['session'] == null" class="appointment__container">
+    <div *ngIf="client['session'] == null || client['dni'] == rut" class="appointment__container">
       <mat-calendar [selected]="selectedDate" (selectedChange)="onSelect($event)" [dateFilter]="filterDates" class="appointment__calendar" [minDate]="minDate" [maxDate]="maxDate"></mat-calendar>
       <div class="appointment__table">
         <div>
@@ -29,7 +29,7 @@
         </div>
       </div>      
     </div>
-    <div *ngIf="client['session'] != null" class="appointment__done-appointment">
+    <div *ngIf="client['session'] != null && client['dni'] != rut" class="appointment__done-appointment">
       Ya tienes una cita apartada, con Dr/a {{ doctor }} el dia {{ dateStart }}, horario: {{ timeStart }}
     </div>
   </div>

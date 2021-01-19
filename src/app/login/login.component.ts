@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   msg = '';
   today = new Date();
   time = this.today.getHours() + ":" + this.today.getMinutes() + ":" + this.today.getSeconds();
+  close = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -20,6 +21,11 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    
+    if (this.time <= '07:00:00' || this.time >= '17:00:00') {
+      this.close = true
+    }
+    
     this.dniForm = this.formBuilder.group({
       dni: ['', Validators.required],
     });
