@@ -44,7 +44,7 @@
               {{session.client.first_names}} {{session.client.last_names_1}} {{session.client.last_names_2}}
             </div>
             <div class="col">
-              <button mat-mini-fab color="warn" *ngIf="session.status" (click)="cancel(session.id)"><mat-icon>delete</mat-icon></button>
+              <button mat-mini-fab color="warn" (click)="cancel(session.id)"><mat-icon>delete</mat-icon></button>
             </div>
           </div>
           <div class="row" *ngIf="sessionsList == ''">

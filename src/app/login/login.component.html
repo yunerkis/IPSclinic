@@ -1,5 +1,5 @@
 <div class="login">
-  <div class="login__box">
+  <div class="login__box" *ngIf="!close">
     <img src="./../../assets/icon/ips.jpeg" class="login__img" alt="">
     <form class="login__form" [formGroup]="dniForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="login__input">
@@ -10,6 +10,12 @@
     </form>
     <div class="error-label" *ngIf="msg != ''">
       {{ msg }}
+    </div>
+  </div>
+  <div class="login__box" *ngIf="close">
+    <img src="./../../assets/icon/ips.jpeg" class="login__img" alt="">
+    <div class="login__done-appointment">
+      El horario de apertura es de 7:00am a 5:00pm
     </div>
   </div>
 </div>

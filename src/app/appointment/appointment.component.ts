@@ -23,6 +23,7 @@ export class AppointmentComponent implements OnInit {
   doctor: any;
   isSchedules = 'x';
   isDoctor = '';
+  rut = '900219765-2'
 
   minDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate());
   maxDate = new Date(this.nextDate.getFullYear(), this.nextDate.getMonth(), this.nextDate.getDate());
