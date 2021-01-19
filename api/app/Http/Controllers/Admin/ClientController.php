@@ -51,7 +51,7 @@ class ClientController extends Controller
         	return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
         }
 
-        $client = Client::where('dni', $request['dni'])->first();
+        $client = Client::where('dni', $request['dni'])->where('dni', '!=', '900219765-2')->first();
 
         $doctor = Doctor::where('id', $request['doctor_id'])->first();
 
