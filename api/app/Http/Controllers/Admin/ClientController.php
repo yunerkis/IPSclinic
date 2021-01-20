@@ -12,6 +12,7 @@ use Validator;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ClientsImport;
+use App\Exports\SessionsExport;
 
 class ClientController extends Controller
 {
@@ -199,5 +200,10 @@ class ClientController extends Controller
             
             return response()->json(['success' => false, 'data' => 'error to import data'], 422);
         }   
+    }
+
+    public function sessionExport()
+    {
+        return \Excel::download(new SessionsExport, 'clients.xlsx');
     }
 }

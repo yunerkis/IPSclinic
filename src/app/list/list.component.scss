@@ -9,6 +9,7 @@
         padding: 3rem 1rem;
         border-radius: 1rem;
         margin: 0 auto;
+        position: relative;
     }
     &__img {
         width: 20rem;
@@ -28,6 +29,16 @@
         font-family: Roboto, "Helvetica Neue", sans-serif;
         font-size: 18px;
         font-weight: 500;
+    }
+
+    .export {
+        width: 100px;
+        height: 45px;
+        font-size: 12px;
+        position: absolute;
+        padding: 0 !important;
+        right: 35px;
+        top: 25px;
     }
 }
 header, .row {

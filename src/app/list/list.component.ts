@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientService } from '../services/client.service';
 
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -9,6 +10,7 @@ import { ClientService } from '../services/client.service';
 export class ListComponent implements OnInit {
 
   sessionsList: any = '';
+  url = this.clientService.url;
 
   constructor(
     private clientService: ClientService,
@@ -23,6 +25,8 @@ export class ListComponent implements OnInit {
   logout() {
     this.clientService.logout();
   }
+
+  
 
   cancel(id) {
 

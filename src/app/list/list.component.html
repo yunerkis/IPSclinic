@@ -23,7 +23,13 @@
 
 <div class="list ">
   <div class="list__box">
-  <div class="list__item" style="margin-bottom: 2rem;">Citas asignadas</div>
+    <div class="list__item" style="margin-bottom: 2rem;">
+      Citas asignadas
+      <a href="{{url}}/api/v1/sessions/exports" download>
+        <button mat-stroked-button color="primary" class="btn-upload export">Descargar</button>
+      </a>
+      
+    </div>
     <div class="list__container">
       <div class="list__table">
         <section>

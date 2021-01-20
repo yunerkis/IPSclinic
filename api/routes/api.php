@@ -31,6 +31,8 @@ Route::prefix('v1')->group(function () {
 
         Route::put('/reset-password', [PasswordController::class, 'rest'])->name('reset.password.rest');
 
+        Route::get('/sessions/exports', [ClientController::class, 'sessionExport'])->name('export');
+
     // Informations
 
         Route::get('/clients/session/{dni}', [ClientController::class, 'sessionsActive'])->name('client.session.active');
