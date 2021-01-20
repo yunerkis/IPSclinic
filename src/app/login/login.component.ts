@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     
-    if (this.time <= '07:00:00' || this.time >= '17:00:00') {
+    if (this.today.getHours() < 7 || this.today.getHours() > 17) {
       this.close = true
     }
     
