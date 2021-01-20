@@ -176,7 +176,7 @@ export class ClientService {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + token,
       'Access-Control-Allow-Origin': '*'
-    })
+    });
 
     return this.http.get(`${this.url}/api/v1/doctors/${id}`, {headers: headers});
   }
@@ -188,9 +188,8 @@ export class ClientService {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + token,
       'Access-Control-Allow-Origin': '*'
-    })
+    });
 
     return this.http.delete(`${this.url}/api/v1/doctors/${id}`, {headers: headers});
   }
-  
 }
