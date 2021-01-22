@@ -81,17 +81,10 @@ class ClientController extends Controller
             if ($session < $doctor['schedules'][0]->availability) {
                 
                 $request['client_id'] = $client->id;
-               
-                $dateNow = Carbon::today()->addDays(2)->format('Y-m-d');
                 
-                if ($dateNow >= $request['date']) {
-                    
-                    Session::create($request->all());
+                Session::create($request->all());
 
-                    return response()->json(['success' => true, 'data' => 'Session create'], 201);
-                }
-
-                return response()->json(['success' => false, 'data' => 'Session day not correct'], 422);
+                return response()->json(['success' => true, 'data' => 'Session create'], 201);           
             }
 
             return response()->json(['success' => false, 'data' => 'Not availability'], 422);
