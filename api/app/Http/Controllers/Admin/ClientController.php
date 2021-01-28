@@ -87,7 +87,7 @@ class ClientController extends Controller
 
                 $session = Session::where($attrSession)->first();
 
-                if (!$client) {
+                if (!$session) {
 
                     $request['client_id'] = $client->id;
                 
