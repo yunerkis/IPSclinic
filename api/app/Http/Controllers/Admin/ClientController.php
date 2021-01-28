@@ -73,18 +73,30 @@ class ClientController extends Controller
             $attrSession = [
                 ['date', '=', $request['date']],
                 ['doctor_id', '=', $request['doctor_id']],
-                ['time', 'LIKE', '%'.$request['time'].'%'],
             ];
 
             $session = Session::where($attrSession)->count();
             
             if ($session < $doctor['schedules'][0]->availability) {
-                
-                $request['client_id'] = $client->id;
-                
-                Session::create($request->all());
 
-                return response()->json(['success' => true, 'data' => 'Session create'], 201);           
+                $attrSession = [
+                    ['date', '=', $request['date']],
+                    ['doctor_id', '=', $request['doctor_id']],
+                    ['time', 'LIKE', '%'.$request['time'].'%'],
+                ];
+
+                $session = Session::where($attrSession)->first();
+
+                if (!$client) {
+
+                    $request['client_id'] = $client->id;
+                
+                    Session::create($request->all());
+
+                    return response()->json(['success' => true, 'data' => 'Session create'], 201);
+                }
+                
+                return response()->json(['success' => false, 'data' => 'Session has created'], 422);          
             }
 
             return response()->json(['success' => false, 'data' => 'Not availability'], 422);
