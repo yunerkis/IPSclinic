@@ -76,8 +76,20 @@ class ClientController extends Controller
             ];
 
             $session = Session::where($attrSession)->count();
-            
-            if ($session < $doctor['schedules'][0]->availability) {
+
+            $sessionCount = 0;
+
+            foreach ($doctor['schedules'] as $key => $schedule) {
+
+                $scheduleDates = explode(',', $schedule['dates']);
+
+                if (in_array($request['date'], $scheduleDates)) {
+
+                    $sessionCount += $schedule->availability;
+                } 
+            }
+
+            if ($session < $sessionCount) {
 
                 $attrSession = [
                     ['date', '=', $request['date']],
