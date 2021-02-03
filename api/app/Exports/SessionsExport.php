@@ -21,9 +21,17 @@ class SessionsExport implements FromCollection, WithHeadings
 
         foreach ($collections as $key => $collection) {
 
+            if (isset($collection->doctor->first_names)) {
+
+                $doctor = $collection->doctor->first_names.' '.$collection->doctor->last_names;
+            } else {
+
+                $doctor = '';
+            }
+
             $sessions[] = [
                 'Fecha' => $collection->date, 
-                'Doctor' => $collection->doctor->first_names.' '.$collection->doctor->last_names, 
+                'Doctor' => $doctor, 
                 'Horario' => date('h:i a', strtotime($collection->time)), 
                 'Cédula' => $collection->client->dni, 
                 'Nombres y apellidos' => $collection->client->first_names.' '.$collection->client->last_names_1.' '.$collection->client->last_names_2
