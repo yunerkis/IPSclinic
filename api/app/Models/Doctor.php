@@ -10,7 +10,7 @@ class Doctor extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $softCascade = ['schedules'];
+    protected $softCascade = ['schedules', 'sessions'];
 
     protected $table = 'doctors';
 
@@ -28,5 +28,10 @@ class Doctor extends Model
     public function schedules()
     {
         return $this->hasMany(Schedule::class);
+    }
+
+    public function sessions()
+    {
+        return $this->hasMany(Session::class);
     }
 }
