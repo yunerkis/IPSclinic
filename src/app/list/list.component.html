@@ -43,7 +43,7 @@
           </header>
           <div class="row" *ngFor="let session of sessionsList">
             <div class="col">{{ session.date }}</div>
-            <div class="col">{{ session.doctor.first_names }} {{ session.doctor.last_names }}</div>
+            <div class="col"><div *ngIf="session.doctor != null">{{ session.doctor.first_names }} {{ session.doctor.last_names }}</div></div>
             <div class="col">{{ session.time_start }}</div>
             <div class="col">{{session.client.dni}}</div>
             <div class="col">
