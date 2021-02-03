@@ -11,8 +11,6 @@ class Client extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $softCascade = ['sessions'];
-
     protected $table = 'clients';
 
     protected $fillable = [
