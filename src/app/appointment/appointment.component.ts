@@ -3,6 +3,7 @@ import { ClientService } from '../services/client.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../modal/modal.component';
+declare var require: any;
 
 @Component({
   selector: 'app-appointment',
@@ -10,6 +11,10 @@ import { ModalComponent } from '../modal/modal.component';
   styleUrls: ['./appointment.component.scss']
 })
 export class AppointmentComponent implements OnInit {
+
+  Holidays = require('date-holidays');
+  hd = new this.Holidays('CO');
+ 
 
   client: any = [];
   date: any;
@@ -48,7 +53,8 @@ export class AppointmentComponent implements OnInit {
 
   filterDates = (event: any) => {
     const date = event.getDay();
-    if (date == 0) {
+    const holiday = this.hd.isHoliday(new Date(event));
+    if (date == 0 || holiday != false) {
 
       return false;
     }
@@ -84,7 +90,9 @@ export class AppointmentComponent implements OnInit {
 
     while(date1 <= date2) {
 
-      if (date1.getDay() == 0) {
+      let holiday = this.hd.isHoliday(new Date(date1));
+
+      if (date1.getDay() == 0 || holiday != false) {
 
         newDay = new Date(newDay.setDate(newDay.getDate() + 1));
 
