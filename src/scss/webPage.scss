@@ -1,0 +1,972 @@
+
+body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0; 
+  }
+  
+  * {
+    box-sizing: border-box; 
+  }
+  
+  ::placeholder {
+    color: var(--color-secondaryLight);
+    font-style: italic;
+  }
+  
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+  
+  .link_facebook {
+    text-decoration: none;
+    color: var(--color-white);
+    margin-left: 5px;
+  }
+
+
+  //containers
+
+  /* Container One */
+.container-one {
+    margin: 2rem 0;
+    text-align: center;
+  }
+  
+  .container-one__enroll {
+    font-size: 1.3rem;
+    font-family: 'Spartan MB', sans-serif;
+    line-height: 1.5rem;
+    color: var(--color-primaryDark);
+    width: 52%;
+    margin: 0 auto;
+    font-weight: bold;
+  }
+  .container-one__title {
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.5rem;
+    font-family: 'Spartan MB', sans-serif;
+    color: var(--color-primaryDark);
+  }
+  
+  .container-one__subtitle {
+    margin: 1rem;
+    font-family: 'Spartan MB', sans-serif;
+    line-height: 1.5rem;
+    color: var(--color-primaryDark);
+  }
+  
+  .container-one__box {
+    margin: 2rem 0;
+    background-color: #d0e3ff;
+    padding: 5rem 7rem;
+  }
+  
+  /* Container Two */
+  
+  .container-two {
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+  }
+  .container-two__number {
+    font-size: 3rem;
+    border-radius: 5rem;
+    border: 2px solid var(--color-primary);
+    width: 3.5rem;
+    text-align: center;
+  }
+  
+  .container-two__box {
+    text-align: left;
+  }
+  .container-two__title {
+    color: var(--color-primaryDark);
+    font-weight: bold;
+    font-size: 30px;
+    font-family: 'Spartan MB', sans-serif;
+  }
+  
+  .container-two__img {
+    font-size: 5rem;
+    color: var(--color-primaryDark);
+  }
+  
+  .container-two__imag {
+    width: 8rem;
+  }
+  
+  .container-two__image--box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container-two__paragraph {
+    font-family: 'Spartan MB', sans-serif;
+    line-height: 1.5rem;
+    font-size: 15px;
+    color: var(--color-primaryDark);
+  }
+  
+  .container-two__content {
+    background-color: #d0e3ff;
+    padding: 3rem;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .container-two__blue {
+    background-color: var(--color-primaryDark);
+    padding: 2rem;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: .3rem;
+  }
+  
+  .container-two__blue--code {
+    font-weight: bold;
+    font-family: 'Spartan MB', sans-serif;
+    color: var(--color-white);
+    text-align: left;
+    font-size: 1.3rem;
+  }
+  
+  .container-two__blue-code {
+    font-weight: bold;
+    font-family: 'Spartan MB', sans-serif;
+    color: var(--color-white);
+    text-align: center;
+    font-size: 1.3rem;
+  }
+  
+  .container-two__blue--zip--code {
+    font-weight: bold;
+    font-family: 'Spartan MB', sans-serif;
+    margin-top: 1rem;
+    color: var(--color-white);
+    text-align: left;
+  }
+  .container-two-blue {
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .container-two__blue--button {
+    background-color: f97500;
+    cursor: pointer;
+    text-decoration: none;
+    width: 100%;
+    border-radius: .3rem;
+    color: var(--color-white);
+    font-family: 'Spartan MB', sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    border-style: none;
+    margin-left: .5rem;
+    padding: 1rem;
+  }
+  
+  .container-two__text {
+    color: var(--color-primaryDark);
+    margin: 1rem 0;
+    font-weight: bold;
+    font-size: 1.3rem;
+    font-family: 'Spartan MB', sans-serif;
+  }
+  
+  .container-one__title-two {
+    text-align: center;
+    font-size: 2rem;
+    font-family: 'Spartan MB', sans-serif;
+    color: var(--color-primaryDark);
+    font-weight: bold;
+  }
+  
+  .container-parts {
+    background-color: var(--color-secondaryLight);
+    padding: 10px 0;
+  }
+  
+  .container-parts-white {
+    padding: 2rem 0;
+  }
+  .container-white {
+    background-color: var(--color-white);
+  }
+  
+  
+  .container-two--top {
+    height: auto;
+    max-width: 100%;
+    border-radius: 10px;
+  }
+  
+  .container-two__img--box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container-two__white {
+    padding: 2rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--color-primaryDark);
+  }
+  
+  .container-two__white--code {
+    font-weight: bold;
+    font-family: 'Spartan MB', sans-serif;
+    font-size: 1.5rem;
+  }
+  
+  .container-two__white--zip--code {
+    font-weight: bold;
+    font-family: 'Spartan MB', sans-serif;
+    margin-top: 1rem;
+    color: var(--color-primaryDark);
+    text-align: left;
+  }
+
+  // Hero 
+
+/* Hero Section*/
+.hero {
+  position: relative;
+  color: var(--color-white);
+}
+
+.hero__hidden {
+  overflow: hidden;
+}
+
+.hero-bg {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("../assets/er.jpg");
+  min-height: 33rem;
+}
+
+.hero__box {
+  position: absolute;
+  top: 11rem;
+  width: 100%;
+  text-align: center;
+}
+
+.hero__title {
+  font-size: 40px;
+  margin-bottom: 1.5rem;
+  font-family: 'Spartan MB', sans-serif;
+  color: var(--color-secondary);
+  font-weight: bold;
+}
+
+.hero__subtitle {
+  font-size: 1rem;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: 'Spartan MB', sans-serif;
+  color: var(--color-white);
+
+}
+
+.hero__zip--code{
+  font-weight: bold;
+  font-family: 'Spartan MB', sans-serif;
+  margin-top: 2rem;
+  color: var(--color-primaryDark);
+}
+.hero__zip--input{
+  margin-top: .5rem;
+  margin-bottom: 1.5rem;
+}
+.hero--input {
+  height: 4rem;
+  padding: 1rem;
+  color: var(--color-primaryDark);
+  font-size: 1.5rem;
+  text-align: center;
+  border-width: 0;
+  border-width: 0;
+  border: 2px solid var(--color-primaryDark);
+  border-radius: .3rem;
+  width: 100%;
+}
+
+.hero__zip--box-two {
+  display: flex;
+}
+
+.hero__zip--box {
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.hero--button {
+  background-color: #e2c215;
+  height: 4rem;
+  cursor: pointer;
+  text-decoration: none;
+  width: 183px;
+  border-radius: .3rem;
+  color: var(--color-white);
+  font-family: 'Spartan MB', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  border-style: none;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.desktop-responsive {
+  display: block;
+}
+
+//Fuentes
+
+/* we will import out external fonts here and create our font families here */
+
+@font-face {
+    font-family: "noto_serifregular";
+    src: url("./../assets/fonts/notoserif-regular-webfont.woff2") format("woff2"),
+    url("./../assets/fonts/notoserif-regular-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "noto_serifbold";
+    src: url("./../assets/fonts/notoserif-bold-webfont.woff2") format("woff2"),
+      url("./../assets/fonts/notoserif-bold-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+      font-family: 'Spartan MB';
+      src: url('./../assets/fonts/SpartanMB-Regular.woff2') format('woff2'),
+          url('./../assets/fonts/SpartanMB-Regular.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "spartan_mbmedium";
+    src: url("./../assets/fonts/spartanmb-medium-webfont.woff2") format("woff2"),
+      url("./../assets/fonts/spartanmb-medium-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "spartan_mbsemibold";
+    src: url("./../assets/fonts/spartanmb-semibold-webfont.woff2") format("woff2"),
+    url("./../assets/fonts/spartanmb-semibold-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+
+  //footer
+
+  .footer {
+    background-color: var(--color-secondary);
+    padding: 3rem 10rem;
+    text-align: center;
+    font-family: 'Spartan MB', sans-serif;
+    font-size: 12px;
+  }
+  .footer__text,
+  .footer__info {
+    color: var(--color-white);
+  }
+  .footer__contact {
+    margin-top: 2rem;
+    color: var(--color-grey);
+    font-size: .8rem;
+  }
+    
+  /* Info footer Section */
+  
+  .footer__info {
+  margin-bottom: 1rem;
+  }
+
+  // Navbar
+
+.nav {
+  width: 100%;
+  background-color: var(--color-white);
+  position: relative;
+  display: flex;
+  padding: .5rem 2rem;
+  align-items: center;
+  height: 3rem;
+}
+
+.nav-logo {
+  width: 12rem;
+}
+
+.nav-title-center{
+  text-align: left;
+  width: 50%;
+  color: var(--color-primary);
+}
+
+.nav-title-right {
+  position: absolute;
+  top: 2rem;
+  right: 2.5rem;
+  color: var(--color-white);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  font-family: 'Spartan MB', sans-serif;
+}
+
+.nav-title-span {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.nav > .nav-btn {
+  display: none;
+}
+
+.nav > .nav-links {
+  width: 100%;
+  font-family: 'Spartan MB', sans-serif;
+  text-align: right;
+  font-size: 13px;
+}
+
+.nav > .nav-links > a {
+  display: inline-block;
+  padding: .5rem;
+  text-decoration: none;
+  color: var(--color-primaryDark);
+  font-weight: bold;
+}
+
+.nav > #nav-check {
+  display: none;
+}
+.nav-title-none {
+  display: none;
+}
+
+@media (max-width:990px) {
+  .nav > .nav-btn {
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+  }
+  .nav > .nav-btn > label {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    padding: 13px;
+  }
+  .nav > .nav-btn > label > span {
+    display: block;
+    width: 25px;
+    height: 10px;
+    border-top: 2px solid var(--color-primaryDark);
+  }
+  .nav > .nav-links {
+    position: absolute;
+    display: block;
+    width: 100%;
+    background-color: var(--color-secondary);
+    height: 0px;
+    transition: all 0.3s ease-in;
+    overflow-y: hidden;
+    top: 50px;
+    left: 0px;
+    font-size: 13px;
+  }
+  .nav > .nav-links > a {
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: var(--color-white);
+  }
+  .nav > #nav-check:not(:checked) ~ .nav-links {
+    height: 0px;
+  }
+  .nav > #nav-check:checked ~ .nav-links {
+    height: calc(100vh - 50px);
+    overflow-y: auto;
+    z-index: 5;
+    padding-top: 2rem;
+  }
+
+  .nav-title-span-none {
+    border-radius: .5rem;
+    padding: .3rem 1rem;
+    margin-top: .5rem;
+    font-size: 1.5rem;
+    font-family: 'Spartan MB', sans-serif;
+  }
+}
+
+@media (max-width:700px) {
+  .nav-title-right {
+    display: none;
+  }
+
+  .nav--container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--color-secondary);
+    border-radius: .5rem;
+    padding: .5rem;
+    width: 90%;
+  }
+
+  .nav-title-none {
+    color: var(--color-white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--color-white);
+    padding: .5rem 0;
+    font-family: 'Spartan MB', sans-serif;
+  }
+}
+
+@media (max-width:500px) {
+  .nav-title-none {
+    display: block;
+    padding: 1rem .5rem;
+    text-align: center;
+  }
+  .nav-title-span-none {
+    font-size: 13px;
+  }
+}
+
+//Responsive
+
+
+.box {
+  display: flex;
+  justify-content: space-around;
+  margin: 3rem 15px;
+}
+
+/* For mobile phones: */
+[class*="col-"] {
+  width: 100%;
+}
+
+@media only screen and (min-width: 600px) {
+  /* For tablets: */
+  .col-s-1 {width: 8.33%;}
+  .col-s-2 {width: 16.66%;}
+  .col-s-3 {width: 25%;}
+  .col-s-4 {width: 33.33%;}
+  .col-s-5 {width: 41.66%;}
+  .col-s-6 {width: 50%;}
+  .col-s-7 {width: 58.33%;}
+  .col-s-8 {width: 66.66%;}
+  .col-s-9 {width: 75%;}
+  .col-s-10 {width: 83.33%;}
+  .col-s-11 {width: 91.66%;}
+  .col-s-12 {width: 100%;}
+}
+
+@media only screen and (min-width: 768px) {
+  /* For desktop: */
+  .col-1 {width: 8.33%;}
+  .col-2 {width: 16.66%;}
+  .col-3 {width: 25%;}
+  .col-4 {width: 33.33%;}
+  .col-5 {width: 41.66%;}
+  .col-6 {width: 50%;}
+  .col-7 {width: 58.33%;}
+  .col-8 {width: 66.66%;}
+  .col-9 {width: 75%;}
+  .col-10 {width: 83.33%;}
+  .col-11 {width: 91.66%;}
+  .col-12 {width: 100%;}
+}
+
+/* WIP Responsive Queries */
+
+@media (min-width:1024px) {
+  .hero__box {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
+@media (max-width:1024px) {
+
+  .box {
+    margin: 0;
+  }
+
+  .container-white {
+    padding-bottom: 4rem !important;
+  }
+
+  .container-two-blue {
+    width: 90% !important;
+  }
+
+  .hero__zip--box-two {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .hero--input {
+    margin-bottom: 1rem;
+  }
+
+  .container-one__title-two {
+    margin-top: 3rem;
+  }
+  
+  .container-one__enroll {
+    width: 100% !important;
+    padding: 0 2rem;
+  }
+
+}
+
+@media (max-width: 990px) {
+  .hero-bg {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("../assets/er.jpg") !important;
+    min-height: 35rem;
+}
+}
+
+
+@media (max-width:770px) {
+
+  .box {
+    margin: 3rem 0;
+  }
+
+  .alert {
+    padding: .2rem;
+  }
+  .container-two__img {
+    width: 7rem !important;
+    max-width: 100%;
+  }
+  .container-two__text {
+    font-size: 13px !important;
+  }
+
+  .about-us__container-one {
+    margin: 0 1rem !important;
+  }
+
+  .about-box {
+    display: block !important;
+  }
+
+  .abuot__us--icons {
+    width: 100px !important;
+    margin: 2rem 0;
+  }
+
+  .hero-bg {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("../assets/er.jpg") !important;
+    min-height: 35rem;
+  }
+
+  .hero__box {
+    left: 50%;
+    top: 20rem;
+    transform: translate(-50%,-50%);
+  }
+
+  .hero__title,
+  .hero__subtitle {
+    text-align: center;
+  }
+  .container-two {
+    width: 90% !important;
+  }
+
+  .container-two__content {
+    padding: 2rem !important;
+  }
+}
+
+@media (max-width:500px) {
+
+  .box {
+    display: inline;
+    margin: 0;
+  }
+  .nav {
+    padding:.6rem 1rem !important;
+  }
+  .alert__box {
+    display: inline;
+  }
+
+  .alert__text {
+    font-size: 13px;
+    width: 100%;
+  }
+
+  .hero__box {
+    position: relative;
+    border: 0;
+    width: auto;
+    border-radius: 0;
+    top: 15rem !important;
+    right: 0;
+  }
+
+  .hero-bg {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("../assets/er.jpg") !important;
+    min-height: 30rem;
+  }
+
+  .hero__title {
+    font-size: 1.7rem;
+    text-align: center;
+    margin: 1rem .5rem;
+  }
+  .hero__subtitle,
+  .hero__zip--code {
+    font-size: 1rem;
+    text-align: center;
+    margin: 0 1rem;
+  }
+  .hero__zip--code {
+    margin-bottom: 1rem;
+    margin-top: 3rem;
+  }
+  .hero--input {
+    height: 3.5rem;
+    padding: 0;
+  }
+  .hero__zip--box {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 3rem;
+  }
+  .nav--container {
+    width: 100% !important;
+  }
+  .container-two {
+    width: 90% !important;
+  }
+
+  div.container-one {
+    margin: 2rem 0;
+  }
+
+  .container-one__title-two {
+    margin-top: 0 !important;
+  }
+  .container-white {
+    padding-bottom: 0 !important;
+  }
+  .container-two__blue-code {
+    margin-bottom: 1rem;
+  }
+  .container-one__box {
+    padding: 1rem !important;
+  }
+  .desktop-responsive {
+    display: none;
+  }
+  .container-two__content {
+    margin: 1rem 0 !important;
+  }
+  .container-two__white {
+    padding: 0 !important;
+  }
+  .container-one__title,
+  .container-two__title,
+  .container-two__text {
+    font-size: 17px !important;
+  }
+
+  .container-two__img {
+    width: 10rem !important;
+  }
+
+  .container-two__img {
+    width: 10rem !important;
+  }
+
+  .container-two__blue {
+    margin: 1rem 0 !important;
+  }
+
+  .container-two {
+    padding: 2rem 0 !important;
+    margin: 0 auto;
+  }
+
+  .container-two__image--box {
+    display: none !important;
+  }
+
+  .footer, .info {
+    padding: .5rem !important;
+    font-size: 11px !important;
+  }
+
+  .info {
+    padding: 2rem 1rem !important;
+  }
+
+  .container-two--top {
+    display: none;
+  }
+
+  .container-two__img--box {
+    margin-top: 0 !important;
+  }
+
+}
+
+// About us
+.about-us__container {
+    position: relative;
+    margin-bottom: 3rem;
+  }
+  
+  .about-us__container-one {
+    margin: 0 5rem;
+    height: auto;
+  }
+  
+  .about-us__img {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("../assets/header.jpg");
+    min-height: 13rem;
+  }
+  
+  .about-us--box {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .about-us--box-two {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .about-us--label {
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  .about-us--image {
+    max-width: 100%;
+    height: 9rem;
+    margin-bottom: 2rem;
+  }
+  
+  .deberes--image {
+    max-width: 100%;
+    margin-bottom: 2rem;
+  }
+  
+  .about-us__icons {
+    max-width: 100%;
+  }
+  .about-us__title {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 1rem;
+    font-family: 'Spartan MB', sans-serif;
+    text-align: center;
+    border-bottom: 1px solid;
+    margin-bottom: 2rem;
+  }
+  
+  .about-us__text {
+    font-family: 'Spartan MB', sans-serif;
+    line-height: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  
+  
+  .about-us__text-title {
+    top: 6rem;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+    font-family: 'Spartan MB', sans-serif;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .m-top {
+    margin-top: 2rem;
+  }
+  
+  .about-box {
+    display: flex;
+    justify-content: space-around;
+    margin: 0 15px;
+  }
+  
+  .abuot__us--icons {
+    width: 240px;
+  }
