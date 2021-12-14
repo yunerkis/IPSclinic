@@ -71,6 +71,12 @@ body {
     background-color: #d0e3ff;
     padding: 5rem 7rem;
   }
+    
+  .container-one__box-info {
+    margin: 2rem 0;
+    padding: 5rem 7rem;
+    border: 1px solid var(--color-primaryDark);
+  }
   
   /* Container Two */
   
@@ -117,6 +123,13 @@ body {
     line-height: 1.5rem;
     font-size: 15px;
     color: var(--color-primaryDark);
+  }
+  .container-two__info {
+    font-family: 'Spartan MB', sans-serif;
+    line-height: 1.5rem;
+    color: var(--color-primaryDark);
+    font-size: 22px;
+    font-weight: bold;
   }
   
   .container-two__content {
@@ -815,7 +828,8 @@ body {
   .container-two__blue-code {
     margin-bottom: 1rem;
   }
-  .container-one__box {
+  .container-one__box,
+  .container-one__box-info {
     padding: 1rem !important;
   }
   .desktop-responsive {
