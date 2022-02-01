@@ -1,17 +1,17 @@
 <div class="login">
   <div class="login__box" *ngIf="!close">
     <img src="./../../assets/icon/ips.jpeg" class="login__img" alt="">
-    <!--Contenedor temporal-->
     <div class="temporal-container">
       SEÑOR USUARIO SI TIENE TOS ,  MALESTAR , FLUJO NASAL O SIGNOS SIMILARES 
       A COVID19, SOLICITE TELECONSULTA A LAS LINEAS TELEFÓNICAS  8331464 8327642  3216434722
       <br>
       <br>  
       PROTEGER AL MEDICO ES  CONTAR CON CITAS OPORTUNAS
-    </div>
-    <!---->
+      <br>  
+      <br>  
 
-    <!--
+    </div>
+
     <form class="login__form" [formGroup]="dniForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="login__input">
         <mat-label>Cédula</mat-label>
@@ -29,5 +29,4 @@
       El horario de apertura es de 7:00am a 5:00pm
     </div>
   </div>
-  -->
 </div>
