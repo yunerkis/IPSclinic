@@ -26,8 +26,6 @@ export class ListComponent implements OnInit {
     this.clientService.logout();
   }
 
-  
-
   cancel(id) {
 
     this.clientService.cancelSession(id).subscribe(res => {

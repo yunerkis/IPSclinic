@@ -9,6 +9,7 @@ use App\Models\Schedule;
 use Validator;
 use Carbon\Carbon;
 use App\Models\Session;
+use App\Models\User;
 
 class DoctorController extends Controller
 {
@@ -19,6 +20,7 @@ class DoctorController extends Controller
         $this->middleware('ApiPermission:doctor.show', ['only' => ['show']]);
         $this->middleware('ApiPermission:doctor.update', ['only' => ['update']]);
         $this->middleware('ApiPermission:doctor.delete', ['only' => ['destroy']]);
+        $this->middleware('ApiPermission:doctor.user', ['only' => ['doctorUser']]);
     }
 
     public function index(Request $request)
@@ -28,12 +30,13 @@ class DoctorController extends Controller
         $day = Carbon::today()->format('Y-m-d');
 
         if ($request['date'] > $day) {
-
+            
             $doctors = Doctor::with(['category', 'schedules'])->whereHas('schedules', function($schedules) use ($request) {
                 $schedules->where('dates', 'LIKE', '%'.$request['date'].'%');
             })->get();
-        } else {
 
+        } else {
+            
             $doctors = Doctor::with(['category', 'schedules' => function($schedules) use ($request) {
                 $schedules->where('dates', 'LIKE', '%'.$request['date'].'%')
                 ->where('time_end', '>=', $request['time']);
@@ -86,6 +89,28 @@ class DoctorController extends Controller
         $doctors = Doctor::with(['category'])->get();
 
         return response()->json(['success' => true, 'data' => $doctors], 200);
+    }
+
+    public function doctorUser(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => [
+                'required', 'email', 'unique:users'
+            ],
+            'password' => [
+                'required'
+            ],
+        ]);
+
+        if ($validator->fails()) {
+
+        	return response()->json(['success' => false, 'errors' => $validator->errors()], 400);
+        }
+
+        $user = User::create($request->all());
+        $user->assignRole('doctor');
+
+        return response()->json(['success' => false, 'data' => 'User create'], 201);
     }
 
     public function store(Request $request)

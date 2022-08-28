@@ -7,6 +7,8 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ResultController;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,11 +39,20 @@ Route::prefix('v1')->group(function () {
 
         Route::get('/clients/session/{dni}', [ClientController::class, 'sessionsActive'])->name('client.session.active');
 
+        Route::get('/client/results/{dni}', [ResultController::class, 'index'])->name('client.result.list');
+
         Route::post('/clients/session', [ClientController::class, 'sessions'])->name('client.get.session');
 
         Route::get('/doctors', [DoctorController::class, 'index'])->name('schedules.list');
 
     Route::middleware('auth:api')->group(function () {
+
+        Route::name('users.')->group(function () {
+
+            Route::get('/users', [UserController::class, 'index'])->name('list');
+
+            Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('destroy');
+        });
 
         // Clients
 
@@ -78,6 +89,15 @@ Route::prefix('v1')->group(function () {
                 Route::put('/doctors/{id}', [DoctorController::class, 'update'])->name('update');
 
                 Route::delete('/doctors/{id}', [DoctorController::class, 'destroy'])->name('destroy');
+
+                Route::post('/doctors/create/user', [DoctorController::class, 'doctorUser'])->name('doctor.user');
+            });
+
+            Route::name('results.')->group(function () {
+
+                Route::post('results/upload/{id}', [ResultController::class, 'uploadResult'])->name('upload');
+
+                Route::delete('results/{id}', [ResultController::class, 'destroy'])->name('delete');
             });
 
         Route::get('/logout', [LoginController::class, 'logout'])->name('logout');

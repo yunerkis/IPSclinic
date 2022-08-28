@@ -3,6 +3,7 @@ import { ClientService } from '../services/client.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../modal/modal.component';
+import { environment } from '../../environments/environment';
 declare var require: any;
 
 @Component({
@@ -14,9 +15,11 @@ export class AppointmentComponent implements OnInit {
 
   Holidays = require('date-holidays');
   hd = new this.Holidays('CO');
+  url = environment.url;
  
 
   client: any = [];
+  results: any = [];
   date: any;
   dateStart: any;
   timeStart: any;
@@ -69,12 +72,35 @@ export class AppointmentComponent implements OnInit {
 
     this.clientService.client.subscribe( res => {
       this.client = res;
+
       if (Object.keys(this.client).length  != 0) {
-        this.dateStart = res['session'].date;
-        this.timeStart = res['session'].time_start;
-        this.doctor = res['session'].doctor.first_names+ ' '+ res['session'].doctor.last_names;
+
+        if (res['session']) {
+
+          this.dateStart = res['session'].date;
+          this.timeStart = res['session'].time_start;
+          this.doctor = res['session'].doctor.first_names+ ' '+ res['session'].doctor.last_names;
+        }
+ 
+        this.clientService.getClientResults(this.client.dni).subscribe(
+          res => {
+            if (res) {
+              this.results = res['data'];
+            }
+          }, data => {
+              this.msglog = {
+                'type' : 'Error',
+                'msg': 'Error, por favor volver a cargar la página.'
+              };
+              this.clientService.modal.next(this.msglog)
+              this.openDialog();
+              console.log(data);
+          });
       } 
     });
+
+    
+    
 
     if (Object.keys(this.client).length  == 0) {
       this.router.navigate(['']);

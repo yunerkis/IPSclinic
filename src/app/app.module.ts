@@ -8,6 +8,8 @@ import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './login/login.component';
 import { ListComponent } from './list/list.component';
 import { AppointmentComponent } from './appointment/appointment.component';
+import { FormDoctorComponent } from './form-doctor/form-doctor.component';
+import { UploadResultComponent } from './upload-result/upload-result.component';
 import { MaterialModule } from './material.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -39,7 +41,9 @@ import { DutiesComponent } from './web-page/duties/duties.component';
     WebPageComponent,
     AboutUsComponent,
     ServiceComponent,
-    DutiesComponent
+    DutiesComponent,
+    FormDoctorComponent,
+    UploadResultComponent
   ],
   imports: [
     BrowserModule,

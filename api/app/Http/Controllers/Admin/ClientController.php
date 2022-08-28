@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ClientsImport;
 use App\Exports\SessionsExport;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
@@ -25,8 +26,15 @@ class ClientController extends Controller
 
     public function index(Request $request)
     {
-        $clients = Client::filter($request)->with(['sessions'])->get();
+        if (Auth::user()->hasRole('doctor')) {
 
+            $clients = Client::filter($request)->limit(1000)->get();
+
+        } else {
+            
+            $clients = Client::filter($request)->with(['sessions'])->limit(1000)->get();
+        }
+        
         return response()->json(['success' => true, 'data' => $clients], 200);
     }
 
@@ -140,6 +148,7 @@ class ClientController extends Controller
         $time = Carbon::now()->format('H:i:s');
         
         $sessions = Session::orderBy('id', 'DESC')->with(['client', 'doctor'])
+            ->limit(1000)
             ->get()
             ->map(function ($session) use ($day, $time){
 

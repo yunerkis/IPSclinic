@@ -4,29 +4,52 @@
     <div *ngIf="client['session'] == null || client['dni'] == rut" class="appointment__container">
       <mat-calendar [selected]="selectedDate" (selectedChange)="onSelect($event)" [dateFilter]="filterDates" class="appointment__calendar" [minDate]="minDate" [maxDate]="maxDate"></mat-calendar>
       <div class="appointment__table">
-        <div>
-          <div class="appointment__label">Horario disponible</div>
-          <div *ngIf="schedules.length > 0">
-            <div class="appointment__content" *ngFor="let schedule of schedules;">
-              <div class="appointment__name">
-                <label>{{ schedule.first_names }} {{ schedule.last_names}}</label>
-                <label class="appointment__time">{{ schedule.category.name }}</label>
-                <label class="appointment__time" *ngFor="let hours of schedule.hours; let i = index;">
-                  {{ hours }}
-                  <button  mat-raised-button color="primary" (click)="toggleSchedule(i, schedule.id)">Ver horario</button>
-                  <div *ngIf="isSchedules == i && isDoctor == schedule.id" class="appointment__date">
-                    <div *ngFor="let interval of schedule.schedules[i].intervals" class="appointment__date-time">
-                      {{interval[1] }} <button  mat-raised-button color="primary" (click)="session(interval[0], schedule, hours)">Agendar</button>
-                    </div>
+        <mat-tab-group>
+          <mat-tab label="Horario disponible">
+            <div>
+              <div class="appointment__label">Horario disponible</div>
+              <div *ngIf="schedules.length > 0">
+                <div class="appointment__content" *ngFor="let schedule of schedules;">
+                  <div class="appointment__name">
+                    <label>{{ schedule.first_names }} {{ schedule.last_names}}</label>
+                    <label class="appointment__time">{{ schedule.category.name }}</label>
+                    <label class="appointment__time" *ngFor="let hours of schedule.hours; let i = index;">
+                      {{ hours }}
+                      <button  mat-raised-button color="primary" (click)="toggleSchedule(i, schedule.id)">Ver horario</button>
+                      <div *ngIf="isSchedules == i && isDoctor == schedule.id" class="appointment__date">
+                        <div *ngFor="let interval of schedule.schedules[i].intervals" class="appointment__date-time">
+                          {{interval[1] }} <button  mat-raised-button color="primary" (click)="session(interval[0], schedule, hours)">Agendar</button>
+                        </div>
+                      </div>
+                    </label>
                   </div>
-                </label>
+                </div>
+              </div>
+              <div *ngIf="schedules.length == 0" class="appointment__label">
+                No hay horarios disponible para esta fecha
               </div>
             </div>
-          </div>
-          <div *ngIf="schedules.length == 0" class="appointment__label">
-            No hay horarios disponible para esta fecha
-          </div>
-        </div>
+          </mat-tab>
+          <mat-tab label="Resultados">
+            <div>
+              <div class="appointment__label">Resultados</div>
+              <div>
+                <div *ngIf="results.length > 0">
+                  <div class="appointment__content" *ngFor="let result of results">
+                    <div class="appointment__name">
+                      <label style="font-weight:bold;">Examen: {{ result.filename }}</label>
+                      <label style="font-weight:bold;">fecha: {{ result.created_at }}</label>
+                      <a href="{{url}}/storage/{{result.url }}" target="_blank"><button  mat-raised-button color="primary" style="margin-top: 20px;">Descargar</button></a>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="results.length == 0" class="appointment__label">
+                  No hay Resultados cargados
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
       </div>      
     </div>
     <div *ngIf="client['session'] != null && client['dni'] != rut" class="appointment__done-appointment">

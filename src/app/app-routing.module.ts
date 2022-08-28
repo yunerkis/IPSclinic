@@ -13,6 +13,8 @@ import { AboutUsComponent } from './web-page/about-us/about-us.component';
 import { DutiesComponent } from './web-page/duties/duties.component';
 import { ServiceComponent } from './web-page/service/service.component';
 import { WebPageComponent } from './web-page/web-page.component';
+import { FormDoctorComponent } from './form-doctor/form-doctor.component';
+import { UploadResultComponent } from './upload-result/upload-result.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -28,6 +30,8 @@ const routes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
   { path: 'service', component: ServiceComponent },
   { path: 'duties', component: DutiesComponent },
+  { path: 'create/user/doctor', component: FormDoctorComponent, canActivate: [AuthService] },
+  { path: 'upload', component: UploadResultComponent, canActivate: [AuthService] },
 ];
 
 @NgModule({
