@@ -1,6 +1,7 @@
 <div class="admin">
   <div class="admin__box">
-    <img src="./../../assets/icon/ips.jpeg" class="admin__img" alt="">
+    <img src="./../../assets/icon/LOGO_IPS.png" class="admin__img" alt="">
+    <div class="admin__content">
     <form class="admin__form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="admin__input">
         <mat-label>Email</mat-label>
@@ -10,8 +11,11 @@
         <mat-label>Contraseña</mat-label>
         <input type="password" matInput placeholder="Contraseña" formControlName="password">
       </mat-form-field>
-      <button mat-stroked-button color="primary" type="submit">Ingresar</button>
+      <button class="btn" type="submit">
+        <span>Ingresar</span>
+      </button>
     </form>
+  </div>
     <!--><div class="forgot-label">
      ¿Ólvido la contraseña?
     </div><!-->

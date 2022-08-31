@@ -3,7 +3,7 @@
     <div class="modal-view__title">{{ data.doctor }}</div>
     <div class="modal-view__box">
         <div class="modal-view__box-title">Horario</div>
-        <label class="modal-view__label" *ngFor="let hour of data.schedule.hours">{{ hour }}<br><br></label>
+        <label class="modal-view__label" *ngFor="let hour of data.schedule.hours">{{ hour }}<br></label>
     </div>
     <button  mat-raised-button color="primary" mat-dialog-close >Aceptar</button>
 </div>

@@ -1,3 +1,4 @@
+
 .login {
     height: 100vh;
     display: flex;
@@ -5,14 +6,14 @@
     text-align: center;
     &__box {
         width: 50%;
-        background-color: white;
+        background-color: #ffffffbd;
         padding: 3rem 1rem;
-        border-radius: 1rem;
+        border-radius: 120px 30px 120px 30px;
         margin: 0 auto;
     }
     &__img {
         margin-bottom: 2rem;
-        width: 25rem;
+        width: 15rem;
     }
     &__form {
         display: flex;
@@ -25,11 +26,28 @@
         color: #0e4db8;
         text-align: center;
     }
+    &__content {
+        width: 450px;
+        margin: 0 auto;
+    }
 }
 
-.temporal-container {
-    font-weight: 500;
-    font-weight: bold;
-    line-height: 30px;
-    font-family: 'Roboto';
+.temporal{
+    margin-bottom: 2rem;
+    &__title {
+        font-weight: 500;
+        line-height: 30px;
+        font-family: 'Roboto';
+    }
+    &__phone {
+        font-weight: bold;
+        line-height: 30px;
+        font-family: 'Roboto';
+    }
+    &__doc{
+        font-weight: bold;
+        line-height: 30px;
+        font-family: 'Roboto';
+        margin-bottom: 1rem;
+    }
 }

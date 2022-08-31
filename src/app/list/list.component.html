@@ -3,8 +3,8 @@
 	<mat-icon (click)="drawer.toggle()" class="burger app-cursor">menu</mat-icon>
 	<img alt="Logo" src="./../../assets/icon/ips.jpeg" class="logo-app"  style="margin-left: 15px;"/>
 	<span class="example-spacer"></span>
-	<img src="../../../assets/icons/accountcircle_outline.svg" alt=""> <label class="user-text app-m-name"> Administrador</label>
-	<mat-icon [matMenuTriggerFor]="menu" class="burger app-cursor">keyboard_arrow_down</mat-icon>
+	<img src="../../../assets/icons/accountcircle_outline.svg" alt=""> <label class="admin-text app-m-name"> Administrador</label>
+	<mat-icon [matMenuTriggerFor]="menu" class=" app-cursor">keyboard_arrow_down</mat-icon>
   <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="logout()">
       <img src="../../../assets/icons/logout_baseline.svg" alt="" class="app-m-left">
@@ -27,7 +27,7 @@
     <div class="list__item" style="margin-bottom: 2rem;">
       Citas asignadas
       <a href="{{url}}/api/v1/sessions/exports" download>
-        <button mat-stroked-button color="primary" class="btn-upload export">Descargar</button>
+        <button mat-stroked-button color="primary" class="btnSmall export">Descargar</button>
       </a>
       
     </div>
@@ -51,7 +51,7 @@
               {{session.client.first_names}} {{session.client.last_names_1}} {{session.client.last_names_2}}
             </div>
             <div class="col">
-              <button mat-mini-fab color="warn" (click)="cancel(session.id)"><mat-icon>delete</mat-icon></button>
+              <button class="list__btnSend"(click)="cancel(session.id)"><img src="../../../assets/icon/delete.png" alt=""></button>
             </div>
           </div>
           <div class="row" *ngIf="sessionsList == ''">

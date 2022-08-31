@@ -2,7 +2,7 @@
 	<mat-icon (click)="drawer.toggle()" class="burger app-cursor">menu</mat-icon>
 	<img alt="Logo" src="./../../assets/icon/ips.jpeg" class="logo-app"  style="margin-left: 15px;"/>
 	<span class="example-spacer"></span>
-	<img src="../../../assets/icons/accountcircle_outline.svg" alt=""> <label class="user-text app-m-name"> Administrador</label>
+	<img src="../../../assets/icons/accountcircle_outline.svg" alt=""> <label class="admin-text app-m-name"> Administrador</label>
 	<mat-icon [matMenuTriggerFor]="menu" class="burger app-cursor">keyboard_arrow_down</mat-icon>
   <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="logout()">
@@ -22,7 +22,6 @@
 </mat-drawer-container>
 
 <div class="admin">
-  <div class="admin__box">
     <div class="list ">
       <div class="list__box">
         <div class="list__container">
@@ -35,7 +34,7 @@
               <div class="row" *ngFor="let user of userList">
                 <div class="col">{{ user.email }}</div>
                 <div class="col">
-                  <button mat-mini-fab color="warn" (click)="userDelete(user.id)"><mat-icon>delete</mat-icon></button>
+                  <button class="list__btnSend" (click)="userDelete(user.id)"><img src="../../../assets/icon/delete.png" alt=""></button>
                 </div>
               </div>
             </section>
@@ -43,22 +42,24 @@
         </div>
       </div>
     </div>
-  </div>
   <div class="admin__box">
-    <img src="./../../assets/icon/ips.jpeg" class="admin__img" alt="">
-    <form class="admin__form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <mat-form-field class="admin__input">
-        <mat-label>Email</mat-label>
-        <input matInput placeholder="Email" formControlName="email">
-      </mat-form-field>
-      <mat-form-field class="admin__input">
-        <mat-label>Contraseña</mat-label>
-        <input type="password" matInput placeholder="Contraseña" formControlName="password">
-      </mat-form-field>
-      <button mat-stroked-button color="primary" type="submit">Crear usuario</button>
-    </form>
-    <!--<div class="forgot-label">
-     ¿Ólvido la contraseña?
-    </div><!-->
+    <div>
+      <img src="./../../assets/icon/LOGO_IPS.png" class="admin__img" alt="">
+      <form class="admin__form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="admin__input">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Email" formControlName="email">
+        </mat-form-field>
+        <mat-form-field class="admin__input">
+          <mat-label>Contraseña</mat-label>
+          <input type="password" matInput placeholder="Contraseña" formControlName="password">
+        </mat-form-field>
+        <div>
+          <button class="btn" type="submit">
+            <span>Crear usuario</span>
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

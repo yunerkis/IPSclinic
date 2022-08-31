@@ -11,7 +11,13 @@
     .login__img,
     .appointment__img,
     .appointment__img {
-        width: auto !important;
+        width: 200px !important;
+    }
+    .mat-form-field-flex {
+        width: 200px !important;
+    }
+    .inputResponsive {
+        width: 200px !important;
     }
 
     .mat-form-field-label {
@@ -38,7 +44,7 @@
     .appointment__calendar {
         margin-bottom: 10px;
         border-bottom: 2px solid #bbb !important;
-        margin-top: 12rem !important;
+        margin-top: 15rem !important;
     }
     .appointment__table {
         margin-top: 0 !important;

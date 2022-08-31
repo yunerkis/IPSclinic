@@ -1,9 +1,13 @@
+$base-color-blue: #244091;
+$base-color-lighBlue: #658AD9;
+
 body {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    overflow: auto;
-    background: rgba(0,0,0,.12);
+    background: url('../assets/icon/bg.png') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: $base-color-blue;
 }
 
 ::placeholder {
@@ -19,30 +23,52 @@ body {
 }
 
 .mat-stroked-button {
-  border: 2px solid #0e4db8 !important;
+  border: 2px solid $base-color-blue !important;
   padding: 30px !important;
   font-size: 40px;
 }
 
 .mat-button.mat-primary, .mat-icon-button.mat-primary, .mat-stroked-button.mat-primary {
-  color:  #0e4db8 !important;
+  color:  $base-color-blue !important;
 }
 .mat-icon {
   cursor: pointer;
 }
 
 .mat-calendar-body-selected {
-  background-color: #0e4db8 !important;
+  background-color: $base-color-blue !important;
+  border-radius: 10px !important;
+  font-weight: bold;
+}
+
+.mat-calendar-body-cell-content, .mat-date-range-input-separator {
+  background-color: $base-color-lighBlue;
+  border-radius: 10px !important;
+  font-weight: bold;
+}
+
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical), .cdk-keyboard-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical), .cdk-program-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+  background-color: $base-color-blue !important;
+}
+
+.mat-calendar-body-label {
+  display: none;
+}
+
+.mat-calendar-table-header th {
+  font-weight: bold;
+  color: $base-color-blue;
 }
 .mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
-  background-color:  #0e4db8 !important;
+  background-color:  $base-color-lighBlue !important;
 }
 
 .mat-form-field-infix {
   border: 2px solid #bbb;
-  border-radius: 5px;
+  border-radius: 10px;
   height: 4rem;
   align-items: center;
+  background-color: $base-color-blue;
 }
 
 .mat-form-field-appearance-legacy .mat-form-field-label {
@@ -57,6 +83,7 @@ body {
 
 .mat-input-element {
   height: 100%;
+  color: white !important;
 }
 .mat-form-field-appearance-legacy .mat-form-field-infix {
   padding-left: 10px !important;
@@ -93,16 +120,31 @@ body {
   font-size: 17px;
   margin: 20px 0;
   cursor: pointer;
+  color: white;
+  font-weight: 500;
+}
+
+.admin-text {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  margin: 20px 0;
+  cursor: pointer;
+  color:  $base-color-blue;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-right: 10px;
 }
 
 
 .mat-drawer.mat-drawer-side {
-  box-shadow: 3px 0px 20px#26A79E26;
-  border-radius: 0px 10px 10px 0px;
+  box-shadow:  10px 5px 0px 0px rgb(0 0 0 / 28%);
+  border-radius: 21px;
   margin-top: 1px;
-  background-color: white;
+  background-color: $base-color-lighBlue;
   width: 250px;
   height: 99vh;
+  margin-left: 10px;
+  
 }
 
 .mat-toolbar-row, .mat-toolbar-single-row {
@@ -155,6 +197,7 @@ body {
   margin-top: 1.5rem;
   box-shadow: 0px 3px 20px #26A79E29;
   border-radius: 10px !important;
+  background-color: $base-color-lighBlue;
 }
 
 button.mat-menu-item {
@@ -170,7 +213,14 @@ button.mat-menu-item {
 
 .swal2-styled.swal2-confirm {
   font-family: Roboto, "Helvetica Neue", sans-serif;
-
+  height: 60px;
+  box-shadow: 5px 5px 0px 0px rgb(0 0 0 / 28%);
+  padding: 5px 45px;
+  text-decoration: none;
+  width: auto;
+  cursor: pointer;
+  border-radius: 10px !important;
+  background-color: $base-color-lighBlue !important;
 }
 
 
@@ -184,6 +234,74 @@ button.mat-menu-item {
   .mat-calendar-controls {
     .mat-button-wrapper {
       font-size: 25px;
+      color: $base-color-blue;
+      font-weight: bold;
     }
   }
+}
+
+
+//Mixin btns
+
+.btn {
+  height: 60px;
+  box-shadow: 5px 5px 0px 0px rgb(0 0 0 / 28%);
+  padding: 5px 45px;
+  text-decoration: none;
+  width: auto;
+  cursor: pointer;
+  border-radius: 10px;
+  border: transparent;
+  background-color: $base-color-lighBlue;
+
+  span {
+    font-size: 30px;
+    font-weight: 700;
+    color: white;
+  }
+}
+
+.btnSmall {
+  text-decoration: none !important;
+  width: auto;
+  cursor: pointer;
+  border-radius: 10px;
+  background-color: $base-color-lighBlue;
+
+  span {
+    font-size: 20px;
+    font-weight: 500;
+    color: white;
+  }
+}
+
+
+
+//Style tabs
+.mat-tab-label {
+  color: $base-color-blue !important;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color:$base-color-blue !important;
+}
+
+.mat-dialog-container {
+  border-radius: 120px 30px 120px 30px !important;
+  padding: 4rem!important;
+}
+
+//style burger menu
+
+.burger {
+  color: white;
+  background: $base-color-lighBlue;
+  padding: 5px;
+  width: 3rem !important;
+  height: 35px !important;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 25px;
 }

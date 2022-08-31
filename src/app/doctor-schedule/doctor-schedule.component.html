@@ -1,41 +1,43 @@
 <!--Navbar-->
 <mat-toolbar>
-	<mat-icon (click)="drawer.toggle()" class="burger app-cursor">menu</mat-icon>
-	<img alt="Logo" src="./../../assets/icon/ips.jpeg" class="logo-app"  style="margin-left: 15px;"/>
-	<span class="example-spacer"></span>
-	<img src="../../../assets/icons/accountcircle_outline.svg" alt=""> <label class="user-text app-m-name"> Administrador</label>
-	<mat-icon [matMenuTriggerFor]="menu" class="burger app-cursor">keyboard_arrow_down</mat-icon>
+  <mat-icon (click)="drawer.toggle()" class="burger app-cursor">menu</mat-icon>
+  <img alt="Logo" src="./../../assets/icon/ips.jpeg" class="logo-app" style="margin-left: 15px;" />
+  <span class="example-spacer"></span>
+  <img src="../../../assets/icons/accountcircle_outline.svg" alt=""> <label class="admin-text app-m-name">
+    Administrador</label>
+  <mat-icon [matMenuTriggerFor]="menu" class="burger app-cursor">keyboard_arrow_down</mat-icon>
   <mat-menu #menu="matMenu">
-		<button mat-menu-item (click)="logout()">
-			<img src="../../../assets/icons/logout_baseline.svg" alt="" class="app-m-left">
-			<span class="user-text app-m-left-15">Cerrar sesión</span>
-		</button>
-	</mat-menu>
-	
+    <button mat-menu-item (click)="logout()">
+      <img src="../../../assets/icons/logout_baseline.svg" alt="" class="app-m-left">
+      <span class="user-text app-m-left-15">Cerrar sesión</span>
+    </button>
+  </mat-menu>
+
 </mat-toolbar>
 
 <mat-drawer-container class="example-container" autosize>
-	<mat-drawer #drawer class="example-sidenav" mode="side">
-		<p class="user-text" routerLink="/list">Lista</p>
-		<p class="user-text" routerLink="/schedule">Horario</p>
-		<p class="user-text"routerLink="/home">Cargar Archivo</p>
-    <p class="user-text"routerLink="/create/user/doctor">Crear usuario doctor</p>
-	</mat-drawer>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <p class="user-text" routerLink="/list">Lista</p>
+    <p class="user-text" routerLink="/schedule">Horario</p>
+    <p class="user-text" routerLink="/home">Cargar Archivo</p>
+    <p class="user-text" routerLink="/create/user/doctor">Crear usuario doctor</p>
+  </mat-drawer>
 </mat-drawer-container>
 
 <div class="schedule ">
-    <div class="schedule__box">
-    <div class="schedule__title">Asignar Horario Médico</div>
+  <div class="schedule__box">
     <div class="schedule__position">
       <button mat-fab color="primary" aria-label="" routerLink="/schedule">
         <mat-icon>keyboard_arrow_left</mat-icon>
       </button>
     </div>
-      <div class="schedule__container">
-        <div class="schedule__table">
-          <div class="schedule__tablet">
-            <form class="example-form" [formGroup]="doctorForm" (ngSubmit)="onSubmit()">
-              <div class="schedule__title">Datos del profesional</div>
+    <div class="schedule__title">Asignar Horario Médico</div>
+    <div class="schedule__container">
+      <div class="schedule__table">
+        <div class="schedule__tablet">
+          <form class="example-form" [formGroup]="doctorForm" (ngSubmit)="onSubmit()">
+            <div class="schedule__boxInfo">
+              <div class="schedule__titleDoc">Datos del profesional</div>
               <div class="input-container">
                 <input type="text" placeholder="Nombres" formControlName="first_names">
                 <input type="text" placeholder="Apellidos" formControlName="last_names">
@@ -44,42 +46,45 @@
                   <option value="1">Medicina general</option>
                 </select>
               </div>
-              <div class="schedule__title">Turnos</div>
+            </div>
+            <div class="schedule__boxInfo">
+              <div class="schedule__titleDoc">Turnos</div>
               <div class="time-title">Turno mañana</div>
               <div class="input-dates">
                 <div class="m-right-10 ">
-                  <label> Hora inicio</label>
                   <input type="time" formControlName="first_time_start">
+                  <label> Hora inicio</label>
                 </div>
                 <div class="m-right-10 ">
-                  <label> Hora final</label>
                   <input type="time" formControlName="first_time_end">
+                  <label> Hora final</label>
                 </div>
                 <div>
-                  <label> Intervalos</label>
                   <input type="number" formControlName="first_interval" min="0" placeholder="minutos">
+                  <label> Intervalos</label>
                 </div>
               </div>
               <div class="time-title">Turno tarde</div>
               <div class="input-dates">
                 <div class="m-right-10 ">
-                  <label> Hora inicio</label>
                   <input type="time" formControlName="second_time_start">
+                  <label> Hora inicio</label>
                 </div>
                 <div class="m-right-10 ">
-                  <label> Hora final</label>
                   <input type="time" formControlName="second_time_end">
+                  <label> Hora final</label>
                 </div>
                 <div>
-                  <label> Intervalos</label>
                   <input type="number" formControlName="second_interval" min="0" placeholder="minutos">
+                  <label> Intervalos</label>
                 </div>
               </div>
-              <button mat-flat-button color="primary" type="submit">Guardar</button>
-            </form>
-          </div>
-          <div class="schedule__calendar">
-            <!-- <div class="radio-inputs">
+            </div>
+            <button  mat-flat-button color="primary" type="submit">Guardar</button>
+          </form>
+        </div>
+        <div class="schedule__calendar">
+          <!-- <div class="radio-inputs">
                 <mat-radio-button value="1">Lunes</mat-radio-button>
                 <mat-radio-button value="2">Martes</mat-radio-button>
                 <mat-radio-button value="3">Miercoles</mat-radio-button>
@@ -89,9 +94,9 @@
                 <mat-radio-button value="7">Domingo</mat-radio-button>
                 <mat-radio-button value="8">Todos</mat-radio-button>
             </div> -->
-            <mat-calendar #calendar [dateClass]="isSelected" (selectedChange)="onSelect($event, calendar)"></mat-calendar>
-          </div>
-        </div>      
+          <mat-calendar #calendar [dateClass]="isSelected" (selectedChange)="onSelect($event, calendar)"></mat-calendar>
+        </div>
       </div>
     </div>
   </div>
+</div>

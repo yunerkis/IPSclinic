@@ -1,3 +1,6 @@
+$base-color-blue: #244091;
+$base-color-lighBlue: #658AD9;
+
 .appointment {
     height: 100vh;
     display: flex;
@@ -5,7 +8,6 @@
     text-align: center;
     &__box {
         width: 80%;
-        background-color: white;
         padding: 3rem 0;
         border-radius: 1rem;
         margin: 0 auto;
@@ -21,16 +23,16 @@
     &__calendar {
         width: 45%;
         margin-top: -33px;
-        border: 2px solid #bbb;
-        border-radius: 5px;
+        border-radius: 30px;
+        background-color: #ffffffdb;
     }
     &__table {
-        border: 2px solid #bbb;
-        border-radius: 5px;    
+        border-radius: 30px;
         width: 45%;
         margin-top: -33px;
         overflow: auto;
         height: 35rem;
+        background-color: #ffffffdb;
     }
     &__label {
         font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -55,6 +57,18 @@
         font-family: Roboto, "Helvetica Neue", sans-serif;
         font-size: 17px;
         font-weight: 500;
+        width: 100%;
+        margin: 5px 0;
+    }
+    &__nameDoc {
+        width: 100%;
+        background: $base-color-blue;
+        padding: 5px;
+        border-radius: 10px;
+        color: white;
+    }
+    &__nameBtn {
+        margin-top: 10px;
     }
     &__time {
         display: flex;
@@ -62,7 +76,7 @@
         align-items: flex-start;
         font-family: Roboto, "Helvetica Neue", sans-serif;
         font-size: 17px;
-        font-weight: 300;
+        margin: 5px 0;
     }
     &__done-appointment {
         font-family: Roboto, "Helvetica Neue", sans-serif;

@@ -1,21 +1,24 @@
+<mat-toolbar>
+	<img alt="Logo" src="./../../assets/icon/ips.jpeg" class="logo-app"  style="margin-left: 15px;"/>
+	<span class="example-spacer"></span>
+	<img src="../../../assets/icons/accountcircle_outline.svg" alt=""> 
+</mat-toolbar>
 <div class="appointment ">
   <div class="appointment__box">
-    <img src="./../../assets/icon/ips.jpeg" class="appointment__img" alt="">
     <div *ngIf="client['session'] == null || client['dni'] == rut" class="appointment__container">
       <mat-calendar [selected]="selectedDate" (selectedChange)="onSelect($event)" [dateFilter]="filterDates" class="appointment__calendar" [minDate]="minDate" [maxDate]="maxDate"></mat-calendar>
       <div class="appointment__table">
         <mat-tab-group>
           <mat-tab label="Horario disponible">
             <div>
-              <div class="appointment__label">Horario disponible</div>
               <div *ngIf="schedules.length > 0">
                 <div class="appointment__content" *ngFor="let schedule of schedules;">
                   <div class="appointment__name">
-                    <label>{{ schedule.first_names }} {{ schedule.last_names}}</label>
+                    <label class="appointment__nameDoc">{{ schedule.first_names }} {{ schedule.last_names}}</label>
                     <label class="appointment__time">{{ schedule.category.name }}</label>
                     <label class="appointment__time" *ngFor="let hours of schedule.hours; let i = index;">
                       {{ hours }}
-                      <button  mat-raised-button color="primary" (click)="toggleSchedule(i, schedule.id)">Ver horario</button>
+                      <button  mat-raised-button color="primary" (click)="toggleSchedule(i, schedule.id)" class="appointment__nameBtn">Ver horario</button>
                       <div *ngIf="isSchedules == i && isDoctor == schedule.id" class="appointment__date">
                         <div *ngFor="let interval of schedule.schedules[i].intervals" class="appointment__date-time">
                           {{interval[1] }} <button  mat-raised-button color="primary" (click)="session(interval[0], schedule, hours)">Agendar</button>
@@ -32,7 +35,6 @@
           </mat-tab>
           <mat-tab label="Resultados">
             <div>
-              <div class="appointment__label">Resultados</div>
               <div>
                 <div *ngIf="results.length > 0">
                   <div class="appointment__content" *ngFor="let result of results">

@@ -1,7 +1,7 @@
 <mat-toolbar>
 	<img alt="Logo" src="./../../assets/icon/ips.jpeg" class="logo-app"  style="margin-left: 15px;"/>
 	<span class="example-spacer"></span>
-	<img src="../../../assets/icons/accountcircle_outline.svg" alt=""> <label class="user-text app-m-name"> Administrador</label>
+	<img src="../../../assets/icons/accountcircle_outline.svg" alt=""> <label class="admin-text app-m-name"> Administrador</label>
 	<mat-icon [matMenuTriggerFor]="menu" class="burger app-cursor">keyboard_arrow_down</mat-icon>
   <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="logout()">
@@ -12,71 +12,75 @@
 </mat-toolbar>
 
 <div class="admin">
-  <div class="admin__box">
-    <div class="list ">
-      <div class="list__box">
-        <div class="list__item" style="margin-bottom: 2rem;">
-          Listado de clientes
-          <form class="admin__form" [formGroup]="searchForm" (ngSubmit)="onSearch()" style="margin-top: 2rem;">
-            <mat-form-field class="admin__input">
-              <mat-label>Buscar</mat-label>
-              <input matInput placeholder="text" formControlName="search">
-            </mat-form-field>
-            <button mat-stroked-button color="primary" type="submit">Buscar</button>
-          </form>
-        </div>
-        <div class="list__container">
-          <div class="list__table">
-            <section>
-              <header>
-                <div class="col list__item">Nombres y apellidos</div>
-                <div class="col list__item">Cédula</div>
-              </header>
-              <div class="row" *ngFor="let userClient of userClientsList">
-                <div class="col" (click)="clientResults(userClient.dni, userClient.id)" style="cursor: pointer;">
-                  {{userClient.first_names}} {{userClient.last_names_1}} {{userClient.last_names_2}}
-                </div>
-                <div class="col" (click)="clientResults(userClient.dni, userClient.id)" style="cursor: pointer;">{{userClient.dni}}</div>
+  <div class="list ">
+    <div class="list__box">
+      <div class="list__item" style="margin-bottom: 2rem;">
+        <div class="list__titleDoc"> Listado de clientes</div>
+        <form class="admin__form" [formGroup]="searchForm" (ngSubmit)="onSearch()" style="margin-top: 2rem;">
+          <mat-form-field class="admin__input">
+            <mat-label>Buscar</mat-label>
+            <input matInput placeholder="Buscar" formControlName="search">
+          </mat-form-field>
+          <div>
+            <button class="btn" type="submit">
+              <span>Buscar</span>
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="list__container">
+        <div class="list__table">
+          <section>
+            <header>
+              <div class="col list__item">Nombres y apellidos</div>
+              <div class="col list__item">Cédula</div>
+            </header>
+            <div class="row" *ngFor="let userClient of userClientsList">
+              <div class="col" (click)="clientResults(userClient.dni, userClient.id)" style="cursor: pointer;">
+                {{userClient.first_names}} {{userClient.last_names_1}} {{userClient.last_names_2}}
               </div>
-            </section>
-          </div>      
-        </div>
+              <div class="col" (click)="clientResults(userClient.dni, userClient.id)" style="cursor: pointer;">{{userClient.dni}}</div>
+            </div>
+          </section>
+        </div>      
       </div>
     </div>
   </div>
-  <div class="admin__box" style="width: 30%;">
-    <div class="list ">
-      <div class="list__box">
-        <div class="list__item" style="margin-bottom: 2rem;">
-          Resultados del usuario
-          <form [formGroup]="excelForm" (ngSubmit)="onSubmit()" style="margin-top: 30px;">
-            <div style="text-align:center">
-              <input type="file" (change)="onFileSelect($event)" formControlName="result">
-            </div>
-            <button mat-stroked-button color="primary" type="submit" class="btn-upload" style="width: 100%; margin-top: 20px;">Cargar</button>
-          </form>
-        </div>
-        <div class="list__container">
-          <div class="list__table">
-            <section>
-              <header>
-                <div class="col list__item">Archivo</div>
-                <div class="col list__item"></div>
-              </header>
-              <div class="row" *ngFor="let result of results">
-                <div class="col">
-                  {{ result.filename }}
-                </div>
-                <div class="col">
-                  <a href="{{url}}/storage/{{result.url }}" target="_blank"><button  mat-raised-button color="primary" style="margin-top: 20px;">Ver</button></a>
-                </div>
-                <div class="col">
-                  <button mat-mini-fab color="warn" (click)="deleteResult(result.id)"><mat-icon>delete</mat-icon></button>
-                </div>
+  <div class="list ">
+    <div class="list__box">
+      <div class="list__item" style="margin-bottom: 2rem;">
+        <div class="list__titleDoc">Resultados del usuario</div>
+        <form [formGroup]="excelForm" (ngSubmit)="onSubmit()" style="margin-top: 30px;">
+          <div class="list__input">
+            <input type="file" (change)="onFileSelect($event)" formControlName="result">
+          </div>
+          <div>
+            <button class="btn" type="submit">
+              <span>Cargar</span>
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="list__container">
+        <div class="list__table">
+          <section>
+            <header>
+              <div class="col list__item">Archivo</div>
+              <div class="col list__item"></div>
+            </header>
+            <div class="row" *ngFor="let result of results">
+              <div class="col">
+                {{ result.filename }}
               </div>
-            </section>
-          </div>      
-        </div>
+              <div class="col">
+                <a href="{{url}}/storage/{{result.url }}" target="_blank"><button  mat-raised-button color="primary" >Ver</button></a>
+              </div>
+              <div class="col">
+                <button  class="list__btnSend" (click)="deleteResult(result.id)"><img src="../../../assets/icon/delete.png" alt=""></button>
+              </div>
+            </div>
+          </section>
+        </div>      
       </div>
     </div>
   </div>
