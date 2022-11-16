@@ -7,7 +7,7 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    background-color: $base-color-blue;
+    background-color: #afbeeb;
 }
 
 ::placeholder {
@@ -87,6 +87,7 @@ body {
 }
 .mat-form-field-appearance-legacy .mat-form-field-infix {
   padding-left: 10px !important;
+  background-color: white !important;
 }
 
 .mat-form-field-underline {

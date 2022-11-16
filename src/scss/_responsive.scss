@@ -5,6 +5,9 @@
     .appointment__box {
         width: 100% !important;
     }
+    .admin__box {
+        width: auto !important;
+    }
 }
 
 @media only screen and (max-width: 600px) {
@@ -14,7 +17,7 @@
         width: 200px !important;
     }
     .mat-form-field-flex {
-        width: 200px !important;
+        width: 100% !important;
     }
     .inputResponsive {
         width: 200px !important;
@@ -48,5 +51,8 @@
     }
     .appointment__table {
         margin-top: 0 !important;
+    }
+    .admin__content {
+        width: auto !important;
     }
 }
