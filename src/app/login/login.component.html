@@ -1,13 +1,10 @@
 <div class="login">
-  <div class="login__box" *ngIf="!close">
+  <div class="login__box">
     <img src="./../../assets/icon/LOGO_IPS.png" class="login__img" alt="">
     <div class="temporal">
       <div class="temporal__title">
-        SEÑOR USUARIO SI TIENE TOS , MALESTAR , FLUJO NASAL O SIGNOS SIMILARES
-        A COVID19, SOLICITE TELECONSULTA A LAS LINEAS TELEFÓNICAS
+        SEÑOR USUARIO PARA SUS CITAS PARA DILIGENCIAR MIPRES, DEBE PEDIRLAS PRESENCIAL O TELEFÓNICAS. POR ESTE PORTAL, SOLO SE ATENDERÁN PARA CONSULTA GENERAL.
       </div>
-      <div class="temporal__phone">8331464 8327642 3216434722</div>
-      <div class="temporal__doc"> PROTEGER AL MEDICO ES CONTAR CON CITAS OPORTUNAS</div>
     </div>
     <div class="login__content">
       <form class="login__form" [formGroup]="dniForm" (ngSubmit)="onSubmit()">

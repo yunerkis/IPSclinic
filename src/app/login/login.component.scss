@@ -34,10 +34,14 @@
 
 .temporal{
     margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    text-align: center;
     &__title {
         font-weight: 500;
         line-height: 30px;
         font-family: 'Roboto';
+        width: 70%;
     }
     &__phone {
         font-weight: bold;
