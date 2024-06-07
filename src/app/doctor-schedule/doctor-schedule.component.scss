@@ -1,5 +1,5 @@
 $base-color-blue: #244091;
-$base-color-lighBlue: #658AD9;
+$base-color-lighBlue: #c3d5fc;
 .schedule {
     text-align: center;
     &__box {
@@ -99,7 +99,7 @@ flex: 1;
         background-color:$base-color-lighBlue;
         border: none;
         border-radius: 10px;
-        color: white;
+        color: $base-color-blue;
     }
 }
 .input-dates {
@@ -114,7 +114,7 @@ flex: 1;
         border-radius: 5px;
         background:$base-color-lighBlue;
         border: none;
-        color: white;
+        color: $base-color-blue;
         font-weight: 600;
         height: 45px;
     }
@@ -122,7 +122,7 @@ flex: 1;
     label {
         font-family: Roboto, "Helvetica Neue", sans-serif;
         font-size: 13px;
-        color:$base-color-lighBlue;
+        color:$base-color-blue;
 
     }
 }

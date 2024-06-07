@@ -167,6 +167,12 @@ export class ClientService {
     this.router.navigate(['/admin']); 
   }
 
+  //logout for user
+  logoutUser() {
+    localStorage.removeItem('token');
+    this.router.navigate(['']); 
+  }
+
   getListSessions() {
     let token = localStorage.getItem('token');
 

@@ -58,4 +58,29 @@
     .login__content {
         width: auto !important;
     }
+
+    .home__box,
+    .list__box,
+    .schedule__box {
+        width: 100% !important;
+    }
+    .home__box {
+        padding: 0 !important;
+    }
+    .home__input {
+        width: 65% !important;
+    }
+
+    .logo-app {
+        display: none;
+    }
+
+    .logo-app-user {
+        text-align: center;
+    }
+    
+    .list__text {
+        margin-bottom: 0 !important;
+        text-align: left;
+    }
 }

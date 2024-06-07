@@ -35,6 +35,9 @@ $base-color-lighBlue: #658AD9;
         color: $base-color-blue;
         text-transform: uppercase;
     }
+    &__text {
+        margin-bottom: 2rem;
+    }
 
     &__btnSend {
         text-decoration: none;
@@ -55,7 +58,7 @@ $base-color-lighBlue: #658AD9;
         position: absolute;
         padding: 0 !important;
         right: 35px;
-        top: 25px;
+        top: 35px;
         border: none !important;
     }
 }

@@ -1,8 +1,12 @@
 <mat-toolbar>
-	<img alt="Logo" src="./../../assets/icon/ips.jpeg" class="logo-app"  style="margin-left: 15px;"/>
+	<img alt="Logo" src="./../../assets/icon/ips.jpeg" class="logo-app-user"  style="margin-left: 15px;"/>
 	<span class="example-spacer"></span>
-	<img src="../../../assets/icons/accountcircle_outline.svg" alt=""> 
 </mat-toolbar>
+<!-- <div style="margin: 2rem 2rem 0;">
+  <button class="btnSmall" (click)="logout()">
+    <span>Cerrar sesión</span>
+  </button>
+</div> -->
 <div class="appointment ">
   <div class="appointment__box">
     <div *ngIf="client['session'] == null || client['dni'] == rut" class="appointment__container">

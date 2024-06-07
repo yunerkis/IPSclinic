@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../modal/modal.component';
 import { environment } from '../../environments/environment';
+import { Location } from '@angular/common';
 declare var require: any;
 
 @Component({
@@ -42,7 +43,8 @@ export class AppointmentComponent implements OnInit {
   constructor(
     private router: Router,
     private clientService: ClientService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _location: Location 
   ) { }
 
   openDialog() {
@@ -183,6 +185,14 @@ export class AppointmentComponent implements OnInit {
           this.openDialog();
           console.log(data);
       });
+  }
+
+  backClicked(){
+    this._location.back();
+  }
+
+  logout() {
+    this.clientService.logoutUser();
   }
 
 }
