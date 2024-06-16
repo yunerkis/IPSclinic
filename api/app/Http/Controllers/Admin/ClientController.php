@@ -40,6 +40,10 @@ class ClientController extends Controller
 
     public function sessions(Request $request)
     {
+        if (!$this->isServiceAvailable()) {
+            return response()->json(['success' => false, 'data' => ['issueCode' => 'outside_working_hours']], 200);
+        }
+
         $validator = Validator::make($request->all(), [
             'doctor_id' => [
                 'required'
@@ -174,13 +178,7 @@ class ClientController extends Controller
 
     public function sessionsActive($dni, Request $request)
     {   
-        $dateTimeBogota=date_create("now",timezone_open("America/Bogota"));
-        $hourBogota=intval(date_format($dateTimeBogota, "H"));
-        $minutesBogota=intval(date_format($dateTimeBogota, "i"));
-
-        $cantLogin=$hourBogota >= 17 || ($hourBogota <= 6 && $minutesBogota <= 30);
-
-        if ($cantLogin) {
+        if (!$this->isServiceAvailable()) {
             return response()->json(['success' => false, 'data' => ['issueCode' => 'outside_working_hours']], 200);
         }
 
@@ -213,6 +211,14 @@ class ClientController extends Controller
         return response()->json(['success' => true, 'data' => ['sessions' => $session, 'client' => $client]], 200);
     }
 
+    public function isServiceAvailable(){
+        $dateTimeBogota=date_create("now",timezone_open("America/Bogota"));
+        $hourBogota=intval(date_format($dateTimeBogota, "H"));
+        $minutesBogota=intval(date_format($dateTimeBogota, "i"));
+
+        $cantLogin=$hourBogota >= 17 || ($hourBogota <= 6 && $minutesBogota <= 30);
+        return !$cantLogin;
+    }
     public function clientImports(Request $request)
     {
         $validator = Validator::make($request->all(), [
