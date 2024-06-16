@@ -174,6 +174,16 @@ class ClientController extends Controller
 
     public function sessionsActive($dni, Request $request)
     {   
+        $dateTimeBogota=date_create("now",timezone_open("America/Bogota"));
+        $hourBogota=intval(date_format($dateTimeBogota, "H"));
+        $minutesBogota=intval(date_format($dateTimeBogota, "i"));
+
+        $cantLogin=$hourBogota >= 17 || ($hourBogota <= 6 && $minutesBogota <= 30);
+
+        if ($cantLogin) {
+            return response()->json(['success' => false, 'data' => ['issueCode' => 'outside_working_hours']], 200);
+        }
+
         date_default_timezone_set('America/Bogota');
 
         $attrClient = [
