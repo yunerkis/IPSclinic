@@ -27,9 +27,13 @@ export class ClientService {
     return this.http.get(`${this.url}/api/v1/clients/session/${dni['dni']}?time=${time}`).subscribe(
       res => {
         if (res['data'].client == null) {
+          let errorMessage = 'Este usuario no se encuentra disponible, consultar IPS';
+          if (res['data']['issueCode'] === 'outside_working_hours') {
+            errorMessage = 'El horario de apertura es de 6:30am a 5:00pm';
+          }
           Swal.fire(
             'Error',
-            'Este usuario no se encuentra disponible, consultar IPS',
+            errorMessage,
             'error'
           )
         } else {
