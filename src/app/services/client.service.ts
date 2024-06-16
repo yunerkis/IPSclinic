@@ -23,6 +23,10 @@ export class ClientService {
     private http: HttpClient,
   ) { }
 
+  getSessionState(dni) {
+    return this.http.get(`${this.url}/api/v1/clients/session/${dni}`);
+  }
+
   getSessionsClient(dni, time) {
     return this.http.get(`${this.url}/api/v1/clients/session/${dni['dni']}?time=${time}`).subscribe(
       res => {

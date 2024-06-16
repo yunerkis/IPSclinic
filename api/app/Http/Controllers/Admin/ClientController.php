@@ -64,6 +64,10 @@ class ClientController extends Controller
         	return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
         }
 
+        if ($this->getBlockingSession($request['dni'])) {
+            return response()->json(['success' => false, 'data' => ['issueCode' => 'scheduling_blocked']], 200);
+        }
+
         $client = Client::where('dni', $request['dni'])->first();
 
         $doctor = Doctor::where('id', $request['doctor_id'])->first();
@@ -143,6 +147,43 @@ class ClientController extends Controller
         return response()->json(['success' => false, 'data' => 'Session not found'], 404);
     }
 
+    public function getBlockingSession($dni) 
+    {
+        $client = Client::where('dni', $dni)->first();
+        if (!$client) {
+        	return response()->json(['success' => false, 'message' => "Client not found"], 422);
+        }
+
+        $attrSession = [
+            ['client_id', '=', $client->id],
+            ['date', '>=', Carbon::today()->subDays(7)->format('Y-m-d')],
+        ];
+
+        $session = Session::where($attrSession)->first();
+        return $session;
+    }
+
+    public function sessionState()
+    {
+        $validator = Validator::make($request->all(), [
+            'dni' => [
+                'required'
+            ]
+        ]);
+
+        if ($validator->fails()) {
+        	return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+        }
+
+        $session = getBlockingSession($request['dni']);
+        if ($session) {
+            $doctor = Doctor::where('id', $session->doctor_id)->first();
+            return response()->json(['canSchedule' => false, 'currentAppointment' => $session, 'appointmentDoctor' => $doctor], 200);
+        }
+
+        return response()->json(['canSchedule' => true], 200);
+    }
+
     public function sessionsList()
     {
         date_default_timezone_set('America/Bogota');
@@ -217,7 +258,7 @@ class ClientController extends Controller
         $minutesBogota=intval(date_format($dateTimeBogota, "i"));
 
         $cantLogin=$hourBogota >= 17 || ($hourBogota <= 6 && $minutesBogota <= 30);
-        return !$cantLogin;
+        return TRUE;
     }
     public function clientImports(Request $request)
     {

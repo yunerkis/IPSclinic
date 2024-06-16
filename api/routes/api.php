@@ -39,6 +39,8 @@ Route::prefix('v1')->group(function () {
 
         Route::get('/clients/session/{dni}', [ClientController::class, 'sessionsActive'])->name('client.session.active');
 
+        Route::get('/clients/session/{dni}/state',[ClientController::class, 'sessionState'])->name('client.session.state');
+
         Route::get('/client/results/{dni}', [ResultController::class, 'index'])->name('client.result.list');
 
         Route::post('/clients/session', [ClientController::class, 'sessions'])->name('client.get.session');

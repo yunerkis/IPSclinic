@@ -35,6 +35,20 @@
               <div *ngIf="schedules.length == 0" class="appointment__label">
                 No hay horarios disponible para esta fecha
               </div>
+              <div *ngIf="schedulingIsBlocked" class="appointment__label">
+                No es posible agendar otra cita.
+                <div *ngIf="blocker.appointment">
+                  Ya tienes agendada esta cita:
+                  <ul>
+                    <li>Fecha: {{blocker.appointment.date}}</li>
+                    <li>Hora: {{blocker.appointment.time}}</li>
+                    <li *ngIf="blocker.doctor">
+                      {{blocker.doctor.first_names}} {{blocker.doctor.last_names}}
+                    </li>
+                  </ul>
+                  Podrás agendar una nueva cita 7 días después de esta. 
+                </div>
+              </div>
             </div>
           </mat-tab>
           <mat-tab label="Resultados">

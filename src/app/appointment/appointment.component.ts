@@ -34,6 +34,9 @@ export class AppointmentComponent implements OnInit {
   isDoctor = '';
   rut = '900219765-2'
 
+  schedulingIsBlocked = false;
+  blocker = null;
+
   minDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate());
   maxDate = new Date(this.nextDate.getFullYear(), this.nextDate.getMonth(), this.nextDate.getDate());
 
@@ -70,7 +73,18 @@ export class AppointmentComponent implements OnInit {
   ngOnInit(): void {
     this.validationsDayRange(this.minDate, this.maxDate);
 
-    this.onSelect(this.minDate);
+    this.clientService.getSessionState(this.client.dni).subscribe(res => {
+      if (res["canSchedule"] === true) {
+        this.onSelect(this.minDate);
+        return;
+      }
+
+      this.schedulingIsBlocked = true;
+      this.blocker = {
+        appointment: res["currentAppointment"],
+        doctor: res["appointmentDoctor"]
+      };
+    });
 
     this.clientService.client.subscribe( res => {
       this.client = res;
@@ -135,6 +149,10 @@ export class AppointmentComponent implements OnInit {
   }
 
   onSelect(event) {
+    if (this.schedulingIsBlocked) {
+      return;
+    }
+
     this.selectedDate = event;
     this.toggleSchedule('x' , 'x');
     this.date = new Date(event).getFullYear()+'-'+("0" + (new Date(event).getMonth()+1)).slice(-2)+'-'+("0" + (new Date(event).getDate())).slice(-2);

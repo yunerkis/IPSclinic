@@ -22,9 +22,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     
-    if (this.today.getHours() < 7 || this.today.getHours() >= 17) {
-      this.close = true
-    }
+    // if (this.today.getHours() < 7 || this.today.getHours() >= 17) {
+    //   this.close = true
+    // }
     
     this.dniForm = this.formBuilder.group({
       dni: ['', Validators.required],
