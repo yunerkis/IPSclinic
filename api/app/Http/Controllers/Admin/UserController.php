@@ -10,8 +10,7 @@ class UserController extends Controller
 {
     function __construct()
     {
-        $this->middleware('ApiPermission:users.list', ['only' => ['index']]);
-        $this->middleware('ApiPermission:users.destroy', ['only' => ['destroy']]);
+        
     }
 
     public function index()

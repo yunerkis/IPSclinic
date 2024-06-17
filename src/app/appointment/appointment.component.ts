@@ -73,19 +73,6 @@ export class AppointmentComponent implements OnInit {
   ngOnInit(): void {
     this.validationsDayRange(this.minDate, this.maxDate);
 
-    this.clientService.getSessionState(this.client.dni).subscribe(res => {
-      if (res["canSchedule"] === true) {
-        this.onSelect(this.minDate);
-        return;
-      }
-
-      this.schedulingIsBlocked = true;
-      this.blocker = {
-        appointment: res["currentAppointment"],
-        doctor: res["appointmentDoctor"]
-      };
-    });
-
     this.clientService.client.subscribe( res => {
       this.client = res;
 
@@ -114,6 +101,21 @@ export class AppointmentComponent implements OnInit {
           });
       } 
     });
+
+    this.clientService.getSessionState(this.client.dni).subscribe(res => {
+      if (res["canSchedule"] === true) {
+        this.onSelect(this.minDate);
+        return;
+      }
+
+      this.schedulingIsBlocked = false;
+      this.blocker = {
+        appointment: res["currentAppointment"],
+        doctor: res["appointmentDoctor"]
+      };
+    });
+
+    
 
     
     
