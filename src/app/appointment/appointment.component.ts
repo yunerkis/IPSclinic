@@ -17,7 +17,7 @@ export class AppointmentComponent implements OnInit {
   Holidays = require('date-holidays');
   hd = new this.Holidays('CO');
   url = environment.url;
- 
+
 
   client: any = [];
   results: any = [];
@@ -35,7 +35,8 @@ export class AppointmentComponent implements OnInit {
   rut = '900219765-2'
 
   schedulingIsBlocked = false;
-  blocker = null;
+  blockedUntil: Date | null = null;
+  currentAppointment: any = null;
 
   minDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate());
   maxDate = new Date(this.nextDate.getFullYear(), this.nextDate.getMonth(), this.nextDate.getDate());
@@ -47,7 +48,7 @@ export class AppointmentComponent implements OnInit {
     private router: Router,
     private clientService: ClientService,
     public dialog: MatDialog,
-    private _location: Location 
+    private _location: Location
   ) { }
 
   openDialog() {
@@ -73,33 +74,33 @@ export class AppointmentComponent implements OnInit {
   ngOnInit(): void {
     this.validationsDayRange(this.minDate, this.maxDate);
 
-    this.clientService.client.subscribe( res => {
+    this.clientService.client.subscribe(res => {
       this.client = res;
 
-      if (Object.keys(this.client).length  != 0) {
+      if (Object.keys(this.client).length != 0) {
 
         if (res['session']) {
 
           this.dateStart = res['session'].date;
           this.timeStart = res['session'].time_start;
-          this.doctor = res['session'].doctor.first_names+ ' '+ res['session'].doctor.last_names;
+          this.doctor = res['session'].doctor.first_names + ' ' + res['session'].doctor.last_names;
         }
- 
+
         this.clientService.getClientResults(this.client.dni).subscribe(
           res => {
             if (res) {
               this.results = res['data'];
             }
           }, data => {
-              this.msglog = {
-                'type' : 'Error',
-                'msg': 'Error, por favor volver a cargar la página.'
-              };
-              this.clientService.modal.next(this.msglog)
-              this.openDialog();
-              console.log(data);
+            this.msglog = {
+              'type': 'Error',
+              'msg': 'Error, por favor volver a cargar la página.'
+            };
+            this.clientService.modal.next(this.msglog)
+            this.openDialog();
+            console.log(data);
           });
-      } 
+      }
     });
 
     this.clientService.getSessionState(this.client.dni).subscribe(res => {
@@ -108,19 +109,26 @@ export class AppointmentComponent implements OnInit {
         return;
       }
 
-      this.schedulingIsBlocked = false;
-      this.blocker = {
-        appointment: res["currentAppointment"],
-        doctor: res["appointmentDoctor"]
-      };
+      if (res["currentAppointment"]) {
+        this.currentAppointment = res["currentAppointment"];
+        this.schedulingIsBlocked = true;
+
+        const appointmentDate = new Date(this.currentAppointment.date);
+        const appointmentTime = this.currentAppointment.time_start;
+        const doctorName = `${this.currentAppointment.doctor.first_names} ${this.currentAppointment.doctor.last_names}`;
+
+        const message = `You already have an appointment scheduled for ${appointmentDate.toDateString()} at ${appointmentTime} with Dr. ${doctorName}. You cannot schedule another appointment at this time.`;
+
+        this.msglog = {
+          'type': 'Info',
+          'msg': message
+        };
+        this.clientService.modal.next(this.msglog);
+        this.openDialog();
+      }
     });
 
-    
-
-    
-    
-
-    if (Object.keys(this.client).length  == 0) {
+    if (Object.keys(this.client).length == 0) {
       this.router.navigate(['']);
     }
   }
@@ -132,7 +140,7 @@ export class AppointmentComponent implements OnInit {
 
     this.minDate = new Date(current.getFullYear(), current.getMonth(), current.getDate());
 
-    while(date1 <= date2) {
+    while (date1 <= date2) {
 
       let holiday = this.hd.isHoliday(new Date(date1));
 
@@ -146,25 +154,41 @@ export class AppointmentComponent implements OnInit {
       } else {
 
         date1 = new Date(date1.setDate(date1.getDate() + 1));
-      } 
+      }
     }
   }
 
   onSelect(event) {
     if (this.schedulingIsBlocked) {
+      const appointmentDate = new Date(this.currentAppointment.date);
+      const appointmentTime = this.currentAppointment.time_start;
+      const doctorName = `${this.currentAppointment.doctor.first_names} ${this.currentAppointment.doctor.last_names}`;
+      
+      const message = `You already have an appointment scheduled for ${appointmentDate.toDateString()} at ${appointmentTime} with Dr. ${doctorName}. You cannot schedule another appointment at this time.`;
+      
+      this.msglog = {
+        'type': 'Info',
+        'msg': message
+      };
+      this.clientService.modal.next(this.msglog);
+      this.openDialog();
+      return;
+    }
+
+    if (this.schedulingIsBlocked) {
       return;
     }
 
     this.selectedDate = event;
-    this.toggleSchedule('x' , 'x');
-    this.date = new Date(event).getFullYear()+'-'+("0" + (new Date(event).getMonth()+1)).slice(-2)+'-'+("0" + (new Date(event).getDate())).slice(-2);
+    this.toggleSchedule('x', 'x');
+    this.date = new Date(event).getFullYear() + '-' + ("0" + (new Date(event).getMonth() + 1)).slice(-2) + '-' + ("0" + (new Date(event).getDate())).slice(-2);
     this.clientService.getSessionsSchedule(this.date, this.time).subscribe(res => {
       this.schedules = res['data'];
     })
   }
 
-  toggleSchedule(schedule , doctor) {
-    
+  toggleSchedule(schedule, doctor) {
+
     if (this.isSchedules == schedule && this.isDoctor == doctor) {
 
       this.doctor = 'x';
@@ -177,37 +201,37 @@ export class AppointmentComponent implements OnInit {
   }
 
   session(schedule, doctorObj, hours) {
-    
+
     let session = {
       'dni': this.client.dni,
       'date': this.date,
       'time': schedule,
-      'doctor_id':doctorObj.id 
+      'doctor_id': doctorObj.id
     };
-    
-    this.clientService.storeSession(session).subscribe( 
+
+    this.clientService.storeSession(session).subscribe(
       res => {
         if (res) {
           this.msglog = {
             'type': 'success',
-            'doctor': doctorObj.first_names+' '+doctorObj.last_names,
+            'doctor': doctorObj.first_names + ' ' + doctorObj.last_names,
             'time': hours
           };
           this.clientService.modal.next(this.msglog)
           this.openDialog();
         }
       }, data => {
-          this.msglog = {
-            'type' : 'Error',
-            'msg': 'Error, por favor volver a cargar la página.'
-          };
-          this.clientService.modal.next(this.msglog)
-          this.openDialog();
-          console.log(data);
+        this.msglog = {
+          'type': 'Error',
+          'msg': 'Error, por favor volver a cargar la página.'
+        };
+        this.clientService.modal.next(this.msglog)
+        this.openDialog();
+        console.log(data);
       });
   }
 
-  backClicked(){
+  backClicked() {
     this._location.back();
   }
 

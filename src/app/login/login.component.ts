@@ -21,10 +21,13 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    const currentHour = this.today.getHours();
+    const currentMinutes = this.today.getMinutes();
     
-    if (this.today.getHours() < 7 || this.today.getHours() >= 17) {
-      this.close = true
+    if (currentHour < 6 || (currentHour === 6 && currentMinutes < 30) || currentHour >= 17) {
+      this.close = true;
     }
+    
     
     this.dniForm = this.formBuilder.group({
       dni: ['', Validators.required],
