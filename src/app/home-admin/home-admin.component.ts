@@ -55,7 +55,7 @@ export class HomeAdminComponent implements OnInit {
     }, error => {
       Swal.fire(
         'Error',
-        'Error al importar csv',
+        'Error al importar el archivo',
         'error'
       )
       console.log(error.error.data);

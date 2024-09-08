@@ -12,11 +12,14 @@ use Validator;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ClientsImport;
+use App\Imports\ClientsImportTxt;
 use App\Exports\SessionsExport;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ClientController extends Controller
 {
+
     function __construct()
     {
         $this->middleware('ApiPermission:clients.list', ['only' => ['index']]);
@@ -274,14 +277,34 @@ class ClientController extends Controller
         }
 
         try {
+            $file = $request->file('file');
+            $mimeType = $file->getMimeType();
 
-            \Excel::import(new ClientsImport(), $request['file']);
+            if ($mimeType === 'text/plain') {
+                $content = file_get_contents($file->getRealPath());
+                $fileHandle = fopen($file->getRealPath(), 'r');
+                if ($fileHandle) {
+                    $isFirstLine = true;
+                    while (($line = fgets($fileHandle)) !== false) {
+                        if ($isFirstLine) {
+                            $isFirstLine = false; 
+                            continue;
+                        }      
+                        $modifiedLine = str_replace('|', ';', $line);
+                        $documentTxt = new ClientsImportTxt;
+                        $documentTxt->collectionTxt($modifiedLine);
+                    }
+                    fclose($fileHandle);
+                }
+            } else {
+                \Excel::import(new ClientsImport(), $request['file']);
+            }
 
             return response()->json(['success' => true, 'data' => 'Success imports data'], 200);
 
         } catch (\Exception $e)  {
             
-            return response()->json(['success' => false, 'data' => 'error to import data'], 422);
+          return response()->json(['success' => false, 'data' => 'error to import data'], 422);
         }   
     }
 
