@@ -19,7 +19,7 @@ class ClientsImportTxt {
                   if ($client) {
                    
                     $client->update([
-                        'first_names' => $register[8],
+                        'first_names' => mb_convert_encoding($register[8], 'UTF-8', 'ISO-8859-1'),
                         'last_names_1' => mb_convert_encoding($register[7], 'UTF-8', 'ISO-8859-1'),
                         'last_names_2' => mb_convert_encoding($register[6], 'UTF-8', 'ISO-8859-1'),
                         'dni' => $register[5],
@@ -28,7 +28,7 @@ class ClientsImportTxt {
                 } else {
                     
                     Client::create([
-                        'first_names' => $register[8],
+                        'first_names' => mb_convert_encoding($register[8], 'UTF-8', 'ISO-8859-1'),
                         'last_names_1' => mb_convert_encoding($register[7], 'UTF-8', 'ISO-8859-1'),
                         'last_names_2' => mb_convert_encoding($register[6], 'UTF-8', 'ISO-8859-1'),
                         'dni' => $register[5],
